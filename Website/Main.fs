@@ -50,9 +50,9 @@ module Yaml =
         if String.IsNullOrWhiteSpace yaml then
             deserializer.Deserialize<'T>("{}")
         else
-        let yaml = deserializer.Deserialize<'T>(yaml)
-        eprintfn "DEBUG/YAML=%A" yaml
-        yaml
+            let yaml = deserializer.Deserialize<'T>(yaml)
+            eprintfn "DEBUG/YAML=%A" yaml
+            yaml
 
 module Helpers =
     open System.IO
@@ -228,9 +228,9 @@ type Website() =
     interface IWebsite<EndPoint> with
         member this.Sitelet = Site.Main blogs
         member this.Actions = [
-            yield Home
+            Home
             for (fname, blog) in Map.toList blogs do
-                yield BlogPage fname
+                BlogPage fname
         ]
 
 [<assembly: Website(typeof<Website>)>]
