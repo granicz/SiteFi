@@ -1,0 +1,22 @@
+.footer .title {
+  /*color: #363636;*/
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+
+  &:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.first-footer{
+  border-top: solid 4px whitesmoke;
+}
+
+.second-footer {
+  background: whitesmoke;
+}

@@ -1,0 +1,73 @@
+// Styles for content pages: docs, blogs.
+
+// Add sidebar background as a pseudo-element in the container rather than
+// just put on the sidebar column, so that it extends all the way to the left.
+.with-sidebar-background {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    background: whitesmoke;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    // bulma reactive mixins: https://github.com/jgthms/bulma/issues/1818#issuecomment-383429940
+    @include from($tablet) {
+      left: 50%;
+    }
+  }
+
+  .markdown-column {
+    background: white;
+  }
+}
+
+// Page title
+.column .hero {
+  .title {
+    font-weight: 500;
+  }
+
+  .subtitle {
+    font-size: $size-4;
+    color: $grey-light;
+  }
+}
+
+// Remove extra padding from .section in main/menu columns
+.columns.is-gapless {
+  & > .column:first-child > .section,
+  & > .column:first-child > .hero .hero-body {
+    @include from($desktop) {
+      padding-left: 0;
+    }
+  }
+
+  & > .column:last-child > .section,
+  & > .column:last-child > .hero .hero-body {
+    @include from($desktop) {
+      padding-right: 0;
+    }
+  }
+}
+
+.hljs {
+  // Code blocks are generated as <pre><code class="language-fsharp">...
+  // Bulma adds padding to <pre>, and hljs adds padding to <code>.
+  // This cancels out bulma's padding while keeping hljs's background.
+  margin: -1.25em -1.5em;
+}
+
+.markdown-column {
+  // Without the following, wide code blocks on narrow screens
+  // cause the whole text to overflow.
+  overflow-x: hidden;
+}
+
+.content pre {
+  margin: 1em 0;
+}

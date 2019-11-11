@@ -1,0 +1,9 @@
+/.tools
+/.vs
+/Client/bin
+/Client/obj
+/Website/.vs
+/Website/bin
+/Website/obj
+/Website/js
+/_output

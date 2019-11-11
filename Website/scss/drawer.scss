@@ -1,0 +1,30 @@
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 100vw;
+  z-index: 4999;
+  background-color: rgba(10, 10, 10, 0.86);
+
+  &.shown {
+    left: 0;
+  }
+}
+
+.lhs-drawer {
+  width: 300px;
+  padding: 0.5rem;
+  position: fixed;
+  left: -300px;
+  top: 0;
+  transition: left 0.1s linear;
+  bottom: 0;
+  z-index: 5000;
+  background-color: white;
+  overflow-y: auto;
+
+  &.shown {
+    left: 0;
+  }
+}
