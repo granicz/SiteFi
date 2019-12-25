@@ -1,6 +1,6 @@
 
 .navbar {
-  background: $dark;
+  background: $light;
 
   .normal-bar {
     position: static;
@@ -16,7 +16,7 @@
   }
 
   * {
-    color: white !important;
+    color: $dark !important;
   }
 
   .fa {

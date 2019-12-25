@@ -1,9 +1,10 @@
 /.tools
 /.vs
-/Client/bin
-/Client/obj
-/Website/.vs
-/Website/bin
-/Website/obj
-/Website/js
-/_output
+/src/Client/bin
+/src/Client/obj
+/src/Website/.vs
+/src/Website/bin
+/src/Website/obj
+/src/Website/js
+/src/Website/node_modules
+/build

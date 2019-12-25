@@ -1,0 +1,14 @@
+{
+  "name": "yourblog.com",
+  "version": "1.0.0",
+  "description": "My F# Blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "IntelliFactory",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "bulma": "^0.6.1"
+  }
+}

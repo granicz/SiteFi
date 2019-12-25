@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${Title}My F# blog</title>
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+  <meta ws-replace="meta" />
+  <link rel="stylesheet" href="/css/all${ReleaseMin}.css" />
+  <script ws-replace="Head"></script>
+</head>
+<body>
+  <header class="navbar ${NavbarOverlay}">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item is-hoverable" onclick="Website.Client.ToggleDrawer()"><i class="fa fa-bars"></i></a>
+        <span class="navbar-item"><a href="/">My F# blog</a></span>
+      </div>
+      <div class="navbar-menu">
+        <nav class="navbar-start" ws-hole="TopMenu">
+          <a ws-template="TopMenuItem" href="${Url}" class="navbar-item is-hoverable has-text-weight-bold">${Text}</a>
+          <div ws-template="TopMenuItemWithDropdown" class="navbar-item is-hoverable has-text-weight-bold has-dropdown">
+            <a href="#" class="navbar-link is-arrowless">${Text}</a>
+            <div class="navbar-dropdown has-text-weight-normal" ws-hole="DropdownItems">
+              <a ws-template="TopMenuDropdownItem" class="navbar-item" href="${Url}">${Text}</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div class="drawer-backdrop" onclick="Website.Client.ToggleDrawer()">
+    <div id="left-drawer" class="lhs-drawer">
+      <nav class="menu">
+        <ul class="menu-list" ws-hole="DrawerMenu">
+          <li ws-template="DrawerMenuItem">
+            <a href="${Url}">${Text}</a>
+            <ul ws-replace="Children"></ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div ws-replace="Body">
+    <div ws-children-template="HomeBody">
+      <section class="hero is-medium page-banner">
+        <div class="hero-body has-text-centered">
+          <h1 class="title is-spaced">My F# blog</h1>
+          <h2 class="subtitle">Hello world!</h2>
+        </div>
+      </section>
+    </div>
+    <div ws-children-template="Article">
+      <section class="with-sidebar-background">
+        <div class="container">
+          <div class="columns is-gapless">
+            <div class="column content markdown-column">
+              <section class="hero">
+                <div class="hero-body">
+                  <h1 class="title">${Title}</h1>
+                  <p class="subtitle" ws-replace="Subtitle"></p>
+                </div>
+              </section>
+              <section class="section" ws-hole="Content"></section>
+            </div>
+            <div class="column is-one-quarter-tablet is-one-fifth-desktop sidebar-column">
+              <section class="section">
+                <div class="menu">
+                  <div class="menu-label">Articles</div>
+                  <ul class="menu-list" ws-hole="Sidebar">
+                    <li ws-template="SidebarItem">
+                      <a ws-attr="LinkAttr" href="${Url}">${Title}</a>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.6.0/lazyload.min.js"></script>
+  <script type="text/javascript">new LazyLoad();</script>
+  <script src="/js/Client${ReleaseMin}.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script async defer src="https://platform.twitter.com/widgets.js"></script>
+</body>
+</html>

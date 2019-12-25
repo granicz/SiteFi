@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Website": {
+      "commandName": "Executable",
+      "executablePath": "$(MSBuildProjectDirectory)/../../.tools/dotnet-serve.exe",
+      "commandLineArgs": "-d $(MSBuildProjectDirectory)/../../build -p:56000 --default-extensions:.html -a 0.0.0.0",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:55862/"
+    }
+  }
+}

@@ -3,7 +3,7 @@ param(
 )
 
 # Install nuget packages
-pushd Website
+pushd src\Website
 npm install
 popd
 

@@ -1,0 +1,11 @@
+﻿[
+  {
+    "outputFile": "css/all.css",
+    "inputFile": "scss/all.scss",
+    "options": {
+      "includePath": "node_modules",
+      "sourceMap": true,
+      "sourceMapRoot": ".."
+    }
+  }
+]

@@ -8,7 +8,7 @@ open WebSharper.UI.Server
 
 type EndPoint =
     | [<EndPoint "GET /">] Home
-    | [<EndPoint "GET /blog">] BlogPage of string
+    | [<EndPoint "GET /blog">] Article of slug:string
 
 module Markdown =
     open Markdig
@@ -60,15 +60,16 @@ module Helpers =
 
     let NULL_TO_EMPTY (s: string) = match s with null -> "" | t -> t
 
-    // Return (fullpath, filename, (year, month, day), slug, extension)
+    // Return (fullpath, filename-without-extension, (year, month, day), slug, extension)
     let (|ArticleFile|_|) (fullpath: string) =
-        let s = Path.GetFileName(fullpath)
-        let r = new Regex("([0-9]+)-([0-9]+)-([0-9]+)-(.+)\.(md|html)")
-        if r.IsMatch(s) then
-            let a = r.Match(s)
+        let filename = Path.GetFileName(fullpath)
+        let filenameWithoutExt = Path.GetFileNameWithoutExtension(fullpath)
+        let r = new Regex("([0-9]+)-([0-9]+)-([0-9]+)-(.+)\.(md)")
+        if r.IsMatch(filename) then
+            let a = r.Match(filename)
             let V (i: int) = a.Groups.[i].Value
             let I = Int32.Parse
-            Some (fullpath, V 0, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
+            Some (fullpath, filenameWithoutExt, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
         else
             None
 
@@ -78,7 +79,7 @@ module Site =
 
     type MainTemplate = Templating.Template<"index.html">
 
-    type [<CLIMutable>] BlogPage =
+    type [<CLIMutable>] Article =
         {
             title: string
             subtitle: string
@@ -87,7 +88,7 @@ module Site =
             date: string
         }
 
-    let BlogPages () : Map<string, BlogPage> =
+    let Articles () : Map<string, Article> =
         let folder = Path.Combine (__SOURCE_DIRECTORY__, "posts")
         if Directory.Exists folder then
             Directory.EnumerateFiles(folder, "*.md", SearchOption.AllDirectories)
@@ -98,10 +99,10 @@ module Site =
                 let header, content =
                     File.ReadAllText fullpath
                     |> Yaml.SplitIntoHeaderAndContent
-                let blog = Yaml.OfYaml<BlogPage> header
-                let title = Helpers.NULL_TO_EMPTY blog.title
-                let url = "/blog/" + fname + ".html"
-                let subtitle = Helpers.NULL_TO_EMPTY blog.subtitle
+                let article = Yaml.OfYaml<Article> header
+                let title = Helpers.NULL_TO_EMPTY article.title
+                let url = "/blog/" + fname + ".html" // Note: we are hardcoding the URL scheme here
+                let subtitle = Helpers.NULL_TO_EMPTY article.subtitle
                 let content = Markdown.Convert content
                 let date = String.Format("{0:D4}{1:D2}{2:D2}", year, month, day)
                 Map.add fname
@@ -117,18 +118,23 @@ module Site =
             eprintfn "warning: the posts folder (%s) does not exist." folder
             Map.empty
 
-    let Menu blogs = [
-        "Home", "/", Map.empty
-        "Blog", "/blog", blogs
-        "Try F#", "https://tryfsharp.fsbolero.io", Map.empty
-    ]
+    let Menu articles =
+        let latest =
+            articles
+            |> Map.toSeq
+            |> Seq.truncate 5
+            |> Map.ofSeq
+        [
+            "Home", "/", Map.empty
+            "Latest", "#", latest
+        ]
 
     let private head =
         __SOURCE_DIRECTORY__ + "/js/Client.head.html"
         |> File.ReadAllText
         |> Doc.Verbatim
 
-    let Page (title: option<string>) hasBanner blogs (body: Doc) =
+    let Page (title: option<string>) hasBanner articles (body: Doc) =
         MainTemplate()
 #if !DEBUG
             .ReleaseMin(".min")
@@ -140,13 +146,13 @@ module Site =
                 | None -> ""
                 | Some t -> t + " | "
             )
-            .TopMenu(Menu blogs |> List.map (function
+            .TopMenu(Menu articles |> List.map (function
                 | text, url, map when Map.isEmpty map ->
                     MainTemplate.TopMenuItem()
                         .Text(text)
                         .Url(url)
                         .Doc()
-                | text, url, children ->
+                | text, _, children ->
                     let items =
                         children
                         |> Map.toList
@@ -158,11 +164,10 @@ module Site =
                                 .Doc())
                     MainTemplate.TopMenuItemWithDropdown()
                         .Text(text)
-                        .Url(url)
                         .DropdownItems(items)
                         .Doc()
             ))
-            .DrawerMenu(Menu blogs |> List.map (fun (text, url, children) ->
+            .DrawerMenu(Menu articles |> List.map (fun (text, url, children) ->
                 MainTemplate.DrawerMenuItem()
                     .Text(text)
                     .Url(url)
@@ -187,50 +192,50 @@ module Site =
             .Doc()
         |> Content.Page
 
-    let BlogSidebar (blogs: Map<string, BlogPage>) (blog: BlogPage) =
-        blogs
+    let BlogSidebar (articles: Map<string, Article>) =
+        articles
         |> Map.toList
-        |> List.sortByDescending (fun (_, blog) -> blog.date)
+        |> List.sortByDescending (fun (_, article) -> article.date)
         |> List.map (fun (_, item) ->
             let tpl =
-                MainTemplate.DocsSidebarItem()
+                MainTemplate.SidebarItem()
                     .Title(item.title)
                     .Url(item.url)
-                    .SubItemsAttr(attr.``class`` "is-hidden")
             tpl.Doc()
         )
         |> Doc.Concat
     
-    let PlainHtml html =
+    let PLAIN html =
         div [Attr.Create "ws-preserve" ""] [Doc.Verbatim html]
 
-    let BlogPage blogs (blog: BlogPage) =
-        MainTemplate.DocsBody()
-            .Title(blog.title)
-            .Subtitle(Doc.Verbatim blog.subtitle)
-            .Sidebar(BlogSidebar blogs blog)
-            .Content(PlainHtml blog.content)
+    let ArticlePage articles (article: Article) =
+        MainTemplate.Article()
+            .Title(article.title)
+            .Subtitle(Doc.Verbatim article.subtitle)
+            .Sidebar(BlogSidebar articles)
+            .Content(PLAIN article.content)
             .Doc()
-        |> Page (Some blog.title) false blogs
+        |> Page (Some article.title) false articles
 
-    let Main blogs =
+    let Main articles =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home ->
-                Content.Text "Hello"
-            | BlogPage p ->
-                BlogPage blogs blogs.[p]
+                MainTemplate.HomeBody().Doc()
+                |> Page None false articles
+            | Article p ->
+                ArticlePage articles articles.[p]
         )
 
 [<Sealed>]
 type Website() =
-    let blogs = Site.BlogPages ()
+    let articles = Site.Articles ()
 
     interface IWebsite<EndPoint> with
-        member this.Sitelet = Site.Main blogs
+        member this.Sitelet = Site.Main articles
         member this.Actions = [
             Home
-            for (fname, blog) in Map.toList blogs do
-                BlogPage fname
+            for (slug, _) in Map.toList articles do
+                Article slug
         ]
 
 [<assembly: Website(typeof<Website>)>]
