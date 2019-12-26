@@ -220,7 +220,18 @@ module Site =
     let Main articles =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home ->
-                MainTemplate.HomeBody().Doc()
+                MainTemplate.HomeBody()
+                    .ArticleList(
+                        Doc.Concat [
+                            for (_, article) in Map.toList articles ->
+                                MainTemplate.ArticleCard()
+                                    .Author("My name")
+                                    .Title(article.title)
+                                    .Date(article.date)
+                                    .Doc()
+                        ]                        
+                    )
+                    .Doc()
                 |> Page None false articles
             | Article p ->
                 ArticlePage articles articles.[p]

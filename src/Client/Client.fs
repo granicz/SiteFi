@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿module Client
 
 open WebSharper
 open WebSharper.JavaScript
@@ -16,15 +16,14 @@ module Highlight =
             JS.Undefined
         )
 
-module Client =
+module Bulma =
 
     let DrawerShown = Var.Create false
 
     [<JavaScriptExport>]
     let ToggleDrawer() = DrawerShown.Update not
 
-    [<SPAEntryPoint>]
-    let Main() =
+    let HookDrawer() =
         DrawerShown.View |> View.Sink (fun shown ->
             JS.Document.QuerySelectorAll(".drawer-backdrop, .lhs-drawer").ForEach(
                 (fun (node, _, _, _) ->
@@ -35,7 +34,11 @@ module Client =
                 JS.Undefined
             )
         )
-        Highlight.Run()
+
+[<SPAEntryPoint>]
+let Main() =
+    Bulma.HookDrawer()
+    Highlight.Run()
 
 [<assembly:JavaScript>]
 do ()

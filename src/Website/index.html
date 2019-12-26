@@ -4,8 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${Title}My F# blog</title>
-  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
-  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
   <meta ws-replace="meta" />
   <link rel="stylesheet" href="/css/all${ReleaseMin}.css" />
   <script ws-replace="Head"></script>
@@ -14,7 +12,7 @@
   <header class="navbar ${NavbarOverlay}">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item is-hoverable" onclick="Website.Client.ToggleDrawer()"><i class="fa fa-bars"></i></a>
+        <a class="navbar-item is-hoverable" onclick="Client.Bulma.ToggleDrawer()"><i class="fa fa-bars"></i></a>
         <span class="navbar-item"><a href="/">My F# blog</a></span>
       </div>
       <div class="navbar-menu">
@@ -30,7 +28,7 @@
       </div>
     </div>
   </header>
-  <div class="drawer-backdrop" onclick="Website.Client.ToggleDrawer()">
+  <div class="drawer-backdrop" onclick="Client.Bulma.ToggleDrawer()">
     <div id="left-drawer" class="lhs-drawer">
       <nav class="menu">
         <ul class="menu-list" ws-hole="DrawerMenu">
@@ -48,6 +46,22 @@
         <div class="hero-body has-text-centered">
           <h1 class="title is-spaced">My F# blog</h1>
           <h2 class="subtitle">Hello world!</h2>
+        </div>
+      </section>
+      <section class="section has-background-light">
+        <div class="container">
+          <div ws-hole="ArticleList" class="card-container">
+            <div ws-template="ArticleCard" class="card">
+              <div class="card-content">
+                <p class="title">
+                  ${Title}
+                </p>
+                <p class="subtitle">
+                  ${Author}, ${Date}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
@@ -81,6 +95,17 @@
       </section>
     </div>
   </div>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <a href="https://github.com/granicz/BlogEngine">
+          <strong>BlogEngine</strong>
+        </a> by <a href="https://twitter.com/granicz">Adam Granicz</a>.
+        A static site generator implemented with WebSharper in F#, licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+      </p>
+    </div>
+  </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.6.0/lazyload.min.js"></script>
   <script type="text/javascript">new LazyLoad();</script>
   <script src="/js/Client${ReleaseMin}.js"></script>

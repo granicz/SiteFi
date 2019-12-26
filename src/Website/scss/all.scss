@@ -7,6 +7,7 @@ $menu-item-hover-background-color: transparent;
 @import "bulma/sass/components/navbar.sass";
 @import "bulma/sass/components/level.sass";
 @import "bulma/sass/components/menu.sass";
+@import "bulma/sass/components/card.sass";
 @import "bulma/sass/elements/box.sass";
 @import "bulma/sass/elements/button.sass";
 @import "bulma/sass/elements/content.sass";
@@ -14,6 +15,7 @@ $menu-item-hover-background-color: transparent;
 @import "bulma/sass/elements/container.sass";
 @import "bulma/sass/layout/hero.sass";
 @import "bulma/sass/layout/section.sass";
+@import "bulma/sass/layout/footer.sass";
 @import "bulma/sass/grid/columns.sass";
 
 // Fonts
@@ -39,4 +41,14 @@ body {
 
 pre, code {
   font-family: $family-monospace;
+}
+
+.card-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px,1fr));
+  grid-gap: 0.5em;
+}
+
+.card{
+  height: max-content;
 }

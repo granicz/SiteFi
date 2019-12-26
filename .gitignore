@@ -6,5 +6,6 @@
 /src/Website/bin
 /src/Website/obj
 /src/Website/js
+/src/Website/css
 /src/Website/node_modules
 /build
