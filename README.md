@@ -6,5 +6,5 @@
 
 Image credit
 
-* src/Website/img/Banner.jpg by Plush Design Studio on Unsplash - https://unsplash.com/photos/UHqfUTDmdC4
+* src\Website\img\Banner.jpg by Plush Design Studio on Unsplash - https://unsplash.com/photos/UHqfUTDmdC4
 
