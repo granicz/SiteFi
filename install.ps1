@@ -2,7 +2,7 @@ param(
     [switch] $buildOnly
 )
 
-# Install nuget packages
+# Install npm packages
 pushd src\Website
 npm install
 popd
