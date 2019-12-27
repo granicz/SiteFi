@@ -53,9 +53,11 @@
           <div ws-hole="ArticleList" class="card-container">
             <div ws-template="ArticleCard" class="card">
               <div class="card-content">
-                <p class="title">
-                  ${Title}
-                </p>
+                <a href="${Url}">
+                  <p class="title">
+                    ${Title}
+                  </p>
+                </a>
                 <p class="subtitle">
                   ${Author}, ${Date}
                 </p>
@@ -106,10 +108,6 @@
       </p>
     </div>
   </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.6.0/lazyload.min.js"></script>
-  <script type="text/javascript">new LazyLoad();</script>
   <script src="/js/Client${ReleaseMin}.js"></script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script async defer src="https://platform.twitter.com/widgets.js"></script>
 </body>
 </html>

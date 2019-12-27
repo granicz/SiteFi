@@ -77,7 +77,7 @@ module Site =
     open System.IO
     open WebSharper.UI.Html
 
-    type MainTemplate = Templating.Template<"index.html">
+    type MainTemplate = Templating.Template<"index.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] Article =
         {
@@ -227,6 +227,7 @@ module Site =
                                 MainTemplate.ArticleCard()
                                     .Author("My name")
                                     .Title(article.title)
+                                    .Url(article.url)
                                     .Date(article.date)
                                     .Doc()
                         ]                        
