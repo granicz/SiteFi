@@ -77,7 +77,7 @@ module Site =
     open System.IO
     open WebSharper.UI.Html
 
-    type MainTemplate = Templating.Template<"index.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] Article =
         {
@@ -89,7 +89,7 @@ module Site =
         }
 
     let Articles () : Map<string, Article> =
-        let folder = Path.Combine (__SOURCE_DIRECTORY__, "posts")
+        let folder = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
         if Directory.Exists folder then
             Directory.EnumerateFiles(folder, "*.md", SearchOption.AllDirectories)
             |> Seq.toList
@@ -129,12 +129,13 @@ module Site =
             "Latest", "#", latest
         ]
 
-    let private head =
-        __SOURCE_DIRECTORY__ + "/js/Client.head.html"
+    let private head () =
+        __SOURCE_DIRECTORY__ + "/../Hosted/js/Client.head.html"
         |> File.ReadAllText
         |> Doc.Verbatim
 
     let Page (title: option<string>) hasBanner articles (body: Doc) =
+        let head = head()
         MainTemplate()
 #if !DEBUG
             .ReleaseMin(".min")
@@ -235,7 +236,17 @@ module Site =
                     .Doc()
                 |> Page None false articles
             | Article p ->
-                ArticlePage articles articles.[p]
+                let page =
+                    if p.EndsWith(".html") then
+                        p.Substring(0, p.Length-5)
+                    else
+                        p
+                if articles.ContainsKey page then
+                    ArticlePage articles articles.[page]
+                else
+                    let coll = Map.toList articles |> List.map fst
+                    sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page coll
+                    |> Content.Text
         )
 
 [<Sealed>]

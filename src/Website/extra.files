@@ -1,19 +1,15 @@
 // Automatically copy files to the output folder.
 
 // Website content:
-img/*
-css/*
-fonts/*
-js/*
-videos/*
+../Hosted/img/*
+../Hosted/css/*
+../Hosted/fonts/*
+../Hosted/js/*
 
 // For source maps:
-scss/*
-node_modules/bulma/sass/*
+../Hosted/scss/*
+../Hosted/node_modules/bulma/sass/*
 
 // For GitHub pages:
 .nojekyll
 CNAME
-
-// For documentation:
-docs/*
