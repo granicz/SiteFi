@@ -10,11 +10,12 @@ open Microsoft.AspNetCore.Server.Kestrel.Core
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open WebSharper.AspNetCore
+open Website
 
 type Startup() =
 
     member this.ConfigureServices(services: IServiceCollection) =
-        let sitelet = new Website.Website() :> WebSharper.Sitelets.IWebsite<_>
+        Site.articles := Site.Articles()
         //services.Configure<KestrelServerOptions>(fun (options:KestrelServerOptions) ->
         //    options.AllowSynchronousIO <- true
         //)
@@ -25,7 +26,7 @@ type Startup() =
         //)
         //|> ignore
 
-        services.AddSitelet(sitelet.Sitelet)
+        services.AddSitelet(Site.Main Site.articles)
             .AddAuthentication("WebSharper")
             .AddCookie("WebSharper", fun options -> ())
         |> ignore

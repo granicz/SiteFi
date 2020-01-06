@@ -1,5 +1,13 @@
 // Automatically copy files to the output folder.
 
+// For GitHub pages:
+.nojekyll
+CNAME
+
+// The following files should be copied from ../Hosted,
+// but this doesn't work yet, so they are handled via the project file.
+// ----------------------------------------------------------------------
+
 // Website content:
 ../Hosted/img/*
 ../Hosted/css/*
@@ -10,6 +18,3 @@
 ../Hosted/scss/*
 ../Hosted/node_modules/bulma/sass/*
 
-// For GitHub pages:
-.nojekyll
-CNAME

@@ -9,6 +9,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /">] Home
     | [<EndPoint "GET /blog">] Article of slug:string
+    | [<EndPoint "GET /refresh">] Refresh
 
 module Markdown =
     open Markdig
@@ -26,8 +27,8 @@ module Markdown =
             .UseCustomContainers()
             .UseMathematics()
             .UseEmojiAndSmiley()
-            .UseAdvancedExtensions()
             .UseYamlFrontMatter()
+            .UseAdvancedExtensions()
             .Build()
 
     let Convert content = Markdown.ToHtml(content, pipeline)
@@ -88,7 +89,7 @@ module Site =
             date: string
         }
 
-    let Articles () : Map<string, Article> =
+    let Articles() : Map<string, Article> =
         let folder = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
         if Directory.Exists folder then
             Directory.EnumerateFiles(folder, "*.md", SearchOption.AllDirectories)
@@ -129,7 +130,7 @@ module Site =
             "Latest", "#", latest
         ]
 
-    let private head () =
+    let private head() =
         __SOURCE_DIRECTORY__ + "/../Hosted/js/Client.head.html"
         |> File.ReadAllText
         |> Doc.Verbatim
@@ -218,13 +219,15 @@ module Site =
             .Doc()
         |> Page (Some article.title) false articles
 
+    let articles : Map<string, Article> ref = ref Map.empty
+
     let Main articles =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home ->
                 MainTemplate.HomeBody()
                     .ArticleList(
                         Doc.Concat [
-                            for (_, article) in Map.toList articles ->
+                            for (_, article) in Map.toList !articles ->
                                 MainTemplate.ArticleCard()
                                     .Author("My name")
                                     .Title(article.title)
@@ -234,30 +237,35 @@ module Site =
                         ]                        
                     )
                     .Doc()
-                |> Page None false articles
+                |> Page None false !articles
             | Article p ->
                 let page =
-                    if p.EndsWith(".html") then
+                    if p.ToLower().EndsWith(".html") then
                         p.Substring(0, p.Length-5)
                     else
                         p
-                if articles.ContainsKey page then
-                    ArticlePage articles articles.[page]
+                if (!articles).ContainsKey page then
+                    ArticlePage !articles (!articles).[page]
                 else
-                    let coll = Map.toList articles |> List.map fst
-                    sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page coll
+                    Map.toList !articles
+                    |> List.map fst
+                    |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
                     |> Content.Text
+            | Refresh ->
+                // Reload the article cache
+                articles := Articles()
+                Content.Text "Articles reloaded."
         )
 
 [<Sealed>]
 type Website() =
-    let articles = Site.Articles ()
+    let articles = ref <| Site.Articles()
 
     interface IWebsite<EndPoint> with
         member this.Sitelet = Site.Main articles
         member this.Actions = [
             Home
-            for (slug, _) in Map.toList articles do
+            for (slug, _) in Map.toList !articles do
                 Article slug
         ]
 
