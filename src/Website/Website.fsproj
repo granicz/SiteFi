@@ -2,29 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputDirectory>../../build</OutputDirectory>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\hosted\Main.fs" />
-    <Content Include="..\hosted\index.html" />
+    <Compile Include="../hosted/Main.fs" />
+    <Content Include="../hosted/index.html" />
     <None Include="extra.files" />
     <None Include="wsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <IMGFiles Include="../hosted/img/**" linkBase="img" />
-    <CSSFiles Include="../hosted/css/**"  linkBase="css" />
-    <JSFiles Include="../hosted/js/**" linkBase="js" />
-    <NMFiles Include="../hosted/node_modules/**" linkBase="node_modules" />
-    <SCSSFiles Include="../hosted/scss/**" linkBase="scss" />
+    <ExtraFiles Include="../hosted/img/**" linkBase="img" />
+    <ExtraFiles Include="../hosted/css/**"  linkBase="css" />
+    <ExtraFiles Include="../hosted/js/**" linkBase="js" />
+    <ExtraFiles Include="../hosted/node_modules/**" linkBase="node_modules" />
+    <ExtraFiles Include="../hosted/scss/**" linkBase="scss" />
   </ItemGroup>
 
   <Target Name="CopyFiles" AfterTargets="Build">
-    <Copy SourceFiles="@(IMGFiles)" DestinationFolder="../../build/img" />
-    <Copy SourceFiles="@(CSSFiles)" DestinationFolder="../../build/css" />
-    <Copy SourceFiles="@(JSFiles)" DestinationFolder="../../build/js" />
-    <Copy SourceFiles="@(NMFiles)" DestinationFolder="../../build/node_modules" />
-    <Copy SourceFiles="@(SCSSFiles)" DestinationFolder="../../build/scss" />
+    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="../../build/%(linkBase)/%(RecursiveDir)" />
+  </Target>
+
+  <Target Name="CleanGeneratedFiles" AfterTargets="Clean">
+    <RemoveDir Directories="$(OutputDirectory)" />
   </Target>
 
   <ItemGroup>

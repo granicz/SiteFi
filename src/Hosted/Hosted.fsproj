@@ -14,6 +14,12 @@
     <None Include="wsconfig.json" />
   </ItemGroup>
 
+  <Target Name="CleanGeneratedFiles" AfterTargets="Clean">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/css" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/Content" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/Scripts" />
+  </Target>
+
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
     <PackageReference Include="Markdig" Version="0.18.0" />

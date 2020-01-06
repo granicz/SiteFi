@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <WebSharperProject>Html</WebSharperProject>
-    <WebSharperHtmlDirectory>$(MSBuildThisFileDirectory)bin\html</WebSharperHtmlDirectory>
-    <StartAction>Program</StartAction>
-    <StartProgram>$([System.Environment]::GetEnvironmentVariable(`WinDir`))\explorer.exe</StartProgram>
-    <StartArguments>$(WebSharperHtmlDirectory)</StartArguments>
+    <WebSharperHtmlDirectory>../Hosted/js/</WebSharperHtmlDirectory>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="Client.fs" />
   </ItemGroup>
+
+  <Target Name="CleanGeneratedFiles" AfterTargets="Clean">
+    <RemoveDir Directories="$(WebSharperHtmlDirectory)" />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="WebSharper" Version="4.6.0.361" />    
