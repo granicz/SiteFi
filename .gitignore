@@ -5,7 +5,13 @@
 /src/Website/.vs
 /src/Website/bin
 /src/Website/obj
-/src/Website/js
-/src/Website/css
-/src/Website/node_modules
+/src/Hosted/css
+/src/Hosted/bin
+/src/Hosted/obj
+/src/Hosted/js
+/src/Hosted/css
+/src/Hosted/scripts
+/src/Hosted/node_modules
 /build
+*.user
+/.ionide

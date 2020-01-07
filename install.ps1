@@ -3,7 +3,7 @@ param(
 )
 
 # Install npm packages
-pushd src\Website
+pushd src\Hosted
 npm install
 popd
 
