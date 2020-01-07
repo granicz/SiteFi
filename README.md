@@ -1,6 +1,6 @@
 # BlogEngine - your F# static site generator
 
-![](docs\vscode01.gif)
+![](docs/vscode01.gif)
 
 BlogEngine is a simple and highly configurable static site generator for F#. It uses [WebSharper](https://websharper.com) to build the pages of your website and to generate HTML files for them.
 
