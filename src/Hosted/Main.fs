@@ -55,6 +55,12 @@ module Yaml =
             eprintfn "DEBUG/YAML=%A" yaml
             yaml
 
+// Helpers around blog URLs.
+// These need to match the endpoints type of the main sitelet.
+module Urls =
+    let CATEGORY (cat: string) = sprintf "/category/%s" cat
+    let POST_URL (slug: string) = "/blog/" + slug + ".html"
+
 module Helpers =
     open System.IO
     open System.Text.RegularExpressions
@@ -80,13 +86,26 @@ module Site =
 
     type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
-    type [<CLIMutable>] Article =
+    type [<CLIMutable>] RawArticle =
         {
             title: string
             subtitle: string
+            ``abstract``: string
             url: string
             content: string
             date: string
+            categories: string
+        }
+
+    type Article =
+        {
+            Title: string
+            Subtitle: string
+            Abstract: string
+            Url: string
+            Content: string
+            Date: string
+            Categories: string list
         }
 
     let Articles() : Map<string, Article> =
@@ -100,26 +119,41 @@ module Site =
                 let header, content =
                     File.ReadAllText fullpath
                     |> Yaml.SplitIntoHeaderAndContent
-                let article = Yaml.OfYaml<Article> header
+                let article = Yaml.OfYaml<RawArticle> header
                 let title = Helpers.NULL_TO_EMPTY article.title
-                let url = "/blog/" + fname + ".html" // Note: we are hardcoding the URL scheme here
                 let subtitle = Helpers.NULL_TO_EMPTY article.subtitle
+                let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
+                let url = Urls.POST_URL fname
                 let content = Markdown.Convert content
                 let date = String.Format("{0:D4}{1:D2}{2:D2}", year, month, day)
+                let categories =
+                    Helpers.NULL_TO_EMPTY article.categories
+                let categories =
+                    if not <| String.IsNullOrEmpty categories then
+                        categories.Split [| ',' |]
+                        // Note: categories are case-sensitive.
+                        |> Array.map (fun cat -> cat.Trim())
+                        |> Array.filter (not << String.IsNullOrEmpty)
+                        |> Set.ofArray
+                        |> Set.toList
+                    else
+                        []
                 Map.add fname
                     {
-                        title = title
-                        subtitle = subtitle
-                        url = url
-                        content = content
-                        date = date
+                        Title = title
+                        Subtitle = subtitle
+                        Abstract = ``abstract``
+                        Url = url
+                        Content = content
+                        Date = date
+                        Categories = categories
                     } map
             ) Map.empty
         else
             eprintfn "warning: the posts folder (%s) does not exist." folder
             Map.empty
 
-    let Menu articles =
+    let Menu (articles: Map<string, Article>) =
         let latest =
             articles
             |> Map.toSeq
@@ -158,11 +192,11 @@ module Site =
                     let items =
                         children
                         |> Map.toList
-                        |> List.sortByDescending (fun (key, item) -> item.date)
+                        |> List.sortByDescending (fun (key, item) -> item.Date)
                         |> List.map (fun (key, item) ->
                             MainTemplate.TopMenuDropdownItem()
-                                .Text(item.title)
-                                .Url(item.url)
+                                .Text(item.Title)
+                                .Url(item.Url)
                                 .Doc())
                     MainTemplate.TopMenuItemWithDropdown()
                         .Text(text)
@@ -179,11 +213,11 @@ module Site =
                             ul []
                                 (children
                                 |> Map.toList
-                                |> List.sortByDescending (fun (_, item) -> item.date)
+                                |> List.sortByDescending (fun (_, item) -> item.Date)
                                 |> List.map (fun (_, item) ->
                                     MainTemplate.DrawerMenuItem()
-                                        .Text(item.title)
-                                        .Url(item.url)
+                                        .Text(item.Title)
+                                        .Url(item.Url)
                                         .Doc()
                                 ))
                         | _ -> Doc.Empty
@@ -194,30 +228,57 @@ module Site =
             .Doc()
         |> Content.Page
 
-    let BlogSidebar (articles: Map<string, Article>) =
-        articles
-        |> Map.toList
-        |> List.sortByDescending (fun (_, article) -> article.date)
-        |> List.map (fun (_, item) ->
-            let tpl =
-                MainTemplate.SidebarItem()
-                    .Title(item.title)
-                    .Url(item.url)
-            tpl.Doc()
-        )
-        |> Doc.Concat
-    
+    let BlogSidebar (articles: Map<string, Article>) (article: Article) =
+        MainTemplate.Sidebar()
+            .Categories(
+                // Render the categories widget iff there are categories
+                if article.Categories.IsEmpty then
+                    Doc.Empty
+                else
+                    MainTemplate.Categories()
+                        .Categories(
+                            article.Categories
+                            |> List.map (fun category ->
+                                MainTemplate.Category()
+                                    .Name(category)
+                                    .Doc()
+                            )
+                        )
+                        .Doc()
+            )
+            // There is always at least one blog post, so we render this
+            // section no matter what.
+            .ArticleItems(
+                articles
+                |> Map.toList
+                |> List.sortByDescending (fun (_, item) -> item.Date)
+                |> List.map (fun (_, item) ->
+                    MainTemplate.ArticleItem()
+                        .Title(item.Title)
+                        .Url(item.Url)
+                        .ExtraCSS(if article.Url = item.Url then "is-active" else "")
+                        .Doc()
+                )
+            )
+            .Doc()
+
     let PLAIN html =
         div [Attr.Create "ws-preserve" ""] [Doc.Verbatim html]
 
     let ArticlePage articles (article: Article) =
-        MainTemplate.Article()
-            .Title(article.title)
-            .Subtitle(Doc.Verbatim article.subtitle)
-            .Sidebar(BlogSidebar articles)
-            .Content(PLAIN article.content)
+        MainTemplate.ArticlePage()
+            // Main content panel
+            .Article(
+                MainTemplate.Article()
+                    .Title(article.Title)
+                    .Subtitle(Doc.Verbatim article.Subtitle)
+                    .Content(PLAIN article.Content)
+                    .Doc()
+            )
+            // Sidebar
+            .Sidebar(BlogSidebar articles article)
             .Doc()
-        |> Page (Some article.title) false articles
+        |> Page (Some article.Title) false articles
 
     let articles : Map<string, Article> ref = ref Map.empty
 
@@ -230,9 +291,23 @@ module Site =
                             for (_, article) in Map.toList !articles ->
                                 MainTemplate.ArticleCard()
                                     .Author("My name")
-                                    .Title(article.title)
-                                    .Url(article.url)
-                                    .Date(article.date)
+                                    .Title(article.Title)
+                                    .Abstract(article.Abstract)
+                                    .Url(article.Url)
+                                    .Date(article.Date)
+                                    .ArticleCategories(
+                                        if article.Categories.IsEmpty then
+                                            Doc.Empty
+                                        else
+                                            article.Categories
+                                            |> List.map (fun cat ->
+                                                MainTemplate.ArticleCategory()
+                                                    .Title(cat)
+                                                    .Url(Urls.CATEGORY cat)
+                                                    .Doc()
+                                            )
+                                            |> Doc.Concat
+                                    )
                                     .Doc()
                         ]                        
                     )

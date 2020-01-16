@@ -48,30 +48,40 @@
           <h2 class="subtitle">Hello world!</h2>
         </div>
       </section>
-      <section class="section has-background-light">
+      <section class="section has-background-white">
         <div class="container">
-          <div ws-hole="ArticleList" class="card-container">
-            <div ws-template="ArticleCard" class="card">
-              <div class="card-content">
-                <a href="${Url}">
-                  <p class="title">
-                    ${Title}
-                  </p>
-                </a>
-                <p class="subtitle">
-                  ${Author}, ${Date}
-                </p>
+          <div ws-hole="ArticleList" class="columns is-gapless is-multiline is-mobile">
+            <div ws-template="ArticleCard" class="column is-one-quarter">
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <a href="${Url}"><p class="title is-4">${Title}</p></a>
+                      <p class="subtitle is-6">${Author}</p>
+                    </div>
+                  </div>
+                  <div class="content">
+                    ${Abstract}
+                    <div ws-replace="ArticleCategories">
+                      <div ws-children-template="ArticleCategory">
+                        <a href="${Url}">#${Title}</a>&nbsp;
+                      </div>
+                    </div>
+                    <br>
+                    <time datetime="2016-1-1">${Date}</time>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
-    <div ws-children-template="Article">
-      <section class="with-sidebar-background">
+    <div>
+      <section ws-children-template="ArticlePage" class="with-sidebar-background">
         <div class="container">
           <div class="columns is-gapless">
-            <div class="column content markdown-column">
+            <div ws-children-template="Article" ws-hole="Article" class="column content markdown-column">
               <section class="hero">
                 <div class="hero-body">
                   <h1 class="title">${Title}</h1>
@@ -80,17 +90,34 @@
               </section>
               <section class="section" ws-hole="Content"></section>
             </div>
-            <div class="column is-one-quarter-tablet is-one-fifth-desktop sidebar-column">
-              <section class="section">
-                <div class="menu">
-                  <div class="menu-label">Articles</div>
-                  <ul class="menu-list" ws-hole="Sidebar">
-                    <li ws-template="SidebarItem">
-                      <a ws-attr="LinkAttr" href="${Url}">${Title}</a>
-                    </li>
-                  </ul>
+            <div ws-children-template="Sidebar" ws-hole="Sidebar" class="column is-one-quarter-tablet is-one-fifth-desktop sidebar-column">
+              <!--<section ws-children-template="Categories" ws-hole="Categories" class="section has-background-white">
+                <div ws-hole="Categories" class="tags are-large">
+                  <span ws-template="Category" class="tag">${Name}</span>
                 </div>
-              </section>
+              </section>-->
+              <nav ws-template="Categories" ws-replace="Categories" class="panel" style="padding-top: 1em;">
+                <p class="panel-heading" style="border:0;">
+                  Categories
+                </p>
+                <div class="tags are-medium panel-content">
+                  <div ws-replace="Categories">
+                    <a ws-template="Category" class="is-inline ${ExtraCSS}" href="${Url}" style="padding: 0.5em 0.5em 0 0;">
+                      <span class="tag is-info">${Name}</span>
+                    </a>
+                  </div>
+                </div>
+              </nav>
+              <nav class="panel" style="padding-top:10px;">
+                <p class="panel-heading" style="border:0;">
+                  All posts
+                </p>
+                <div ws-replace="ArticleItems">
+                  <a ws-template="ArticleItem" class="panel-block ${ExtraCSS}" href="${Url}" style="border-right:0;border-top:0;border-bottom:0;">
+                    ${Title}
+                  </a>
+                </div>
+              </nav>
             </div>
           </div>
         </div>
@@ -109,5 +136,6 @@
     </div>
   </footer>
   <script src="/js/Client${ReleaseMin}.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </body>
 </html>
