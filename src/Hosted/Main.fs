@@ -9,6 +9,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /">] Home
     | [<EndPoint "GET /blog">] Article of slug:string
+    | [<EndPoint "GET /category">] Category of string
     | [<EndPoint "GET /refresh">] Refresh
 
 module Markdown =
@@ -241,6 +242,7 @@ module Site =
                             |> List.map (fun category ->
                                 MainTemplate.Category()
                                     .Name(category)
+                                    .Url(Urls.CATEGORY category)
                                     .Doc()
                             )
                         )
@@ -283,33 +285,39 @@ module Site =
     let articles : Map<string, Article> ref = ref Map.empty
 
     let Main articles =
+        let ARTICLES_BY f articles =
+            Map.filter f articles
+        let ARTICLES (articles: Map<_, Article>) =
+            [ for (_, article) in Map.toList articles ->
+                MainTemplate.ArticleCard()
+                    .Author("My name")
+                    .Title(article.Title)
+                    .Abstract(article.Abstract)
+                    .Url(article.Url)
+                    .Date(article.Date)
+                    .ArticleCategories(
+                        if article.Categories.IsEmpty then
+                            Doc.Empty
+                        else
+                            article.Categories
+                            |> List.map (fun category ->
+                                MainTemplate.ArticleCategory()
+                                    .Title(category)
+                                    .Url(Urls.CATEGORY category)
+                                    .Doc()
+                            )
+                            |> Doc.Concat
+                    )
+                    .Doc()
+            ]                        
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home ->
                 MainTemplate.HomeBody()
+                    .Banner(
+                        MainTemplate.HomeBanner().Doc()
+                    )
                     .ArticleList(
-                        Doc.Concat [
-                            for (_, article) in Map.toList !articles ->
-                                MainTemplate.ArticleCard()
-                                    .Author("My name")
-                                    .Title(article.Title)
-                                    .Abstract(article.Abstract)
-                                    .Url(article.Url)
-                                    .Date(article.Date)
-                                    .ArticleCategories(
-                                        if article.Categories.IsEmpty then
-                                            Doc.Empty
-                                        else
-                                            article.Categories
-                                            |> List.map (fun cat ->
-                                                MainTemplate.ArticleCategory()
-                                                    .Title(cat)
-                                                    .Url(Urls.CATEGORY cat)
-                                                    .Doc()
-                                            )
-                                            |> Doc.Concat
-                                    )
-                                    .Doc()
-                        ]                        
+                        ARTICLES !articles
                     )
                     .Doc()
                 |> Page None false !articles
@@ -326,6 +334,21 @@ module Site =
                     |> List.map fst
                     |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
                     |> Content.Text
+            | Category cat ->
+                MainTemplate.HomeBody()
+                    .Banner(
+                        MainTemplate.CategoryBanner()
+                            .Category(cat)
+                            .Doc()
+                    )
+                    .ArticleList(
+                        ARTICLES_BY (fun _ article ->
+                            List.contains cat article.Categories
+                        ) !articles
+                        |> ARTICLES
+                    )
+                    .Doc()
+                |> Page None false !articles
             | Refresh ->
                 // Reload the article cache
                 articles := Articles()
@@ -342,6 +365,15 @@ type Website() =
             Home
             for (slug, _) in Map.toList !articles do
                 Article slug
+            for category in
+                !articles
+                |> Map.toList
+                |> List.map snd
+                |> List.collect (fun article -> article.Categories)
+                |> Set.ofList
+                |> Set.toList
+                do
+                    Category category
         ]
 
 [<assembly: Website(typeof<Website>)>]

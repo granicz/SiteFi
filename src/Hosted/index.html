@@ -42,12 +42,25 @@
   </div>
   <div ws-replace="Body">
     <div ws-children-template="HomeBody">
-      <section class="hero is-medium page-banner">
+      <section ws-template="HomeBanner" class="hero is-medium page-banner">
         <div class="hero-body has-text-centered">
           <h1 class="title is-spaced">My F# blog</h1>
           <h2 class="subtitle">Hello world!</h2>
         </div>
       </section>
+      <section ws-template="CategoryBanner" class="hero is-info">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              "${Category}"
+            </h1>
+            <h2 class="subtitle">
+              Filtered articles
+            </h2>
+          </div>
+        </div>
+      </section>
+      <section ws-replace="Banner"></section>
       <section class="section has-background-white">
         <div class="container">
           <div ws-hole="ArticleList" class="columns is-gapless is-multiline is-mobile">
