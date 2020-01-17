@@ -4,6 +4,17 @@
 
 BlogEngine is a simple and highly configurable static site generator for F#. It uses [WebSharper](https://websharper.com) to build the pages of your website and to generate HTML files for them.
 
+## Key features
+
+ * Add your Markdown articles and build
+ * Get a full, standalone HTML blog, ready to deploy
+ * Tag your articles with categories, and get search pages for each automatically
+ * Syntax highlighting for F# code blocks
+ * Develop dynamic articles in F#, with charts, visualizations, etc.
+ * Streamlined development workflow for template changes (style, layout, etc.) - see effects immediately, but only rebuild when you are done
+
+# Solution structure
+
 The repository provides a general blueprint to structure your static blog application, and without any changes is able to generate a static blog from a list of blog articles written in the markdown format.
 
 There are three projects in this repository that you can use to further develop the built-in sample blog to your needs:
