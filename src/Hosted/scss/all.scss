@@ -1,6 +1,10 @@
 $family-monospace: 'Roboto Mono',monospace;
 $menu-item-hover-background-color: transparent;
 
+// Basic customizations
+$tag-radius: 20px;
+$card-shadow: none;
+
 // Bulma
 @import "bulma/sass/utilities/_all.sass";
 @import "bulma/sass/base/_all.sass";
@@ -8,9 +12,11 @@ $menu-item-hover-background-color: transparent;
 @import "bulma/sass/components/level.sass";
 @import "bulma/sass/components/menu.sass";
 @import "bulma/sass/components/card.sass";
+@import "bulma/sass/components/panel.sass";
 @import "bulma/sass/elements/box.sass";
 @import "bulma/sass/elements/button.sass";
 @import "bulma/sass/elements/content.sass";
+@import "bulma/sass/elements/tag.sass";
 @import "bulma/sass/elements/title.sass";
 @import "bulma/sass/elements/container.sass";
 @import "bulma/sass/layout/hero.sass";

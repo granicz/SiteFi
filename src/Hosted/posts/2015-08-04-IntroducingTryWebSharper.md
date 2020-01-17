@@ -1,5 +1,7 @@
 ---
 title: Introducing Try WebSharper
+categories: websharper
+abstract: We are thrilled to announce the availability of Try WebSharper, a simple and fun way to create and share WebSharper snippets with others!
 ---
 
 We are thrilled to announce the availability of [Try WebSharper](http://try.websharper.com), a simple and fun way to create and share WebSharper snippets with others!

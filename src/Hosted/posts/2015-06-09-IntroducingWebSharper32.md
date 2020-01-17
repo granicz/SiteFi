@@ -1,5 +1,7 @@
 ---
 title: Introducing WebSharper 3.2
+categories: websharper
+abstract: We are thrilled to announce the availability of WebSharper 3.2, paving the road to further upcoming enhancements to streamline developing and deploying WebSharper apps, and also shipping several key changes summarized here.
 ---
 
 We are thrilled to announce the availability of WebSharper 3.2, paving the road to further upcoming enhancements to streamline developing and deploying WebSharper apps, and also shipping several key changes summarized here.
