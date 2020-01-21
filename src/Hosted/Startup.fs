@@ -15,7 +15,7 @@ open Website
 type Startup() =
 
     member this.ConfigureServices(services: IServiceCollection) =
-        Site.articles := Site.Articles()
+        Site.articles := Site.ReadArticles()
         //services.Configure<KestrelServerOptions>(fun (options:KestrelServerOptions) ->
         //    options.AllowSynchronousIO <- true
         //)
@@ -26,7 +26,7 @@ type Startup() =
         //)
         //|> ignore
 
-        services.AddSitelet(Site.Main Site.articles)
+        services.AddSitelet(Site.Main Site.config Site.articles)
             .AddAuthentication("WebSharper")
             .AddCookie("WebSharper", fun options -> ())
         |> ignore

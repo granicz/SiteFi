@@ -1,6 +1,7 @@
 namespace Website
 
 open System
+open System.Xml.Linq
 open WebSharper
 open WebSharper.Sitelets
 open WebSharper.UI
@@ -10,7 +11,18 @@ type EndPoint =
     | [<EndPoint "GET /">] Home
     | [<EndPoint "GET /blog">] Article of slug:string
     | [<EndPoint "GET /category">] Category of string
+    | [<EndPoint "GET /feed.atom">] AtomFeed
+    | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
+
+// Utilities to make XML construction somewhat sane
+[<AutoOpen>]
+module Xml =
+    let TEXT (s: string) = XText(s)
+    let (=>) (a1: string) (a2: string) = XAttribute(XName.Get a1, a2)
+    let N = XName.Get
+    let X (tag: XName) (attrs: XAttribute list) (content: obj list) =
+        XElement(tag, List.map box attrs @ List.map box content)
 
 module Markdown =
     open Markdig
@@ -68,6 +80,10 @@ module Helpers =
 
     let NULL_TO_EMPTY (s: string) = match s with null -> "" | t -> t
 
+    let FORMATTED_DATE (dt: DateTime) = dt.ToString("MMM dd, yyyy")
+    let ATOM_DATE (dt: DateTime) = dt.ToString("yyyy-MM-dd'T'HH:mm:ssZ")
+    let RSS_DATE (dt: DateTime) = dt.ToString("ddd, dd MMM yyyy HH:mm:ss UTC")
+
     // Return (fullpath, filename-without-extension, (year, month, day), slug, extension)
     let (|ArticleFile|_|) (fullpath: string) =
         let filename = Path.GetFileName(fullpath)
@@ -87,6 +103,13 @@ module Site =
 
     type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
+    type [<CLIMutable>] Config =
+        {
+            serverUrl: string
+            title: string
+            description: string
+        }
+
     type [<CLIMutable>] RawArticle =
         {
             title: string
@@ -105,11 +128,29 @@ module Site =
             Abstract: string
             Url: string
             Content: string
-            Date: string
+            Date: DateTime
             Categories: string list
         }
 
-    let Articles() : Map<string, Article> =
+    let ReadConfig() =
+        let config = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\config.yml")
+        if File.Exists config then
+            let config =
+                File.ReadAllText config
+                |> Yaml.OfYaml<Config>
+            {
+                serverUrl = Helpers.NULL_TO_EMPTY config.serverUrl
+                title = Helpers.NULL_TO_EMPTY config.title
+                description = Helpers.NULL_TO_EMPTY config.description
+            }
+        else
+            {
+                serverUrl = "http://localhost:5000"
+                title = "My F# Blog"
+                description = "TODO: write the description of this blog"
+            }
+
+    let ReadArticles() : Map<string, Article> =
         let folder = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
         if Directory.Exists folder then
             Directory.EnumerateFiles(folder, "*.md", SearchOption.AllDirectories)
@@ -126,7 +167,7 @@ module Site =
                 let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
                 let url = Urls.POST_URL fname
                 let content = Markdown.Convert content
-                let date = String.Format("{0:D4}{1:D2}{2:D2}", year, month, day)
+                let date = DateTime(year, month, day)
                 let categories =
                     Helpers.NULL_TO_EMPTY article.categories
                 let categories =
@@ -282,9 +323,13 @@ module Site =
             .Doc()
         |> Page (Some article.Title) false articles
 
+    // The silly ref's are needed because offline sitelets are
+    // initialized in their own special way, without having access
+    // to top-level values.
     let articles : Map<string, Article> ref = ref Map.empty
+    let config : Config ref = ref <| ReadConfig()
 
-    let Main articles =
+    let Main (config: Config ref) articles =
         let ARTICLES_BY f articles =
             Map.filter f articles
         let ARTICLES (articles: Map<_, Article>) =
@@ -294,7 +339,7 @@ module Site =
                     .Title(article.Title)
                     .Abstract(article.Abstract)
                     .Url(article.Url)
-                    .Date(article.Date)
+                    .Date(Helpers.FORMATTED_DATE article.Date)
                     .ArticleCategories(
                         if article.Categories.IsEmpty then
                             Doc.Empty
@@ -349,18 +394,75 @@ module Site =
                     )
                     .Doc()
                 |> Page None false !articles
+            // For a simple but useful reference on Atom vs RSS content, refer to:
+            // https://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
+            | AtomFeed ->
+                Content.Custom (
+                    Status = Http.Status.Ok,
+                    Headers = [Http.Header.Custom "content-type" "application/atom+xml"],
+                    WriteBody = fun stream ->
+                        let ns = XNamespace.Get "http://www.w3.org/2005/Atom"
+                        let doc =
+                            X (ns + "feed") [] [
+                                X (ns + "title") [] [TEXT (!config).title]
+                                X (ns + "subtitle") [] [TEXT (!config).description]
+                                X (ns + "link") ["href" => (!config).serverUrl] []
+                                X (ns + "updated") [] [Helpers.ATOM_DATE DateTime.UtcNow]
+                                for (slug, article) in Map.toList !articles do
+                                    X (ns + "entry") [] [
+                                        X (ns + "title") [] [TEXT article.Title]
+                                        X (ns + "link") ["href" => (!config).serverUrl + Urls.POST_URL slug] []
+                                        X (ns + "id") [] [TEXT slug]
+                                        for category in article.Categories do
+                                            X (ns + "category") [] [TEXT category]
+                                        X (ns + "summary") [] [TEXT article.Abstract]
+                                        X (ns + "updated") [] [TEXT <| Helpers.ATOM_DATE article.Date]
+                                    ]
+                            ]
+                        doc.Save(stream)
+                )
+            | RSSFeed ->
+                Content.Custom (
+                    Status = Http.Status.Ok,
+                    Headers = [Http.Header.Custom "content-type" "application/rss+xml"],
+                    WriteBody = fun stream ->
+                        let doc =
+                            X (N "rss") ["version" => "2.0"] [
+                                X (N "channel") [] [
+                                    X (N "title") [] [TEXT (!config).title]
+                                    X (N "description") [] [TEXT (!config).description]
+                                    X (N "link") [] [TEXT (!config).serverUrl]
+                                    X (N "lastBuildDate") [] [Helpers.RSS_DATE DateTime.UtcNow]
+                                    for (slug, article) in Map.toList !articles do
+                                        X (N "item") [] [
+                                            X (N "title") [] [TEXT article.Title]
+                                            X (N "link") [] [TEXT <| (!config).serverUrl + Urls.POST_URL slug]
+                                            X (N "guid") ["isPermaLink" => "false"] [TEXT slug]
+                                            for category in article.Categories do
+                                                X (N "category") [] [TEXT category]
+                                            X (N "description") [] [TEXT article.Abstract]
+                                            X (N "pubDate") [] [TEXT <| Helpers.RSS_DATE article.Date]
+                                        ]
+                                ]
+                            ]
+                        doc.Save(stream)
+                )
             | Refresh ->
-                // Reload the article cache
-                articles := Articles()
-                Content.Text "Articles reloaded."
+                // Reload the article cache and the master configs
+                articles := ReadArticles()
+                config := ReadConfig()
+                Content.Text "Articles/configs reloaded."
         )
+
+open System.IO
 
 [<Sealed>]
 type Website() =
-    let articles = ref <| Site.Articles()
+    let articles = ref <| Site.ReadArticles()
+    let config = ref <| Site.ReadConfig()
 
     interface IWebsite<EndPoint> with
-        member this.Sitelet = Site.Main articles
+        member this.Sitelet = Site.Main config articles
         member this.Actions = [
             Home
             for (slug, _) in Map.toList !articles do
@@ -374,6 +476,9 @@ type Website() =
                 |> Set.toList
                 do
                     Category category
+            Category (!config).title
+            RSSFeed
+            AtomFeed
         ]
 
 [<assembly: Website(typeof<Website>)>]
