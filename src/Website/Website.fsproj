@@ -21,9 +21,19 @@
   </ItemGroup>
 
   <Target Name="CopyFiles" AfterTargets="Build">
-    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="../../build/%(linkBase)/%(RecursiveDir)" />
+    <Copy SourceFiles="@(ExtraFiles)" DestinationFolder="$(OutputDirectory)/%(linkBase)/%(RecursiveDir)" />
   </Target>
 
+  <Target Name="RenameAtom" AfterTargets="CopyFiles">
+    <Message Text="Renaming feed.atom.html to feed.atom" />
+    <Move SourceFiles="$(OutputDirectory)/feed.atom.html" DestinationFiles="$(OutputDirectory)/feed.atom" />
+  </Target>
+  
+  <Target Name="RenameRSS" AfterTargets="CopyFiles">
+    <Message Text="Renaming feed.rss.html to feed.rss" />
+    <Move SourceFiles="$(OutputDirectory)/feed.rss.html" DestinationFiles="$(OutputDirectory)/feed.rss" />
+  </Target>
+  
   <Target Name="CleanGeneratedFiles" AfterTargets="Clean">
     <RemoveDir Directories="$(OutputDirectory)" />
   </Target>

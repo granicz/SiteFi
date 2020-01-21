@@ -26,6 +26,9 @@
           </div>
         </nav>
       </div>
+      <!--<div class="navbar-end">
+        <a target="_blank" title="RSS" href="/feed.rss" class="navbar-item is-hoverable"><i class="fas fa-rss"></i></a>
+      </div>-->
     </div>
   </header>
   <div class="drawer-backdrop" onclick="Client.Bulma.ToggleDrawer()">
@@ -104,13 +107,8 @@
               <section class="section" ws-hole="Content"></section>
             </div>
             <div ws-children-template="Sidebar" ws-hole="Sidebar" class="column is-one-quarter-tablet is-one-fifth-desktop sidebar-column">
-              <!--<section ws-children-template="Categories" ws-hole="Categories" class="section has-background-white">
-                <div ws-hole="Categories" class="tags are-large">
-                  <span ws-template="Category" class="tag">${Name}</span>
-                </div>
-              </section>-->
               <nav ws-template="Categories" ws-replace="Categories" class="panel" style="padding-top: 1em;">
-                <p class="panel-heading" style="border:0;">
+                <p class="panel-heading" style="border:0;background-color:white;">
                   Categories
                 </p>
                 <div class="tags are-medium panel-content">
@@ -124,6 +122,7 @@
               <nav class="panel" style="padding-top:10px;">
                 <p class="panel-heading" style="border:0;">
                   All posts
+                  <a style="color:red;float:right;" target="_blank" title="RSS" href="/feed.rss" class="is-hoverable"><i class="fas fa-rss-square"></i></a>
                 </p>
                 <div ws-replace="ArticleItems">
                   <a ws-template="ArticleItem" class="panel-block ${ExtraCSS}" href="${Url}" style="border-right:0;border-top:0;border-bottom:0;">
@@ -145,6 +144,13 @@
         </a> by <a href="https://twitter.com/granicz">Adam Granicz</a>.
         A static site generator implemented with WebSharper in F#, licensed
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+      </p>
+      <p>
+        <a style="color:red;float:right;" target="_blank" title="RSS" href="/feed.rss" class="is-hoverable">
+          <span class="icon is-large">
+            <i class="fas fa-rss-square fa-2x"></i>
+          </span>
+        </a>
       </p>
     </div>
   </footer>
