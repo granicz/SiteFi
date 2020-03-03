@@ -17,7 +17,7 @@ SiteFi is a simple and highly configurable static site generator for F#. It uses
 
 # 1. Configuring your blog
 
-A main configuration file is located in `src\Hosted\config.yml`. A sample configuration sets up the basics for your site:
+The main configuration file is located in `src\Hosted\config.yml`. Use this file to configure various site-wide aspects such as the URL you are deploying your blog to, your name, the default language for your articles, and RSS/Atom feed info.
 
 ```text
 serverUrl: http://mywebsite.com
