@@ -1,3 +1,6 @@
 serverUrl: http://mywebsite.com
 title: My F# Blog
 description: My ramblings and experiences with building stuff with F#
+masterUsername: My Name
+masterLanguage: en
+languages: "en->English,es->Spanish,hu->Hungarian"

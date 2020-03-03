@@ -25,6 +25,18 @@
             </div>
           </div>
         </nav>
+        <div ws-replace="LanguageSelectorPlaceholder" ws-template="LanguageSelector" class="navbar-end">
+          <div class="navbar-item">
+            <div ws-replace="Languages" class="buttons">
+              <a ws-template="LanguageItem" class="button is-light" href="${Url}">
+                <strong>${Title}</strong>
+              </a>
+              <a ws-template="LanguageItemActive" class="button has-background-grey-lighter" href="${Url}">
+                <strong>${Title}</strong>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <!--<div class="navbar-end">
         <a target="_blank" title="RSS" href="/feed.rss" class="navbar-item is-hoverable"><i class="fas fa-rss"></i></a>

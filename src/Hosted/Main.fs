@@ -8,9 +8,9 @@ open WebSharper.UI
 open WebSharper.UI.Server
 
 type EndPoint =
-    | [<EndPoint "GET /">] Home
+    | [<EndPoint "GET /">] Home of lang:string
     | [<EndPoint "GET /blog">] Article of slug:string
-    | [<EndPoint "GET /category">] Category of string
+    | [<EndPoint "GET /category">] Category of string * lang:string
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
@@ -69,10 +69,15 @@ module Yaml =
             yaml
 
 // Helpers around blog URLs.
-// These need to match the endpoints type of the main sitelet.
+// These need to match the endpoint type of the main sitelet.
 module Urls =
-    let CATEGORY (cat: string) = sprintf "/category/%s" cat
+    let CATEGORY (cat: string) lang =
+        if String.IsNullOrEmpty lang then
+            sprintf "/category/%s" cat
+        else
+            sprintf "/category/%s/%s" cat lang
     let POST_URL (slug: string) = "/blog/" + slug + ".html"
+    let LANG (lang: string) = sprintf "/%s" lang
 
 module Helpers =
     open System.IO
@@ -103,11 +108,24 @@ module Site =
 
     type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
-    type [<CLIMutable>] Config =
+    type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
             title: string
             description: string
+            masterUsername: string
+            masterLanguage: string
+            languages: string
+        }
+
+    type Config =
+        {
+            ServerUrl: string
+            Title: string
+            Description: string
+            MasterUsername: string
+            MasterLanguage: string
+            Languages: (string * string) list
         }
 
     type [<CLIMutable>] RawArticle =
@@ -119,6 +137,7 @@ module Site =
             content: string
             date: string
             categories: string
+            language: string
         }
 
     type Article =
@@ -130,24 +149,43 @@ module Site =
             Content: string
             Date: DateTime
             Categories: string list
+            Language: string
         }
+
+    /// Zero out if article has the master language
+    let URL_LANG (config: Config) lang =
+        if config.MasterLanguage = lang then "" else lang
 
     let ReadConfig() =
         let config = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\config.yml")
         if File.Exists config then
-            let config =
-                File.ReadAllText config
-                |> Yaml.OfYaml<Config>
+            let config = Yaml.OfYaml<RawConfig> (File.ReadAllText config)
+            let languages =
+                (Helpers.NULL_TO_EMPTY config.languages).Split([| "," |], StringSplitOptions.None)
+                |> Array.map (fun s ->
+                    let parts = s.Split([| "->" |], StringSplitOptions.None)
+                    if Array.length parts <> 2 then
+                        eprintfn "warning: Incorrect language format for substring [%s], ignoring." s
+                    parts.[0], parts.[1]
+                )
+                |> Set.ofArray
+                |> Set.toList
             {
-                serverUrl = Helpers.NULL_TO_EMPTY config.serverUrl
-                title = Helpers.NULL_TO_EMPTY config.title
-                description = Helpers.NULL_TO_EMPTY config.description
+                ServerUrl = Helpers.NULL_TO_EMPTY config.serverUrl
+                Title = Helpers.NULL_TO_EMPTY config.title
+                Description = Helpers.NULL_TO_EMPTY config.description
+                MasterUsername = Helpers.NULL_TO_EMPTY config.masterUsername
+                MasterLanguage = Helpers.NULL_TO_EMPTY config.masterLanguage
+                Languages = languages
             }
         else
             {
-                serverUrl = "http://localhost:5000"
-                title = "My F# Blog"
-                description = "TODO: write the description of this blog"
+                ServerUrl = "http://localhost:5000"
+                Title = "My F# Blog"
+                Description = "TODO: write the description of this blog"
+                MasterUsername = "My Name"
+                MasterLanguage = "en"
+                Languages = ["en", "English"]
             }
 
     let ReadArticles() : Map<string, Article> =
@@ -166,7 +204,12 @@ module Site =
                 let subtitle = Helpers.NULL_TO_EMPTY article.subtitle
                 let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
                 let url = Urls.POST_URL fname
-                let content = Markdown.Convert content
+                // If the content is given in the header, use that instead.
+                let content =
+                    if article.content <> null then
+                        Markdown.Convert article.content
+                    else
+                        Markdown.Convert content
                 let date = DateTime(year, month, day)
                 let categories =
                     Helpers.NULL_TO_EMPTY article.categories
@@ -180,6 +223,7 @@ module Site =
                         |> Set.toList
                     else
                         []
+                let language = Helpers.NULL_TO_EMPTY article.language
                 Map.add fname
                     {
                         Title = title
@@ -189,6 +233,7 @@ module Site =
                         Content = content
                         Date = date
                         Categories = categories
+                        Language = language
                     } map
             ) Map.empty
         else
@@ -211,7 +256,33 @@ module Site =
         |> File.ReadAllText
         |> Doc.Verbatim
 
-    let Page (title: option<string>) hasBanner articles (body: Doc) =
+    let Page langopt (config: Config) (title: option<string>) hasBanner articles (body: Doc) =
+        // Compute the language keys used in all articles
+        let languages =
+            articles
+            |> Map.toList
+            |> List.map (fun (_, art) -> art.Language)
+            |> List.distinct
+            // Filter out the master language
+            |> List.filter (fun lang ->
+                URL_LANG config lang |> (String.IsNullOrEmpty >> not)
+            )
+        // Add back the default language IFF there is at least one other language
+        let languages =
+            let langmap = Map.ofList config.Languages
+            // Turn a language key to a (key, displayname) pair.
+            // Empty input corresponds to the master language.
+            let LANG lang =
+                let langkey =
+                    if String.IsNullOrEmpty lang then config.MasterLanguage else lang
+                if langmap.ContainsKey langkey then
+                    lang, langmap.[langkey]
+                else
+                    lang, langkey
+            if languages.Length > 0 then
+                (LANG "") :: List.map LANG languages
+            else
+                []
         let head = head()
         MainTemplate()
 #if !DEBUG
@@ -223,6 +294,28 @@ module Site =
                 match title with
                 | None -> ""
                 | Some t -> t + " | "
+            )
+            .LanguageSelectorPlaceholder(
+                if languages.IsEmpty then
+                    Doc.Empty
+                else
+                    MainTemplate.LanguageSelector()
+                        .Languages(
+                            languages
+                            |> List.map (fun (url_lang, lang) ->
+                                if langopt = url_lang then
+                                    MainTemplate.LanguageItemActive()
+                                        .Title(lang)
+                                        .Url(Urls.LANG url_lang)
+                                        .Doc()
+                                else
+                                    MainTemplate.LanguageItem()
+                                        .Title(lang)
+                                        .Url(Urls.LANG url_lang)
+                                        .Doc()
+                            )
+                        )
+                        .Doc()
             )
             .TopMenu(Menu articles |> List.map (function
                 | text, url, map when Map.isEmpty map ->
@@ -270,7 +363,7 @@ module Site =
             .Doc()
         |> Content.Page
 
-    let BlogSidebar (articles: Map<string, Article>) (article: Article) =
+    let BlogSidebar config (articles: Map<string, Article>) (article: Article) =
         MainTemplate.Sidebar()
             .Categories(
                 // Render the categories widget iff there are categories
@@ -283,7 +376,7 @@ module Site =
                             |> List.map (fun category ->
                                 MainTemplate.Category()
                                     .Name(category)
-                                    .Url(Urls.CATEGORY category)
+                                    .Url(Urls.CATEGORY category (URL_LANG config article.Language))
                                     .Doc()
                             )
                         )
@@ -308,7 +401,9 @@ module Site =
     let PLAIN html =
         div [Attr.Create "ws-preserve" ""] [Doc.Verbatim html]
 
-    let ArticlePage articles (article: Article) =
+    let ArticlePage (config: Config) articles (article: Article) =
+        // Zero out if article has the master language
+        let langopt = URL_LANG config article.Language
         MainTemplate.ArticlePage()
             // Main content panel
             .Article(
@@ -319,9 +414,9 @@ module Site =
                     .Doc()
             )
             // Sidebar
-            .Sidebar(BlogSidebar articles article)
+            .Sidebar(BlogSidebar config articles article)
             .Doc()
-        |> Page (Some article.Title) false articles
+        |> Page langopt config (Some article.Title) false articles
 
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
@@ -329,13 +424,13 @@ module Site =
     let articles : Map<string, Article> ref = ref Map.empty
     let config : Config ref = ref <| ReadConfig()
 
-    let Main (config: Config ref) articles =
+    let Main (config: Config ref) (articles: Map<_, Article> ref) =
         let ARTICLES_BY f articles =
             Map.filter f articles
         let ARTICLES (articles: Map<_, Article>) =
             [ for (_, article) in Map.toList articles ->
                 MainTemplate.ArticleCard()
-                    .Author("My name")
+                    .Author(config.Value.MasterUsername)
                     .Title(article.Title)
                     .Abstract(article.Abstract)
                     .Url(article.Url)
@@ -348,7 +443,7 @@ module Site =
                             |> List.map (fun category ->
                                 MainTemplate.ArticleCategory()
                                     .Title(category)
-                                    .Url(Urls.CATEGORY category)
+                                    .Url(Urls.CATEGORY category (URL_LANG config.Value article.Language))
                                     .Doc()
                             )
                             |> Doc.Concat
@@ -356,30 +451,33 @@ module Site =
                     .Doc()
             ]                        
         Application.MultiPage (fun (ctx: Context<_>) -> function
-            | Home ->
+            | Home langopt ->
                 MainTemplate.HomeBody()
                     .Banner(
                         MainTemplate.HomeBanner().Doc()
                     )
                     .ArticleList(
-                        ARTICLES !articles
+                        ARTICLES_BY (fun _ article ->
+                            langopt = URL_LANG config.Value article.Language
+                        ) articles.Value
+                        |> ARTICLES
                     )
                     .Doc()
-                |> Page None false !articles
+                |> Page langopt config.Value None false articles.Value
             | Article p ->
                 let page =
                     if p.ToLower().EndsWith(".html") then
                         p.Substring(0, p.Length-5)
                     else
                         p
-                if (!articles).ContainsKey page then
-                    ArticlePage !articles (!articles).[page]
+                if articles.Value.ContainsKey page then
+                    ArticlePage config.Value articles.Value articles.Value.[page]
                 else
-                    Map.toList !articles
+                    Map.toList articles.Value
                     |> List.map fst
                     |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
                     |> Content.Text
-            | Category cat ->
+            | Category (cat, langopt) ->
                 MainTemplate.HomeBody()
                     .Banner(
                         MainTemplate.CategoryBanner()
@@ -388,12 +486,14 @@ module Site =
                     )
                     .ArticleList(
                         ARTICLES_BY (fun _ article ->
+                            langopt = URL_LANG config.Value article.Language
+                            &&
                             List.contains cat article.Categories
-                        ) !articles
+                        ) articles.Value
                         |> ARTICLES
                     )
                     .Doc()
-                |> Page None false !articles
+                |> Page langopt config.Value None false articles.Value
             // For a simple but useful reference on Atom vs RSS content, refer to:
             // https://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
             | AtomFeed ->
@@ -404,14 +504,14 @@ module Site =
                         let ns = XNamespace.Get "http://www.w3.org/2005/Atom"
                         let doc =
                             X (ns + "feed") [] [
-                                X (ns + "title") [] [TEXT (!config).title]
-                                X (ns + "subtitle") [] [TEXT (!config).description]
-                                X (ns + "link") ["href" => (!config).serverUrl] []
+                                X (ns + "title") [] [TEXT config.Value.Title]
+                                X (ns + "subtitle") [] [TEXT config.Value.Description]
+                                X (ns + "link") ["href" => config.Value.ServerUrl] []
                                 X (ns + "updated") [] [Helpers.ATOM_DATE DateTime.UtcNow]
-                                for (slug, article) in Map.toList !articles do
+                                for (slug, article) in Map.toList articles.Value do
                                     X (ns + "entry") [] [
                                         X (ns + "title") [] [TEXT article.Title]
-                                        X (ns + "link") ["href" => (!config).serverUrl + Urls.POST_URL slug] []
+                                        X (ns + "link") ["href" => config.Value.ServerUrl + Urls.POST_URL slug] []
                                         X (ns + "id") [] [TEXT slug]
                                         for category in article.Categories do
                                             X (ns + "category") [] [TEXT category]
@@ -429,14 +529,14 @@ module Site =
                         let doc =
                             X (N "rss") ["version" => "2.0"] [
                                 X (N "channel") [] [
-                                    X (N "title") [] [TEXT (!config).title]
-                                    X (N "description") [] [TEXT (!config).description]
-                                    X (N "link") [] [TEXT (!config).serverUrl]
+                                    X (N "title") [] [TEXT config.Value.Title]
+                                    X (N "description") [] [TEXT config.Value.Description]
+                                    X (N "link") [] [TEXT config.Value.ServerUrl]
                                     X (N "lastBuildDate") [] [Helpers.RSS_DATE DateTime.UtcNow]
-                                    for (slug, article) in Map.toList !articles do
+                                    for (slug, article) in Map.toList articles.Value do
                                         X (N "item") [] [
                                             X (N "title") [] [TEXT article.Title]
-                                            X (N "link") [] [TEXT <| (!config).serverUrl + Urls.POST_URL slug]
+                                            X (N "link") [] [TEXT <| config.Value.ServerUrl + Urls.POST_URL slug]
                                             X (N "guid") ["isPermaLink" => "false"] [TEXT slug]
                                             for category in article.Categories do
                                                 X (N "category") [] [TEXT category]
@@ -463,23 +563,38 @@ type Website() =
 
     interface IWebsite<EndPoint> with
         member this.Sitelet = Site.Main config articles
-        member this.Actions = [
-            Home
-            for (slug, _) in Map.toList !articles do
-                Article slug
-            for category in
-                !articles
-                |> Map.toList
+        member this.Actions =
+            let articles = Map.toList articles.Value
+            let categories =
+                articles
                 |> List.map snd
                 |> List.collect (fun article -> article.Categories)
                 |> Set.ofList
                 |> Set.toList
-                do
-                    Category category
-            Category (!config).title
-            RSSFeed
-            AtomFeed
-        ]
+            let languages =
+                articles
+                |> List.map snd
+                |> List.map (fun article -> Site.URL_LANG config.Value article.Language)
+                |> Set.ofList
+                |> Set.toList
+            [
+                for language in languages do
+                    Home language
+                for (slug, _) in articles do
+                    Article slug
+                for category in categories do
+                    for language in languages do
+                        if
+                            List.exists (fun (_, (art: Site.Article)) ->
+                                language = Site.URL_LANG config.Value art.Language
+                                &&
+                                List.contains category art.Categories 
+                            ) articles
+                        then
+                            Category (category, language)
+                RSSFeed
+                AtomFeed
+            ]
 
 [<assembly: Website(typeof<Website>)>]
 do ()
