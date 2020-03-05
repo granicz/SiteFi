@@ -10,6 +10,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /">] Home of lang:string
     | [<EndPoint "GET /blog">] Article of slug:string
+    | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
     | [<EndPoint "GET /category">] Category of string * lang:string
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
@@ -76,7 +77,11 @@ module Urls =
             sprintf "/category/%s" cat
         else
             sprintf "/category/%s/%s" cat lang
-    let POST_URL (slug: string) = "/blog/" + slug + ".html"
+    let POST_URL (user: string, slug: string) =
+        if String.IsNullOrEmpty user then
+            sprintf "/blog/%s.html" slug
+        else
+            sprintf "/user/%s/%s" user slug
     let LANG (lang: string) = sprintf "/%s" lang
 
 module Helpers =
@@ -113,9 +118,10 @@ module Site =
             serverUrl: string
             title: string
             description: string
-            masterUsername: string
+            masterUserDisplayName: string
             masterLanguage: string
             languages: string
+            users: string
         }
 
     type Config =
@@ -123,9 +129,10 @@ module Site =
             ServerUrl: string
             Title: string
             Description: string
-            MasterUsername: string
+            MasterUserDisplayName: string
             MasterLanguage: string
-            Languages: (string * string) list
+            Languages: Map<string, string>
+            Users: Map<string, string>
         }
 
     type [<CLIMutable>] RawArticle =
@@ -152,95 +159,116 @@ module Site =
             Language: string
         }
 
+    // The article store, mapping (user*slug) pairs to articles.
+    type Articles = Map<string*string, Article>
+
     /// Zero out if article has the master language
     let URL_LANG (config: Config) lang =
         if config.MasterLanguage = lang then "" else lang
 
     let ReadConfig() =
+        let KEY_VALUE_LIST s =
+            (Helpers.NULL_TO_EMPTY s).Split([| "," |], StringSplitOptions.None)
+            |> Array.choose (fun s ->
+                let parts = s.Split([| "->" |], StringSplitOptions.None)
+                if Array.length parts <> 2 then
+                    eprintfn "warning: Incorrect key-value format for substring [%s], ignoring." s
+                    None
+                else
+                    Some (parts.[0], parts.[1])
+            )
+            |> Set.ofArray
+            |> Set.toList
+            |> Map.ofList
         let config = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\config.yml")
         if File.Exists config then
             let config = Yaml.OfYaml<RawConfig> (File.ReadAllText config)
-            let languages =
-                (Helpers.NULL_TO_EMPTY config.languages).Split([| "," |], StringSplitOptions.None)
-                |> Array.map (fun s ->
-                    let parts = s.Split([| "->" |], StringSplitOptions.None)
-                    if Array.length parts <> 2 then
-                        eprintfn "warning: Incorrect language format for substring [%s], ignoring." s
-                    parts.[0], parts.[1]
-                )
-                |> Set.ofArray
-                |> Set.toList
+            let languages = KEY_VALUE_LIST config.languages
+            let users = KEY_VALUE_LIST config.users
             {
                 ServerUrl = Helpers.NULL_TO_EMPTY config.serverUrl
                 Title = Helpers.NULL_TO_EMPTY config.title
                 Description = Helpers.NULL_TO_EMPTY config.description
-                MasterUsername = Helpers.NULL_TO_EMPTY config.masterUsername
+                MasterUserDisplayName = Helpers.NULL_TO_EMPTY config.masterUserDisplayName
                 MasterLanguage = Helpers.NULL_TO_EMPTY config.masterLanguage
                 Languages = languages
+                Users = users
             }
         else
             {
                 ServerUrl = "http://localhost:5000"
                 Title = "My F# Blog"
                 Description = "TODO: write the description of this blog"
-                MasterUsername = "My Name"
+                MasterUserDisplayName = "My Name"
                 MasterLanguage = "en"
-                Languages = ["en", "English"]
+                Languages = Map.ofList ["en", "English"]
+                Users = Map.empty
             }
 
-    let ReadArticles() : Map<string, Article> =
-        let folder = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
-        if Directory.Exists folder then
-            Directory.EnumerateFiles(folder, "*.md", SearchOption.AllDirectories)
-            |> Seq.toList
-            |> List.choose (Helpers.(|ArticleFile|_|))
-            |> List.fold (fun map (fullpath, fname, (year, month, day), slug, extension) ->
-                eprintfn "Found file: %s" fname
-                let header, content =
-                    File.ReadAllText fullpath
-                    |> Yaml.SplitIntoHeaderAndContent
-                let article = Yaml.OfYaml<RawArticle> header
-                let title = Helpers.NULL_TO_EMPTY article.title
-                let subtitle = Helpers.NULL_TO_EMPTY article.subtitle
-                let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
-                let url = Urls.POST_URL fname
-                // If the content is given in the header, use that instead.
-                let content =
-                    if article.content <> null then
-                        Markdown.Convert article.content
-                    else
-                        Markdown.Convert content
-                let date = DateTime(year, month, day)
-                let categories =
-                    Helpers.NULL_TO_EMPTY article.categories
-                let categories =
-                    if not <| String.IsNullOrEmpty categories then
-                        categories.Split [| ',' |]
-                        // Note: categories are case-sensitive.
-                        |> Array.map (fun cat -> cat.Trim())
-                        |> Array.filter (not << String.IsNullOrEmpty)
-                        |> Set.ofArray
-                        |> Set.toList
-                    else
-                        []
-                let language = Helpers.NULL_TO_EMPTY article.language
-                Map.add fname
-                    {
-                        Title = title
-                        Subtitle = subtitle
-                        Abstract = ``abstract``
-                        Url = url
-                        Content = content
-                        Date = date
-                        Categories = categories
-                        Language = language
-                    } map
-            ) Map.empty
-        else
-            eprintfn "warning: the posts folder (%s) does not exist." folder
-            Map.empty
+    let ReadArticles() : Articles =
+        let root = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
+        let ReadFolder user store =
+            let folder = Path.Combine (root, user)
+            if Directory.Exists folder then
+                Directory.EnumerateFiles(folder, "*.md", SearchOption.TopDirectoryOnly)
+                |> Seq.toList
+                |> List.choose (Helpers.(|ArticleFile|_|))
+                |> List.fold (fun map (fullpath, fname, (year, month, day), slug, extension) ->
+                    eprintfn "Found file: %s" fname
+                    let header, content =
+                        File.ReadAllText fullpath
+                        |> Yaml.SplitIntoHeaderAndContent
+                    let article = Yaml.OfYaml<RawArticle> header
+                    let title = Helpers.NULL_TO_EMPTY article.title
+                    let subtitle = Helpers.NULL_TO_EMPTY article.subtitle
+                    let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
+                    let url = Urls.POST_URL (user, fname)
+                    eprintfn "DEBUG-URL: %s" url
+                    // If the content is given in the header, use that instead.
+                    let content =
+                        if article.content <> null then
+                            Markdown.Convert article.content
+                        else
+                            Markdown.Convert content
+                    let date = DateTime(year, month, day)
+                    let categories =
+                        Helpers.NULL_TO_EMPTY article.categories
+                    let categories =
+                        if not <| String.IsNullOrEmpty categories then
+                            categories.Split [| ',' |]
+                            // Note: categories are case-sensitive.
+                            |> Array.map (fun cat -> cat.Trim())
+                            |> Array.filter (not << String.IsNullOrEmpty)
+                            |> Set.ofArray
+                            |> Set.toList
+                        else
+                            []
+                    let language = Helpers.NULL_TO_EMPTY article.language
+                    eprintfn "DEBUG-ADD: (%s, %s)\n-------------------" user fname
+                    Map.add (user, fname)
+                        {
+                            Title = title
+                            Subtitle = subtitle
+                            Abstract = ``abstract``
+                            Url = url
+                            Content = content
+                            Date = date
+                            Categories = categories
+                            Language = language
+                        } map
+                ) store
+            else
+                eprintfn "warning: the posts folder (%s) does not exist." folder
+                store
+        
+        Directory.EnumerateDirectories(root)
+        // Read user articles
+        |> Seq.fold (fun store folder ->
+            ReadFolder (Path.GetFileName(folder)) store) Map.empty
+        // Read main articles
+        |> ReadFolder ""
 
-    let Menu (articles: Map<string, Article>) =
+    let Menu articles =
         let latest =
             articles
             |> Map.toSeq
@@ -269,14 +297,13 @@ module Site =
             )
         // Add back the default language IFF there is at least one other language
         let languages =
-            let langmap = Map.ofList config.Languages
             // Turn a language key to a (key, displayname) pair.
             // Empty input corresponds to the master language.
             let LANG lang =
                 let langkey =
                     if String.IsNullOrEmpty lang then config.MasterLanguage else lang
-                if langmap.ContainsKey langkey then
-                    lang, langmap.[langkey]
+                if config.Languages.ContainsKey langkey then
+                    lang, config.Languages.[langkey]
                 else
                     lang, langkey
             if languages.Length > 0 then
@@ -363,7 +390,7 @@ module Site =
             .Doc()
         |> Content.Page
 
-    let BlogSidebar config (articles: Map<string, Article>) (article: Article) =
+    let BlogSidebar config articles (article: Article) =
         MainTemplate.Sidebar()
             .Categories(
                 // Render the categories widget iff there are categories
@@ -421,16 +448,20 @@ module Site =
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
     // to top-level values.
-    let articles : Map<string, Article> ref = ref Map.empty
+    let articles : Articles ref = ref Map.empty
     let config : Config ref = ref <| ReadConfig()
 
-    let Main (config: Config ref) (articles: Map<_, Article> ref) =
-        let ARTICLES_BY f articles =
-            Map.filter f articles
-        let ARTICLES (articles: Map<_, Article>) =
-            [ for (_, article) in Map.toList articles ->
+    let Main (config: Config ref) (articles: Articles ref) =
+        let ARTICLES (articles: Articles) =
+            [ for ((user, _), article) in Map.toList articles ->
+                let displayName =
+                    if String.IsNullOrEmpty user then
+                        config.Value.MasterUserDisplayName
+                    elif Map.containsKey user config.Value.Users then
+                        config.Value.Users.[user]
+                    else user
                 MainTemplate.ArticleCard()
-                    .Author(config.Value.MasterUsername)
+                    .Author(displayName)
                     .Title(article.Title)
                     .Abstract(article.Abstract)
                     .Url(article.Url)
@@ -450,6 +481,20 @@ module Site =
                     )
                     .Doc()
             ]                        
+        let ARTICLE (user, p: string) =
+            let page =
+                if p.ToLower().EndsWith(".html") then
+                    p.Substring(0, p.Length-5)
+                else
+                    p
+            let key = user, page
+            if articles.Value.ContainsKey key then
+                ArticlePage config.Value articles.Value articles.Value.[key]
+            else
+                Map.toList articles.Value
+                |> List.map fst
+                |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
+                |> Content.Text
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home langopt ->
                 MainTemplate.HomeBody()
@@ -457,7 +502,7 @@ module Site =
                         MainTemplate.HomeBanner().Doc()
                     )
                     .ArticleList(
-                        ARTICLES_BY (fun _ article ->
+                        Map.filter (fun _ article ->
                             langopt = URL_LANG config.Value article.Language
                         ) articles.Value
                         |> ARTICLES
@@ -465,18 +510,9 @@ module Site =
                     .Doc()
                 |> Page langopt config.Value None false articles.Value
             | Article p ->
-                let page =
-                    if p.ToLower().EndsWith(".html") then
-                        p.Substring(0, p.Length-5)
-                    else
-                        p
-                if articles.Value.ContainsKey page then
-                    ArticlePage config.Value articles.Value articles.Value.[page]
-                else
-                    Map.toList articles.Value
-                    |> List.map fst
-                    |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
-                    |> Content.Text
+                ARTICLE ("", p)
+            | UserArticle (user, p) ->
+                ARTICLE (user, p)
             | Category (cat, langopt) ->
                 MainTemplate.HomeBody()
                     .Banner(
@@ -485,7 +521,7 @@ module Site =
                             .Doc()
                     )
                     .ArticleList(
-                        ARTICLES_BY (fun _ article ->
+                        Map.filter (fun _ article ->
                             langopt = URL_LANG config.Value article.Language
                             &&
                             List.contains cat article.Categories
@@ -508,11 +544,11 @@ module Site =
                                 X (ns + "subtitle") [] [TEXT config.Value.Description]
                                 X (ns + "link") ["href" => config.Value.ServerUrl] []
                                 X (ns + "updated") [] [Helpers.ATOM_DATE DateTime.UtcNow]
-                                for (slug, article) in Map.toList articles.Value do
+                                for ((user, slug), article) in Map.toList articles.Value do
                                     X (ns + "entry") [] [
                                         X (ns + "title") [] [TEXT article.Title]
-                                        X (ns + "link") ["href" => config.Value.ServerUrl + Urls.POST_URL slug] []
-                                        X (ns + "id") [] [TEXT slug]
+                                        X (ns + "link") ["href" => config.Value.ServerUrl + Urls.POST_URL (user, slug)] []
+                                        X (ns + "id") [] [TEXT (user+slug)]
                                         for category in article.Categories do
                                             X (ns + "category") [] [TEXT category]
                                         X (ns + "summary") [] [TEXT article.Abstract]
@@ -533,11 +569,11 @@ module Site =
                                     X (N "description") [] [TEXT config.Value.Description]
                                     X (N "link") [] [TEXT config.Value.ServerUrl]
                                     X (N "lastBuildDate") [] [Helpers.RSS_DATE DateTime.UtcNow]
-                                    for (slug, article) in Map.toList articles.Value do
+                                    for ((user, slug), article) in Map.toList articles.Value do
                                         X (N "item") [] [
                                             X (N "title") [] [TEXT article.Title]
-                                            X (N "link") [] [TEXT <| config.Value.ServerUrl + Urls.POST_URL slug]
-                                            X (N "guid") ["isPermaLink" => "false"] [TEXT slug]
+                                            X (N "link") [] [TEXT <| config.Value.ServerUrl + Urls.POST_URL (user, slug)]
+                                            X (N "guid") ["isPermaLink" => "false"] [TEXT (user+slug)]
                                             for category in article.Categories do
                                                 X (N "category") [] [TEXT category]
                                             X (N "description") [] [TEXT article.Abstract]
@@ -580,8 +616,11 @@ type Website() =
             [
                 for language in languages do
                     Home language
-                for (slug, _) in articles do
-                    Article slug
+                for ((user, slug), _) in articles do
+                    if String.IsNullOrEmpty user then
+                        Article slug
+                    else
+                        UserArticle (user, slug)
                 for category in categories do
                     for language in languages do
                         if

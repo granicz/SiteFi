@@ -10,6 +10,7 @@ SiteFi is a simple and highly configurable static site generator for F#. It uses
  * Get a full, standalone HTML blog, ready to deploy
  * Write in multiple languages, and get a language selector and main pages for each
  * Tag your articles with categories, and get listing pages for each
+ * Have multiple authors? No problem! Each get a separate folder for articles.
  * RSS 2.0 and Atom 1.0 feeds
  * Syntax highlighting for F# code blocks
  * Develop dynamic articles in F#, with charts, visualizations, etc.
@@ -26,6 +27,7 @@ description: My ramblings and experiences with building stuff with F#
 masterUsername: My Name
 masterLanguage: en
 languages: "en->English,es->Spanish,hu->Hungarian"
+users: "extra1->My Friend's Name"
 ```
 
 | Property      | What it is |
@@ -33,9 +35,10 @@ languages: "en->English,es->Spanish,hu->Hungarian"
 | `serverUrl`   | The URL the site will be deployed under. *Default*: `"http://localhost:5000"` (the port used by the `Hosted` project.) |
 | `title`       | The title of the site, used in the main navigation bar. *Default*: `"My F# Blog"`|
 | `description` | The description of the site, used in the RSS/Atom feeds. *Default*: `"TODO: write the description of this blog"`|
-| `masterUsername` | The default user's display name. Set this to your name, your company name, or whatever. *Default*: `"My Name"`|
+| `masterUserDisplayName` | The default user's display name. Set this to your name, your company name, or whatever. *Default*: `"My Name"`|
 | `masterLanguage` | The default language. Use a key value, such as `"en"`. Languages won't show up until you start using at least two languages. *Default*: `"en"` |
 | `languages`      |  A comma-separated list of mappings from language keys to display names. *Default*: `"en->English"` |
+| `users`      |  A comma-separated list of mappings from usernames to display names. Usernames correspond to subfolders under the main posts directory. *Default*: `"jsmith->John Smith"` |
 
 # 2. Building and running your blog
 
@@ -79,11 +82,36 @@ You can use the following properties:
 
 Remember to rebuild `src\Website` after each change and/or new article to get the matching HTML output. Or alternatively, use/run the `src/Hosted` project to enable near-live edits - see below for more details.
 
-## Working with multilingual articles
+## Multilingual articles
 
 As listed above, you can use the `language` property in your article header to mark the language for that article. You can use any key you prefer for this, such as `"en"`, `"eng"`, etc. The sum of all keys (case sensitive) in your articles makes up the language list used in your site. The master language can be configured in `config.yml` under `masterLanguage`, which specifies the default language key for articles that otherwise might be missing the `language` property.
 
 By default, if all articles use the same language, matching `masterLanguage`, no language selector is rendered. Otherwise, a language selector widget is built from the languages used in the articles by taking their language keys and mapping them to display names using the `languages` setting in `config.yml`.
+
+## Multiple authors
+
+By default, the `src\Hosted\posts` folder contains the master user's articles. You can add articles by additional authors into subfolders, and you can configure their display names by setting `users` in `config.yml`.
+
+For instance, if you have three additional authors in your blog organization next to the master author, the posts folder might look like the following:
+
+```text
+posts
+   |-- john
+       2020-01-01-HappyNewYear.md
+   |-- fred
+       2020-02-11-WhyFSharpRocks.md
+   |-- bill
+       2020-01-04-UsingVisualStudioCode.md
+   2020-01-15-WebSharperSPAs.md
+```
+
+These users can then be configured in `config.yml` as:
+
+```yaml
+...
+masterUserDisplayName: Adam Smith
+users: "john->John Smith,fred->Fred Smith,bill->Bill Smith"
+```
 
 # Solution structure
 
