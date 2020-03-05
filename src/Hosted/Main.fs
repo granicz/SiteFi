@@ -10,6 +10,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /">] Home of lang:string
     | [<EndPoint "GET /blog">] Article of slug:string
+    // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
     | [<EndPoint "GET /category">] Category of string * lang:string
     | [<EndPoint "GET /feed.atom">] AtomFeed
@@ -82,6 +83,11 @@ module Urls =
             sprintf "/blog/%s.html" slug
         else
             sprintf "/user/%s/%s" user slug
+    let USER_URL user =
+        if String.IsNullOrEmpty user then
+            sprintf "/user"
+        else
+            sprintf "/user/%s" user
     let LANG (lang: string) = sprintf "/%s" lang
 
 module Helpers =
@@ -461,7 +467,9 @@ module Site =
                         config.Value.Users.[user]
                     else user
                 MainTemplate.ArticleCard()
-                    .Author(displayName)
+                    .Author(
+                        a [attr.href <| Urls.USER_URL user] [text displayName]
+                    )
                     .Title(article.Title)
                     .Abstract(article.Abstract)
                     .Url(article.Url)
@@ -495,41 +503,38 @@ module Site =
                 |> List.map fst
                 |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
                 |> Content.Text
+        let HOME langopt (banner: Doc) f =
+            MainTemplate.HomeBody()
+                .Banner(banner)
+                .ArticleList(
+                    Map.filter f articles.Value
+                    |> ARTICLES
+                )
+                .Doc()
+            |> Page langopt config.Value None false articles.Value
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home langopt ->
-                MainTemplate.HomeBody()
-                    .Banner(
-                        MainTemplate.HomeBanner().Doc()
-                    )
-                    .ArticleList(
-                        Map.filter (fun _ article ->
-                            langopt = URL_LANG config.Value article.Language
-                        ) articles.Value
-                        |> ARTICLES
-                    )
-                    .Doc()
-                |> Page langopt config.Value None false articles.Value
+                HOME langopt
+                    <| MainTemplate.HomeBanner().Doc()
+                    <| fun _ article ->
+                        langopt = URL_LANG config.Value article.Language
             | Article p ->
                 ARTICLE ("", p)
+            | UserArticle (user, "") ->
+                HOME ""
+                    <| MainTemplate.HomeBanner().Doc()
+                    <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
                 ARTICLE (user, p)
             | Category (cat, langopt) ->
-                MainTemplate.HomeBody()
-                    .Banner(
-                        MainTemplate.CategoryBanner()
-                            .Category(cat)
-                            .Doc()
-                    )
-                    .ArticleList(
-                        Map.filter (fun _ article ->
-                            langopt = URL_LANG config.Value article.Language
-                            &&
-                            List.contains cat article.Categories
-                        ) articles.Value
-                        |> ARTICLES
-                    )
-                    .Doc()
-                |> Page langopt config.Value None false articles.Value
+                HOME langopt
+                    <| MainTemplate.CategoryBanner()
+                        .Category(cat)
+                        .Doc()
+                    <| fun _ article ->
+                        langopt = URL_LANG config.Value article.Language
+                        &&
+                        List.contains cat article.Categories
             // For a simple but useful reference on Atom vs RSS content, refer to:
             // https://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
             | AtomFeed ->
@@ -613,14 +618,26 @@ type Website() =
                 |> List.map (fun article -> Site.URL_LANG config.Value article.Language)
                 |> Set.ofList
                 |> Set.toList
+            let users =
+                articles
+                |> List.map (fst >> fst)
+                |> Set.ofList
+                |> Set.toList
+            eprintfn "DEBUG-users: %A" users
             [
+                // Generate the home page
                 for language in languages do
                     Home language
+                // Generate articles
                 for ((user, slug), _) in articles do
                     if String.IsNullOrEmpty user then
                         Article slug
                     else
                         UserArticle (user, slug)
+                // Generate user pages
+                for user in users do
+                    UserArticle (user, "")
+                // Generate tag/category pages
                 for category in categories do
                     for language in languages do
                         if
@@ -631,6 +648,7 @@ type Website() =
                             ) articles
                         then
                             Category (category, language)
+                // Generate the RSS/Atom feeds
                 RSSFeed
                 AtomFeed
             ]

@@ -9,12 +9,12 @@ CNAME
 // ----------------------------------------------------------------------
 
 // Website content:
-../Hosted/img/*
-../Hosted/css/*
-../Hosted/fonts/*
-../Hosted/js/*
+//../Hosted/img/*
+//../Hosted/css/*
+//../Hosted/fonts/*
+//../Hosted/js/*
 
 // For source maps:
-../Hosted/scss/*
-../Hosted/node_modules/bulma/sass/*
+//../Hosted/scss/*
+//../Hosted/node_modules/bulma/sass/*
 
