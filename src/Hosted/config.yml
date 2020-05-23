@@ -1,4 +1,5 @@
 serverUrl: http://mywebsite.com
+shortTitle: My Blog
 title: My F# Blog
 description: My ramblings and experiences with building stuff with F#
 masterUserDisplayName: My Name
