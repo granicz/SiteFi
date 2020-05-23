@@ -1,7 +1,8 @@
 serverUrl: http://mywebsite.com
-shortTitle: My Blog
-title: My F# Blog
-description: My ramblings and experiences with building stuff with F#
-masterUserDisplayName: My Name
+shortTitle: IntelliFactory Blog
+title: IntelliFactory
+description: Building business applications with F# since 2004
+masterUserDisplayName: IntelliFactory
 masterLanguage: en
 languages: "en->English,es->Spanish,hu->Hungarian"
+users: "granicz->Adam Granicz"
