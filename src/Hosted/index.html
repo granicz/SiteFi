@@ -13,7 +13,7 @@
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item is-hoverable" onclick="Client.Bulma.ToggleDrawer()"><i class="fa fa-bars"></i></a>
-        <span class="navbar-item"><a href="/">My F# blog</a></span>
+        <span class="navbar-item"><a href="/">${ShortTitle}</a></span>
       </div>
       <div class="navbar-menu">
         <nav class="navbar-start" ws-hole="TopMenu">
@@ -59,8 +59,8 @@
     <div ws-children-template="HomeBody">
       <section ws-template="HomeBanner" class="hero is-medium page-banner">
         <div class="hero-body has-text-centered">
-          <h1 class="title is-spaced">My F# blog</h1>
-          <h2 class="subtitle">Hello world!</h2>
+          <h1 class="title is-spaced">${Title}</h1>
+          <h2 class="subtitle">${Subtitle}</h2>
         </div>
       </section>
       <section ws-template="CategoryBanner" class="hero is-info">

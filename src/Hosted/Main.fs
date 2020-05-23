@@ -122,6 +122,7 @@ module Site =
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
+            shortTitle: string
             title: string
             description: string
             masterUserDisplayName: string
@@ -133,6 +134,7 @@ module Site =
     type Config =
         {
             ServerUrl: string
+            ShortTitle: string
             Title: string
             Description: string
             MasterUserDisplayName: string
@@ -193,6 +195,7 @@ module Site =
             let users = KEY_VALUE_LIST config.users
             {
                 ServerUrl = Helpers.NULL_TO_EMPTY config.serverUrl
+                ShortTitle = Helpers.NULL_TO_EMPTY config.shortTitle
                 Title = Helpers.NULL_TO_EMPTY config.title
                 Description = Helpers.NULL_TO_EMPTY config.description
                 MasterUserDisplayName = Helpers.NULL_TO_EMPTY config.masterUserDisplayName
@@ -203,6 +206,7 @@ module Site =
         else
             {
                 ServerUrl = "http://localhost:5000"
+                ShortTitle = "My Blog"
                 Title = "My F# Blog"
                 Description = "TODO: write the description of this blog"
                 MasterUserDisplayName = "My Name"
@@ -290,7 +294,7 @@ module Site =
         |> File.ReadAllText
         |> Doc.Verbatim
 
-    let Page langopt (config: Config) (title: option<string>) hasBanner articles (body: Doc) =
+    let Page langopt (config: Config) (pageTitle: option<string>) hasBanner articles (body: Doc) =
         // Compute the language keys used in all articles
         let languages =
             articles
@@ -323,8 +327,9 @@ module Site =
 #endif
             .NavbarOverlay(if hasBanner then "overlay-bar" else "")
             .Head(head)
+            .ShortTitle(config.ShortTitle)
             .Title(
-                match title with
+                match pageTitle with
                 | None -> ""
                 | Some t -> t + " | "
             )
@@ -515,7 +520,10 @@ module Site =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home langopt ->
                 HOME langopt
-                    <| MainTemplate.HomeBanner().Doc()
+                    <| MainTemplate.HomeBanner()
+                        .Title(config.Value.Title)
+                        .Subtitle(config.Value.Description)
+                        .Doc()
                     <| fun _ article ->
                         langopt = URL_LANG config.Value article.Language
             | Article p ->

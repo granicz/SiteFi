@@ -22,6 +22,7 @@ The main configuration file is located in `src\Hosted\config.yml`. Use this file
 
 ```text
 serverUrl: http://mywebsite.com
+shortTitle: My Blog
 title: My F# Blog
 description: My ramblings and experiences with building stuff with F#
 masterUsername: My Name
@@ -33,7 +34,8 @@ users: "extra1->My Friend's Name"
 | Property      | What it is |
 |:------------- |:--------------|
 | `serverUrl`   | The URL the site will be deployed under. *Default*: `"http://localhost:5000"` (the port used by the `Hosted` project.) |
-| `title`       | The title of the site, used in the main navigation bar. *Default*: `"My F# Blog"`|
+| `shortTitle`  | The title of the site, used in the main navigation bar. *Default*: `"My Blog"`|
+| `title`       | The title of the home page and the RSS/Atom feeds. *Default*: `"My F# Blog"`|
 | `description` | The description of the site, used in the RSS/Atom feeds. *Default*: `"TODO: write the description of this blog"`|
 | `masterUserDisplayName` | The default user's display name. Set this to your name, your company name, or whatever. *Default*: `"My Name"`|
 | `masterLanguage` | The default language. Use a key value, such as `"en"`. Languages won't show up until you start using at least two languages. *Default*: `"en"` |
@@ -50,7 +52,7 @@ users: "extra1->My Friend's Name"
 
    Alternatively, you can also "run" your site without static file generation by running the `src\Hosted` project with `"dotnet run -p src\Hosted\Hosted.fsproj"`. This starts your website on `http://localhost:5000`, by default.
 
-3) (Optional) Run `.\start.cmd` to preview your generated HTML files - this invokes `dotnet-serve` on the `build` folder so you can view your blog articles in the browser (by default at `http://localhost:56001`). You can change the port, if needed in the script.
+3) (Optional) Run `.\serve.cmd` to preview your generated HTML files - this invokes `dotnet-serve` on the `build` folder so you can view your blog articles in the browser (by default at `http://localhost:56001`). You can change the port, if needed in the script.
 
 ## Cleaning your generated files
 
