@@ -180,15 +180,18 @@ module Site =
         if config.MasterLanguage = lang then "" else lang
 
     let ReadConfig() =
-        let KEY_VALUE_LIST s =
-            (Helpers.NULL_TO_EMPTY s).Split([| "," |], StringSplitOptions.None)
+        let KEY_VALUE_LIST whatFor ss =
+            (Helpers.NULL_TO_EMPTY ss).Split([| "," |], StringSplitOptions.None)
             |> Array.choose (fun s ->
-                let parts = s.Split([| "->" |], StringSplitOptions.None)
-                if Array.length parts <> 2 then
-                    eprintfn "warning: Incorrect key-value format for substring [%s], ignoring." s
+                if String.IsNullOrEmpty s then
                     None
                 else
-                    Some (parts.[0], parts.[1])
+                    let parts = s.Split([| "->" |], StringSplitOptions.None)
+                    if Array.length parts <> 2 then
+                        eprintfn "warning: Incorrect key-value format for substring [%s] in [%s] for [%s], ignoring." s ss whatFor
+                        None
+                    else
+                        Some (parts.[0], parts.[1])
             )
             |> Set.ofArray
             |> Set.toList
@@ -196,8 +199,8 @@ module Site =
         let config = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\config.yml")
         if File.Exists config then
             let config = Yaml.OfYaml<RawConfig> (File.ReadAllText config)
-            let languages = KEY_VALUE_LIST config.languages
-            let users = KEY_VALUE_LIST config.users
+            let languages = KEY_VALUE_LIST "languages" config.languages
+            let users = KEY_VALUE_LIST "users" config.users
             {
                 ServerUrl = Helpers.NULL_TO_EMPTY config.serverUrl
                 ShortTitle = Helpers.NULL_TO_EMPTY config.shortTitle
@@ -286,9 +289,10 @@ module Site =
     let Menu articles =
         let latest =
             articles
-            |> Map.toSeq
-            |> Seq.truncate 5
-            |> Map.ofSeq
+            |> Map.toList
+            |> List.sortByDescending (fun (_, article: Article) -> article.Date.Ticks)
+            |> List.truncate 5
+            |> Map.ofList
         [
             "Home", "/", Map.empty
             "Latest", "#", latest
@@ -469,7 +473,11 @@ module Site =
 
     let Main (config: Config ref) (articles: Articles ref) =
         let ARTICLES (articles: Articles) =
-            [ for ((user, _), article) in Map.toList articles ->
+            let articles =
+                articles
+                |> Map.toList
+                |> List.sortByDescending (fun (_, a: Article) -> a.Date.Ticks)
+            [ for ((user, _), article) in articles ->
                 let displayName =
                     if String.IsNullOrEmpty user then
                         config.Value.MasterUserDisplayName
@@ -556,13 +564,15 @@ module Site =
                     Headers = [Http.Header.Custom "content-type" "application/atom+xml"],
                     WriteBody = fun stream ->
                         let ns = XNamespace.Get "http://www.w3.org/2005/Atom"
+                        let articles =
+                            articles.Value |> Map.toList |> List.sortByDescending (fun (_, article: Article) -> article.Date.Ticks)
                         let doc =
                             X (ns + "feed") [] [
                                 X (ns + "title") [] [TEXT config.Value.Title]
                                 X (ns + "subtitle") [] [TEXT config.Value.Description]
                                 X (ns + "link") ["href" => config.Value.ServerUrl] []
                                 X (ns + "updated") [] [Helpers.ATOM_DATE DateTime.UtcNow]
-                                for ((user, slug), article) in Map.toList articles.Value do
+                                for ((user, slug), article) in articles do
                                     X (ns + "entry") [] [
                                         X (ns + "title") [] [TEXT article.Title]
                                         X (ns + "link") ["href" => config.Value.ServerUrl + Urls.POST_URL (user, slug)] []
@@ -580,6 +590,8 @@ module Site =
                     Status = Http.Status.Ok,
                     Headers = [Http.Header.Custom "content-type" "application/rss+xml"],
                     WriteBody = fun stream ->
+                        let articles =
+                            articles.Value |> Map.toList |> List.sortByDescending (fun (_, article: Article) -> article.Date.Ticks)
                         let doc =
                             X (N "rss") ["version" => "2.0"] [
                                 X (N "channel") [] [
@@ -587,7 +599,7 @@ module Site =
                                     X (N "description") [] [TEXT config.Value.Description]
                                     X (N "link") [] [TEXT config.Value.ServerUrl]
                                     X (N "lastBuildDate") [] [Helpers.RSS_DATE DateTime.UtcNow]
-                                    for ((user, slug), article) in Map.toList articles.Value do
+                                    for ((user, slug), article) in articles do
                                         X (N "item") [] [
                                             X (N "title") [] [TEXT article.Title]
                                             X (N "link") [] [TEXT <| config.Value.ServerUrl + Urls.POST_URL (user, slug)]
