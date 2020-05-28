@@ -102,13 +102,18 @@ module Helpers =
 
     // Return (fullpath, filename-without-extension, (year, month, day), slug, extension)
     let (|ArticleFile|_|) (fullpath: string) =
+        let I s = Int32.Parse s
         let filename = Path.GetFileName(fullpath)
         let filenameWithoutExt = Path.GetFileNameWithoutExtension(fullpath)
-        let r = new Regex("([0-9]+)-([0-9]+)-([0-9]+)-(.+)\.(md)")
+        let r = new Regex("^([0-9]+)-([0-9]+)-([0-9]+)-(.+)\.(md)")
+        let r2 = new Regex("^([1-2][0-9][0-9][0-9])([0-1][0-9])([0-3][0-9])-(.+)\.(md)")
         if r.IsMatch(filename) then
             let a = r.Match(filename)
             let V (i: int) = a.Groups.[i].Value
-            let I = Int32.Parse
+            Some (fullpath, filenameWithoutExt, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
+        elif r2.IsMatch(filename) then
+            let a = r2.Match(filename)
+            let V (i: int) = a.Groups.[i].Value
             Some (fullpath, filenameWithoutExt, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
         else
             None

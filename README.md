@@ -60,7 +60,7 @@ You can clean your solution with `"dotnet clean"` from the root folder: this rem
 
 # 3. Writing your articles
 
-The markdown files for your articles are in `src\Hosted\posts`. Add your `.md` files to this folder with the naming convention `YYYY-MM-DD-YourArticleTitle.md`. Give at least the title in the YAML header, as follows:
+The markdown files for your articles are in `src\Hosted\posts`. Add your `.md` files to this folder with the naming convention `YYYY-MM-DD-YourArticleTitle.md` or `YYYYMMDD-YourArticleTitle.md`. Give at least the title in the YAML header, as follows:
 
 ```
 ---
