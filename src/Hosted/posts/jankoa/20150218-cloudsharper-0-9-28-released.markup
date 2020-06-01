@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.28 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a bugfix release for the editor."
+identity: "4236,77717"
 ---
 This release fixes some issues introduced in last release, and improves tooltips and autocomplete.
 

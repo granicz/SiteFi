@@ -2,6 +2,7 @@
 title: "WebSharper 4.5.2 released with new AspNetCore API"
 categories: "aspnetcore,ui,csharp,fsharp,javascript,websharper"
 abstract: "This includes a more idiomatic API for WebSharper.AspNetCore."
+identity: "5626,85883"
 ---
 This is a minor release for WebSharper. The main highlight of this release is the improved API for WebSharper.AspNetCore.
 

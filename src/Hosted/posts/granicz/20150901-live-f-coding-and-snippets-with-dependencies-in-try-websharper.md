@@ -2,6 +2,7 @@
 title: "Live F# coding and snippets with dependencies in Try WebSharper"
 categories: "trywebsharper,fsharp,websharper"
 abstract: "Try WebSharper reached an important milestone today: we just released the first bits of on-the-fly typechecking and code completion, and you can now develop F# web snippets, without any installation, online more easily than ever."
+identity: "4546,80161"
 ---
 [Try WebSharper](http://try.websharper.com) reached an important milestone today: we just released the first bits of on-the-fly typechecking and code completion, and you can now develop F# web snippets, without any installation, online more easily than ever.
 

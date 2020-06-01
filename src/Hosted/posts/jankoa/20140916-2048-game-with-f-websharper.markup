@@ -2,6 +2,7 @@
 title: "2048 game with F# + WebSharper"
 categories: "cloudsharper,f#,websharper"
 abstract: "A re implementation of the popular browser game with easy to override game logic."
+identity: "4034,77421"
 ---
 This <a href="http://gabrielecirulli.github.io/2048/">small logic game written</a> in JavaScript+HTML5 has spawned quite a lot of variants. There is a site called <a href="http://community.usvsth3m.com/2048/">Make Your Own 2048</a> where you can switch the original's numbers to any text or image and share your creation. However, modifying the game logic requires some programming knowledge and sometimes bigger rework of the original JavaScript code.
 

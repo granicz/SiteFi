@@ -2,6 +2,7 @@
 title: "Part 2. Model-View-Update (MVU) style apps with WebSharper UI"
 categories: "mvu,ui,elm,f#,websharper"
 abstract: "In this tutorial, you will learn about using WebSharper UI to implement a simple Model-View-Update (MVU) application pattern, similar to the Elm architecture. In subsequent tutorials, you will learn about enhancing this pattern to a full-scale application development architecture (The WebSharper Architecture) that has superior performance and sufficient flexibility to implement any type of web application."
+identity: "5561,84980"
 ---
 # Part 2. Model-View-Update (MVU) style apps with WebSharper UI
 

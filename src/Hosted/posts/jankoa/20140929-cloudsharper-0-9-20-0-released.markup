@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.20.0 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "The highlight of this release is tooltips for F# code."
+identity: "4043,77446"
 ---
 The highlight of this release is tooltips for F# code. Be patient when loading a larger projects, tooltips appear when the FSharp Compiler Services has loaded all the code files.
 

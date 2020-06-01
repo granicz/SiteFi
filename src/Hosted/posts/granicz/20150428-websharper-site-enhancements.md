@@ -2,6 +2,7 @@
 title: "WebSharper site enhancements"
 categories: "website,websharper"
 abstract: "The recent WebSharper 3 release also saw a number of enhancements to the WebSharper website, including a major reorganization to its content. In this post, I will summarize these, in particular [...]"
+identity: "4336,79341"
 ---
 The recent WebSharper 3 release also saw a number of enhancements to the WebSharper website, including a major reorganization to its content. In this post, I will summarize these, in particular:
 

@@ -2,6 +2,7 @@
 title: "WebSharper 2.4 Q2 available"
 categories: "release,f#,websharper"
 abstract: "A few days ago, I blogged about WebSharper 2.4 Q2 Beta, announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of WebSharper 2.4 Q2, available from the WebSharper downloads page."
+identity: "2525,75345"
 ---
 A few days ago, <a href="http://fpish.net/blog/adam.granicz/id/2509/2012415-websharper-2-4-q2-beta-out">I blogged about WebSharper 2.4 Q2 Beta</a>, announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of <b>WebSharper 2.4 Q2</b>, available from the <a href="http://websharper.com/downloads">WebSharper downloads page</a>.
 

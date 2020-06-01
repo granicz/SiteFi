@@ -2,6 +2,7 @@
 title: "WebSharper 3.6.7 released"
 categories: "suave,fsharp,javascript,web,websharper"
 abstract: "This is a minor release with bug fixes and updates for dependent libraries."
+identity: "4676,81085"
 ---
 We are pleased to announce the release of WebSharper 3.6.7. This is a minor release with bug fixes and updates for dependent libraries. Here is the full change log.
 

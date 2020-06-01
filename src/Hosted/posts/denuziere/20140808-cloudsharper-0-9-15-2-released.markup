@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.15.2 released"
 categories: "cloudsharper,f#,websharper"
 abstract: ""
+identity: "3995,77358"
 ---
 We just released CloudSharper 0.9.15.2, and as you probably noticed, there have been quite big visual changes with the 0.9.15 series as we switch to Dojo as our UI toolkit.
 

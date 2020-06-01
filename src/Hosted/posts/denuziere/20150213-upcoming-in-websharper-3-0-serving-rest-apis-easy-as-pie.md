@@ -2,6 +2,7 @@
 title: "Upcoming in WebSharper 3.0: serving REST APIs, easy as pie!"
 categories: "fsharp,websharper"
 abstract: "WebSharper 3.0 is coming with an awesome new feature: automatically parse JSON requests into typed F# values, and reply with JSON just as easily!"
+identity: "4231,77707"
 ---
 WebSharper Sitelets are a wonderful way to build websites quickly and safely.
 They can automatically manage your URLs in a type-safe way, and generate HTML markup

@@ -2,6 +2,7 @@
 title: "Introducing Try WebSharper"
 categories: "snippets,f#,websharper"
 abstract: "We are thrilled to announce the availability of Try WebSharper, a simple and fun way to create and share WebSharper snippets with others!"
+identity: "4424,79902"
 ---
 We are thrilled to announce the availability of [Try WebSharper](http://try.websharper.com), a simple and fun way to create and share WebSharper snippets with others!
 

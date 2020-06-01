@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.16 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release marks the first of many upcoming features to customize your environment."
+identity: "3997,77361"
 ---
 CloudSharper 0.9.16 is out, and it's a big one! In addition to a new website design, we are releasing the first of many features to come allowing you to develop extensions to CloudSharper itself. In this first batch, we are focusing on custom editors for a designated file type.
 

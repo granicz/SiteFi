@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.19.3 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a bugfix release focusing mainly on the F# code service."
+identity: "4038,77437"
 ---
 The main highlight of this release is the switch from plain <a href="https://github.com/fsharp/fsharp.compiler.service">FSharp.Compiler.Service</a> to the higher-level <a href="https://github.com/fsharp/fsharpbinding">FSharp.CompilerBinding</a>. This will allow us to benefit from more community-developed enhancements, and to develop improvements to the code service more quickly. A few bugs have already been fixed thanks to this transition, and you can expect hover tooltips, go to definition and more soon!
 

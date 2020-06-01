@@ -2,6 +2,7 @@
 title: "WebSharper 3.0.59 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "This minor release adds Sitelets-related functionality and bug fixes."
+identity: "4356,79382"
 ---
 This is the first minor release since WebSharper 3.0 went live. Here is the change log:
 

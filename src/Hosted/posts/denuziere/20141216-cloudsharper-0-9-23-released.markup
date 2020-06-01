@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.23 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "CloudSharper updates to WebSharper 3.0 alpha."
+identity: "4148,77596"
 ---
 It's been a few weeks since our previous release, and finally CloudSharper 0.9.23 is here.
 

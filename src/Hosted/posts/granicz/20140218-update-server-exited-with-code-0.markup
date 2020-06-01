@@ -2,6 +2,7 @@
 title: "Update: Server exited with code 0"
 categories: "cloudsharper,f#"
 abstract: ""
+identity: "3732,77058"
 ---
 Since the first 0.9.1 release, several users reported that they were unable to start CloudSharper Services properly, with the console showing the following trace:
 <code lang="text">

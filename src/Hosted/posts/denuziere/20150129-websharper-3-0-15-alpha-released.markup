@@ -2,6 +2,7 @@
 title: "WebSharper 3.0.15-alpha released"
 categories: "javascript,web,f#,websharper"
 abstract: ""
+identity: "4205,77675"
 ---
 Here comes another release of WebSharper 3.0 alpha! This release focuses on small fixes and improvements, as well as a couple new proxies for useful classes such as <c>System.Random</c> and <c>System.Guid</c>.
 

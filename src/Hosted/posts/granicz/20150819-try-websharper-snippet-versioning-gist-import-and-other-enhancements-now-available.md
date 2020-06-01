@@ -2,6 +2,7 @@
 title: "Try WebSharper: snippet versioning, gist import, and other enhancements now available"
 categories: "snippet,trywebsharper,gist,f#,websharper"
 abstract: "A new Try WebSharper is out adding a couple handy new features and addressing a couple annoyances, making it even more easy to publish your F# and WebSharper snippets."
+identity: "4537,80101"
 ---
 A new [Try WebSharper](http://try.websharper.com) is out adding a couple handy new features and addressing a couple annoyances, making it even more easy to publish your F# and WebSharper snippets. The picture below depicts the main areas of change:
 

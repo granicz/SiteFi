@@ -2,6 +2,7 @@
 title: "Call for Presentations - CUFP 2010"
 categories: "conference,cufp"
 abstract: "Functional programming languages have been a hot topic of academic research for over 35 years, and are rapidly being adopted in diverse real-world settings ranging from from tech startups to financial and biomedical firms. A vigorous community of practically-minding functional programmers has come into existence, using them as tools to build reliable and fast systems.CUFP is designed to serve this community.  The aim is for CUFP to be aplace where people can see how others are using functional programmingto solve real world problems; where practitioners meet andcollaborate; where language designers and users can share ideas aboutthe future of their favorite language; and where one can learnpractical techniques and approaches for putting functional programmingto work."
+identity: "1018,74599"
 ---
 The CUFP workshop, co-located with ICFP 2010 in Baltimore, MD, is seeking F# submissions. Please have a look at the CfP below and let me know if you are interested in submitting. The date for the workshop is October 1-2, 2010.
 

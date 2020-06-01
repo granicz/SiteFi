@@ -2,6 +2,7 @@
 title: "Sencha Architect type provider for WebSharper updated"
 categories: "senchaarchitect,extjs,senchatouch,f#,websharper"
 abstract: "This release makes it even more convenient to build Ext JS and Sencha Touch applications with WebSharper."
+identity: "3866,77200"
 ---
 This release makes it even more convenient to build Ext JS and Sencha Touch applications with WebSharper.
 

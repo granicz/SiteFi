@@ -2,6 +2,7 @@
 title: "jQuery Mobile page reuse with Websharper"
 categories: "jquerymobile,f#,websharper"
 abstract: "Sample jQuery mobile single-page application with dynamically created and reused pages using WebSharper"
+identity: "3362,76642"
 ---
 I have been reworking an older WebSharper jQuery Mobile app which used one sitelet (compiled to HTML file) for each JQM page. I decided to use another approach: a single-page application with JQM pages generated lazily and reused if needed. JQM has <a href="http://jquerymobile.com/demos/1.2.1/docs/pages/dynamic-samples/sample-reuse-page.html">a sample</a> which that gives an example of page reuse, so I implemented it with WebSharper. The resulting framework is easy to expand and manage.
 

@@ -2,6 +2,7 @@
 title: "Bing Maps 7.0 Extension for WebSharper"
 categories: "bingmaps,f#,websharper"
 abstract: "The Bing Maps extension for WebSharper has been updated to version 7.0 of the library. It allows developers to use the latest features of Bing Maps, including info boxes and keyboard events. It also provides a convenient interface to the REST API for searches, routes and static map images."
+identity: "2063,74895"
 ---
 The <a href=http://www.websharper.com/extension/358-bmaps/None>Bing Maps extension for WebSharper</a> has been updated to version 7.0 of the library. It allows developers to use the latest features of Bing Maps, including info boxes and keyboard events. It also provides a convenient interface to the REST API for searches, routes and static map images.
 

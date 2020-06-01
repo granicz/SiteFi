@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.27 released"
 categories: "cloudsharper,fsharp,websharper"
 abstract: "CloudSharper 0.9.27 is out, with some UI enhancements and the capability to write WebSharper RPC methods in F# interactive."
+identity: "4219,77694"
 ---
 Here comes another release of CloudSharper! Version 0.9.27 comes with a number of enhancements:
 

@@ -2,6 +2,7 @@
 title: "Announcing Try F# on WebAssembly"
 categories: "wasm,fcs,bolero,webassembly,tryfs,f#,websharper"
 abstract: "Just a short week ago, we announced the first release of Bolero, enabling full-stack F# web development on WebAssembly. Since then we have been working on a small side project to see what it would take to implement a fully client-side implementation of the F# compiler: basically, to embed FSharp.Compiler.Services (FCS) in a small Bolero application."
+identity: "5696,86246"
 ---
 Just a short week ago, we [announced](https://forums.websharper.com/blog/86199) the first release of [Bolero](https://github.com/fsbolero/Bolero), enabling full-stack F# web development on WebAssembly. Since then we have been working on a small side project to see what it would take to implement **a fully client-side implementation of the F# compiler**: basically, to embed FSharp.Compiler.Services (FCS) in a small Bolero application.
 

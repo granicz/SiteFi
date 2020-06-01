@@ -2,6 +2,7 @@
 title: "WebSharper UI.Next: Animating Single-Page Applications"
 categories: "reactivedom,animation,ui.next,f#,websharper"
 abstract: "WebSharper.UI.Next provides a powerful declarative animation system. This mini-blog shows how to integrate this with single-page sites and flowlets."
+identity: "3985,77338"
 ---
 <h1>Introduction</h1>
 In my <a href="http://fpish.net/blog/SimonJF/id/3965/2014722-structuring-web-applications-with-websharper-ui-next">previous blog</a>, I was asked about how easy it would be to tie in custom animations to the flowlet I described. In this post I hope to convince you that the answer to that is, well... Pretty easy!

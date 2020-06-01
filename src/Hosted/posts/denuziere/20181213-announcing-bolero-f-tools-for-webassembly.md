@@ -2,6 +2,7 @@
 title: "Announcing Bolero: F# tools for WebAssembly"
 categories: "bolero,webassembly,fsharp,websharper"
 abstract: "A new library to create F# web applications in WebAssembly via Blazor."
+identity: "5695,86199"
 ---
 We are happy to announce the release of Bolero 0.1. Bolero is a brand new library that enables writing full-stack applications in F#, whose client side runs in WebAssembly using [Blazor](https://blazor.net/). It is designed for Model-View-Update (Elmish) style development, and provides features such as HTML templating, remote server calls and advanced routing.
 

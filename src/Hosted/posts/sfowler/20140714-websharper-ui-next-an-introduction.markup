@@ -2,6 +2,7 @@
 title: "WebSharper.UI.Next: An Introduction"
 categories: "dataflow,ui.next,dom,web,f#,websharper"
 abstract: "In this blog, we introduce an experimental UI library for the WebSharper web framework, and illustrate this by means of a small example. "
+identity: "3954,77293"
 ---
 <h1>WebSharper.UI.Next: An Introduction</h1>
 Here at <a href="http://www.intellifactory.com">IntelliFactory</a>, we've been working on a new way of constructing single-page applications.

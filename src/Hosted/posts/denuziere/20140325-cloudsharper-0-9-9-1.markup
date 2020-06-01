@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.9.1"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a bugfix release, the most important fix being the fsi interactive features."
+identity: "3768,77090"
 ---
 As the version number suggests, this is only a bugfix release. The issues addressed are:
 

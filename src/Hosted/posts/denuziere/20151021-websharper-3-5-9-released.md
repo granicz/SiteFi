@@ -2,6 +2,7 @@
 title: "WebSharper 3.5.9 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "This is mostly a bugfix release, with a few shorthands added to the UI.Next API."
+identity: "4601,80518"
 ---
 We just released version 3.5.9 of the WebSharper stack. This is mostly a bugfix release, with a few shorthands added to the UI.Next API.
 

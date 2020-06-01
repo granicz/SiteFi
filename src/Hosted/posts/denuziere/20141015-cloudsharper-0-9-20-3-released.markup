@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.20.3 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release of CloudSharper adds configuration options for the local service's web server and the workspaces directory."
+identity: "4064,77473"
 ---
 This release of CloudSharper adds configuration options for the local service's web server and the workspaces directory. These options are present in the <c>CloudSharper.Console.exe.config</c> file if you use the GUI console, or can be passed via the command line if you use <c>CloudSharper.exe</c> directly.
 

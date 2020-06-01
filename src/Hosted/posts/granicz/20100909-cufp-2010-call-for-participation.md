@@ -2,10 +2,11 @@
 title: "CUFP 2010 - Call for Participation"
 categories: "conference,cufp"
 abstract: "Functional programming languages have been a hot topic of academicresearch for over 35 years, and have seen an ever larger practicalimpact in settings ranging from tech startups to financial firms tobiomedical research labs. At the same time, a vigorous community ofpractically-minding functional programmers has come into existence.CUFP is designed to serve this community. The annual CUFP workshop isa place where people can see how others are using functionalprogramming to solve real world problems; where practitioners meet andcollaborate; where language designers and users can share ideas aboutthe future of their favorite language; and where one can learnpractical techniques and approaches for putting functional programmingto work.CUFP 2010 will feature three hour Functional Programming tutorialsgiven by language experts on the first day and Experience andTechnical Talks on day two. Attendees may attend either or both days."
+identity: "1011,74592"
 ---
 The CUFP 2010 program has been finalized a while ago, and it's great to see that the keynote and a large commercial application talk is about F#. Below is the program and links to the registration page, please grab your seat as soon as you can - it sure will be a great workshop and an excellent opportunity to share your experience with F#.
 
-```fsharp
+```
   Commercial Users of Functional Programming Workshop
                       (CUFP) 2010
 

@@ -2,6 +2,7 @@
 title: "WebSharper 4.5.5 released"
 categories: "ui,csharp,fsharp,websharper"
 abstract: "Introducing dynamic templates for WebSharper.UI"
+identity: "5678,86100"
 ---
 We are happy to announce the release of WebSharper 4.5.5.
 

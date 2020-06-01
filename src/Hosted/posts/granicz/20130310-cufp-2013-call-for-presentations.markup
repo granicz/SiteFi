@@ -2,6 +2,7 @@
 title: "CUFP 2013 - Call for Presentations"
 categories: "sml,clojure,haskell,erlang,ocaml,scala,f#"
 abstract: "The annual CUFP workshop is a place where people can see how others are using functional programming to solve real world problems; where practitioners meet and collaborate; where language designers and users can share ideas about the future of their favorite language; and where one can learn practical techniques and approaches for putting functional programming to work."
+identity: "3056,76235"
 ---
 <c>
 Workshop for Commercial Users of Functional Programming 2013

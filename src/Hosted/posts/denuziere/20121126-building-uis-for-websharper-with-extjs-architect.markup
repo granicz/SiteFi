@@ -2,6 +2,7 @@
 title: "Building UIs for WebSharper with ExtJS Architect"
 categories: "extjs,f#,websharper"
 abstract: "WebSharper provides an extension to write ExtJS applications in F#. But did you know that you can easily use the visual designer ExtJS Architect in conjunction with WebSharper? Here is how."
+identity: "2951,76011"
 ---
 As you may know, we provide a complete extension to WebSharper for <a href="http://websharper.com/samples/ExtJs">ExtJS</a>. It allows you to easily create full-fledged user interfaces with features one would expect from a desktop application.
 

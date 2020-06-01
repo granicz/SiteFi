@@ -2,6 +2,7 @@
 title: "Parsing with active patterns"
 categories: "activepatterns,parsing,f#"
 abstract: "Active patterns provide the perfect mechanism to implement recursive-descent parsers - allowing you to quickly prototype even complex grammars using a statically typed approach and without the need to resort to lexer and parser generators."
+identity: "1024,74605"
 ---
 I was giving an F# warm-up a couple days ago at [CEFP 2009](http://www.inf.elte.hu/english/conf/tfp_cefp_2009/Lapok/index.aspx), and one of the examples I was giving was on active patterns and their application for Parsing Expression Grammars (PEGs). In short, PEGs are a way to specify grammars using functions that either succeed or fail, and combining them to form a recursive-descent parser.
 

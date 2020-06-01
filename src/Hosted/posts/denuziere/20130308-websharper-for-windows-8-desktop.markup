@@ -2,6 +2,7 @@
 title: "WebSharper for Windows 8 Desktop"
 categories: "winjs,windows8,f#,websharper"
 abstract: "The first Windows 8 Application developed with WebSharper is about to go live on the Windows Store. This is a preview of the upcoming WebSharper WinJS binding."
+identity: "3055,76225"
 ---
 In addition to increasingly popular web applications, HTML and JavaScript-based applications have also made an appearance on the desktop with Windows 8. The WinJS API allows the creation of full-blown Windows 8 desktop applications combining the rich built-in features of Windows 8 and the tremendous capabilities of existing JavaScript libraries.
 

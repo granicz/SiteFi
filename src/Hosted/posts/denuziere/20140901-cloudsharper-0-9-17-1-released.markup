@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.17.1 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release enables running F# interactive without a workspace, in addition to a set of bug fixes."
+identity: "4014,77379"
 ---
 It's release time again! CloudSharper 0.9.17.1 is out with a new feature: workspace-less fsi.
 

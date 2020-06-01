@@ -2,6 +2,7 @@
 title: "WebSharper 4 beta-10 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "Fixes and old and recent community requests are released"
+identity: "5412,83173"
 ---
 We are preparing for stable release, reviewing all current issues and documentation. Beta-10 solves some old (reference equality for classes) and recent (`ToString` for `Systen.Char`) issues reported. Look for VS2017 installer [here](http://websharper.com/downloads) (VS2015 support upcoming).
 

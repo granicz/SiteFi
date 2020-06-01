@@ -2,6 +2,7 @@
 title: "WebSharper 4.5 released"
 categories: "csharp,fsharp,javascript,websharper"
 abstract: "This release simplifies the use of HTML functions in WebSharper UI."
+identity: "5624,85693"
 ---
 We are happy to announce the release of WebSharper 4.5!
 

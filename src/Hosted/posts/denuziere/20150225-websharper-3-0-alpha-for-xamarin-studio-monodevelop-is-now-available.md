@@ -2,6 +2,7 @@
 title: "WebSharper 3.0-alpha for Xamarin Studio / MonoDevelop is now available!"
 categories: "xamarin,monodevelop,fsharp,websharper"
 abstract: "We have updated the WebSharper Xamarin Studio / MonoDevelop add-in for the latest WebSharper 3.0.36-alpha.It is now easier than ever to get started with WebSharper 3.0 on Mac or Linux!"
+identity: "4242,77742"
 ---
 We have updated the WebSharper Xamarin Studio / MonoDevelop add-in for the latest WebSharper 3.0.36-alpha.
 It is now easier than ever to get started with WebSharper 3.0 on Mac or Linux!

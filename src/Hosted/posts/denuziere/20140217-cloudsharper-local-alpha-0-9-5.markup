@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha 0.9.5"
 categories: "cloudsharper,f#"
 abstract: "Today's update features an enhanced installer, smoother Markdown and HTML editing, and some more bug fixes."
+identity: "3731,77057"
 ---
 We just released CloudSharper Local alpha 0.9.5, with the following changes:
 

@@ -2,6 +2,7 @@
 title: "WebSharper.UI.Next 3.4.19 with OnAfterRender"
 categories: "ui.next,fsharp,javascript,reactive,web,websharper"
 abstract: "This is a minor release of WebSharper UI.Next which provides the OnAfterRender feature from Html.Client."
+identity: "4550,80189"
 ---
 We just released WebSharper.UI.Next version 3.4.19 to NuGet. This minor release includes a functionality that is widely used with Html.Client and is now also available in UI.Next: OnAfterRender.
 

@@ -2,6 +2,7 @@
 title: "New FPish feature: E-mail notification"
 categories: "fpish"
 abstract: "FPish can now alert you by e-mail of responses to your FPish submissions!"
+identity: "3144,76353"
 ---
 A quick blog post to signal that I have just deployed a long-requested feature on FPish: e-mail notifications.
 

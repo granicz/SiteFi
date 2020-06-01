@@ -2,6 +2,7 @@
 title: "WebSharper UI.Next 3.4: the new HTML syntax"
 categories: "ui.next,fsharp,html,javascript,reactive,websharper"
 abstract: "In version 3.4, WebSharper UI.Next's markup has been overhauled in order to prepare for the upcoming merger into WebSharper in version 4.0."
+identity: "4423,79893"
 ---
 As its name suggests, UI.Next was created to be the next-generation standard library for UI programming in WebSharper. As a consequence, as of WebSharper 4.0, **UI.Next will be merged into WebSharper itself** under a less "codenamey" moniker that we haven't decided yet. It will completely obsolete the current Html.Client and Html.Server.
 

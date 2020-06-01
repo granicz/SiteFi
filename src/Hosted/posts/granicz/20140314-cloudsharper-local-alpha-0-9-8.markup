@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha 0.9.8"
 categories: "cloudsharper,websharper"
 abstract: "We are happy to announce CloudSharper Local alpha 0.9.8, encapsulating the latest enhancements to the F# compiler service and delivering several bug fixes to CloudSharper's msbuild support."
+identity: "3764,77088"
 ---
 We are happy to announce a new round of CloudSharper Local alpha releases, encapsulating the latest enhancements to the F# compiler service and delivering several bug fixes to CloudSharper's msbuild support.
 

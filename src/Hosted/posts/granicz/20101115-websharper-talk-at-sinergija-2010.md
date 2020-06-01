@@ -2,6 +2,7 @@
 title: "WebSharper talk at Sinergija 2010"
 categories: "f#,websharper"
 abstract: "WebSharper talk at Sinergija 2010, Community Track."
+identity: "1007,74588"
 ---
 I will be giving a talk at Sinergija 2010, [Community Track](http://codecamp.msforge.net/CommunityTrack/) about web programming in F# and with WebSharper. This event is Belgrade, Serbia - here is the abstract if you are in the area:
 

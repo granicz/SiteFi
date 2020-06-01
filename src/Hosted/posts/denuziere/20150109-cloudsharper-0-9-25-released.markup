@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.25 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release of CloudSharper updates the templates and the user interface itself to the latest WebSharper."
+identity: "4156,77621"
 ---
 We just released a new version of CloudSharper alpha, 0.9.25. This version updates the CloudSharper interface and the project templates to the latest version of WebSharper 3.0.
 

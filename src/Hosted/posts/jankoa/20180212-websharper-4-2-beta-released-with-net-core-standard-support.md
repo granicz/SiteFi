@@ -2,6 +2,7 @@
 title: "WebSharper 4.2-beta released with .NET Core/Standard support"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.2-beta adds support for .NET Core and compiler configuration via json"
+identity: "5502,84552"
 ---
 WebSharper 4.2-beta is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](http://websharper.com/downloads).
 

@@ -2,6 +2,7 @@
 title: "Data-aware workbooks and client-side data access with WebSharper.Data"
 categories: "data,fsharp.data,fsharp,websharper"
 abstract: "F# has always excelled at accessing heterogeneous data sources in server-side code through its unique type provider feature: a metaprogramming technique that enables generating (or \"providing\") domain-specific code to be consumed during compilation, such as generating typed schemas for relational databases, CSV and other data files, or bindings for web services and integration with other languages such as R. Type providers are given an optional set of arguments in your code using custom F# syntax, yielding a type space in return."
+identity: "4623,80603"
 ---
 F# has always excelled at accessing heterogeneous data sources in server-side code through its unique [type provider](https://msdn.microsoft.com/en-us/library/hh156509.aspx) feature: a metaprogramming technique that enables generating (or "providing") domain-specific code to be consumed during compilation, such as generating typed schemas for relational databases, CSV and other data files, or bindings for web services and integration with other languages such as R. Type providers are given an optional set of arguments in your code using custom F# syntax, yielding a type space in return.
 

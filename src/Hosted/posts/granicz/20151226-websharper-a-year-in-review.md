@@ -2,6 +2,7 @@
 title: "WebSharper - a year in review"
 categories: "livedata,jointjs,rappid,forms,review,react,bootstrap,c#,f#,websharper"
 abstract: "Just over a year ago, last year in December we released WebSharper 3 on Apache, putting it into the hands of every F# web developer. One thing we learned from WebSharper 2 is that more frequent releases are better and this year kept the whole team busy with constant innovation and new releases. Below is a list I cherry-picked from the WebSharper blog.. [more]"
+identity: "4665,81029"
 ---
 ## WebSharper – a year in review
 

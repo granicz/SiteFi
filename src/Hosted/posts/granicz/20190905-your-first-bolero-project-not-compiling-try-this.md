@@ -1,7 +1,8 @@
 ---
-title: Your first Bolero project not compiling? Try this!
-categories: websharper,f#,bolero
-abstract: The Bolero homepage starts off with a video that shows you how to create your first client-server app with three simple commands, ...
+title: "Your first Bolero project not compiling? Try this!"
+categories: "bolero,f#,websharper"
+abstract: "The Bolero homepage starts off with a video that shows you how to create your first client-server app with three simple commands, ..."
+identity: "5792,87267"
 ---
 [Bolero][bolero] is a functional, reactive web library built on top of [Blazor][blazor] for F# developers. It combines Elm's [Model-View-Update architecture][elm-arch] (MVU) via [Elmish][elmish] with powerful features pioneered by [WebSharper][websharper], such as templating and easy remoting, to give developers a sound, effective and highly productive way to structure and implement full-stack .NET web applications that run on WebAssembly.
 

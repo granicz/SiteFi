@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha 0.9.6"
 categories: "cloudsharper,f#"
 abstract: "In addition to several bug fixes, the main highlight of this new update is the experimental support for MSBuild as an alternative to IntelliFactory.Build."
+identity: "3741,77067"
 ---
 Here are the changes for CloudSharper Local alpha 0.9.6:
 

@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.20.1 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release makes tooltips better, adds Go To Definition."
+identity: "4044,77449"
 ---
 This release makes tooltips better, adds Go To Definition, close button on docked floating panes (Console/Interactive and Browser).
 

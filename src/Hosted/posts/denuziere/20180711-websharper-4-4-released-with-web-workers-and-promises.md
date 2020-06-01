@@ -2,6 +2,7 @@
 title: "WebSharper 4.4 released with Web Workers and Promises"
 categories: "webworker,promise,csharp,fsharp,javascript,websharper"
 abstract: "This release improves client-side parallel and asynchronous programming in F# and C#."
+identity: "5618,85525"
 ---
 We are happy to announce the release of WebSharper 4.4.0.
 

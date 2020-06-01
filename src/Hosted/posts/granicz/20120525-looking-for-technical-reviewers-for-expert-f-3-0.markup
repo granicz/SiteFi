@@ -2,6 +2,7 @@
 title: "Looking for technical reviewers for Expert F# 3.0"
 categories: "expertf#,reviewer,book,f#"
 abstract: "You may have heard that Don, Antonio and I have teamed up again to work on Expert F# 3.0, doing a comprehensive update with quite a bit of changes, and adding a good amount of new material to the book's first and second edition. [more]"
+identity: "2600,75529"
 ---
 You may have heard that Don, Antonio and I have teamed up again to work on Expert F# 3.0, doing a comprehensive update with quite a bit of changes, and adding a good amount of new material to the book's first and second edition.
 

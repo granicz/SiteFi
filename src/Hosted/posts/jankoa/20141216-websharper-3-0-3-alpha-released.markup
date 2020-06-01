@@ -2,6 +2,7 @@
 title: "WebSharper 3.0.3-alpha released"
 categories: "javascript,f#,websharper"
 abstract: "This is our first release of WebSharper 3.0-alpha with a new feature: source mapping."
+identity: "4146,77594"
 ---
 This is our first release of WebSharper 3.0-alpha with a new feature: source mapping. If you enable it on your project, you can see the F# sources in your browser and set breakpoints in it.
 

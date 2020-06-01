@@ -2,6 +2,7 @@
 title: "WebSharper 3.5.14 released"
 categories: "spa,f#,websharper"
 abstract: "This is a small bufgix release for SPA projects."
+identity: "4619,80576"
 ---
 This is a small bufgix release for SPA projects. Change log:
 

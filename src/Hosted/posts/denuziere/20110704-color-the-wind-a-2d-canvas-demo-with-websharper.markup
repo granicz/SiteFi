@@ -2,6 +2,7 @@
 title: "Color the Wind - a 2D Canvas demo with WebSharper"
 categories: "demoscene,f#,websharper"
 abstract: "At DemoJS, a demoparty dedicated to web technologies that took place this weekend in Paris, a demo coded with WebSharper was released."
+identity: "2058,74890"
 ---
 The demoscene is a computer subculture focused on the creation of demos: short real-time animations showcasing a wide variety of technologies. Among these, web technologies have been getting increasing interest during the last months. DemoJS is an example of this interest: it is a demoparty (a demoscene meeting and competition) that was co-organized by Mozilla Labs in Paris on the 2nd and 3rd of July.
 

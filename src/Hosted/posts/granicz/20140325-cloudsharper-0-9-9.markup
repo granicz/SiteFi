@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.9"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release continues our efforts to require fewer dependencies on your machine before you can use CloudSharper. In earlier releases, various CloudSharper templates (most notably, the WebSharper Sitelet Website template) required .targets files that were part of Visual Studio. This dependency is now eliminated."
+identity: "3767,77089"
 ---
 This release continues our efforts to require fewer dependencies on your machine before you can use CloudSharper. In earlier releases, various CloudSharper templates (most notably, the WebSharper Sitelet Website template) required <c>.targets</c> files that were part of Visual Studio. This dependency is now eliminated.
 

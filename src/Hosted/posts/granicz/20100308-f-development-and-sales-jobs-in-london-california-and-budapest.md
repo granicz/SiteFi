@@ -2,6 +2,7 @@
 title: "F# Development and Sales Jobs in London, California, and Budapest"
 categories: "jobs,f#"
 abstract: "IntelliFactory is inviting applications for a range of F# positions - we are seeking F# developers, architects, interns, WebSharper developers, agile development/project managers, and seasoned sales/KAM professionals.  To be considered, please send your resume and short introduction to `hr [at] intellifactory.com`."
+identity: "1017,74598"
 ---
 In case you are looking for a functional programming job - http://cufp.org is a good starting point. The Commercial Users of Functional Programming workshop has been the primary venue for FP folks who aim to bridge academia and industry and apply FP to solve real-life problems. (See my [previous post](//intellifactory.com/user/granicz/20100305-call-for-presentations-cufp-2010) for the call for presentations - feel free to contact me if you are considering submitting, I'd be glad to provide any assistance you may need.)
 

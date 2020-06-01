@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.13 with workspace cloud sharing!"
 categories: "cloudsharper,f#,websharper"
 abstract: "With this new release of CloudSharper, we are starting the move of CloudSharper towards more and more online publication and sharing capabilities."
+identity: "3920,77259"
 ---
 Here we are again with a new release of CloudSharper today. This is an exciting one, as it allows you to upload your workspaces to our cloud storage and share them with everyone!
 

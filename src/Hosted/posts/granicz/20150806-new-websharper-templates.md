@@ -2,6 +2,7 @@
 title: "New WebSharper templates"
 categories: "templates,f#,websharper"
 abstract: "The recent release of WebSharper 3.4 also brought an update to most of the project templates shipped for Visual Studio, MonoDevelop, and Xamarin Studio."
+identity: "4425,79908"
 ---
 The [recent release of WebSharper 3.4](http://websharper.com/blog-entry/4422/websharper-3-4-released) also brought an update to most of the project templates shipped for Visual Studio, MonoDevelop, and Xamarin Studio.
 

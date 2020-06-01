@@ -2,6 +2,7 @@
 title: "WebSharper 3.0 released"
 categories: "javascript,f#,websharper"
 abstract: "This new major release adds a cleaner metaprogramming API, date formatting for JSON API, bug fixes and proxy revisions, among many other changes."
+identity: "4323,79261"
 ---
 Finally!
 

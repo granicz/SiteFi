@@ -2,6 +2,7 @@
 title: "Rapid prototyping of DSLs in F# - Part II"
 categories: "dsl,f#,websharper"
 abstract: "The second part of \"Rapid prototyping of DSLs in F#\" presents the parser for Simply, a small programming language with functions and expressions."
+identity: "1023,74604"
 ---
 This is the second article in the "Rapid prototyping of DSLs in F#" series that summarizes the talks I gave at CEFP 2009 and goes beyond. Here is the short build-up of the series:
 

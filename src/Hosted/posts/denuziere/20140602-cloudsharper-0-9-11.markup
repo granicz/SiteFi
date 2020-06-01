@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.11"
 categories: "cloudsharper,f#,websharper"
 abstract: "Version 0.9.11 of CloudSharper alpha is out!"
+identity: "3884,77221"
 ---
 We just released version 0.9.11 of CloudSharper alpha. The main highlights are:
 <ul>

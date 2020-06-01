@@ -2,6 +2,7 @@
 title: "News from WebSharper 3.0: NuGet, Visual Studio, Mono, upcoming features and API changes"
 categories: "mono,nuget,javascript,f#,websharper"
 abstract: "The first batch of WebSharper 3.0 releases has just hit NuGet, together with the Visual Studio extension. The build system has been updated to build correctly on Mono. Work has also started on new features and API enhancements."
+identity: "4128,77574"
 ---
 The community response to the WebSharper 3.0 announcement has been overwhelmingly positive. Thanks to everyone who keeps spreading the word! Here are some news from the front:
 

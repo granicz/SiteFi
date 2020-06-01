@@ -2,6 +2,7 @@
 title: "WebSharper 4.2 released"
 categories: "aspnetcore,csharp,fsharp,websharper"
 abstract: "It is finally here! Today we are releasing WebSharper 4.2."
+identity: "5507,84664"
 ---
 # WebSharper 4.2 released
 

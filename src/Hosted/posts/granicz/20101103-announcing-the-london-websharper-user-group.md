@@ -2,6 +2,7 @@
 title: "Announcing the London WebSharper User Group"
 categories: "f#,websharper"
 abstract: "We are thrilled to announce the London WebSharper User Group - a forum for WebSharper professionals and enthusiasts based in London, UK to exchange ideas and experiences, and to serve as a major hub for furthering the interest in functional web programing. We sincerely hope that it will add significant value to our WebSharper user community."
+identity: "1008,74589"
 ---
 With around 3,000 unique WebSharper Standard downloads in the past few months, interest in learning about WebSharper and functional web programming in F# is increasing tremendeously. There are many intriguing blog posts popping up everywhere about WebSharper and using it to showcase F# web applications. But the success story doesn't end there! There are great new features in our upcoming WebSharper Professional release that we believe will fundamentally change the way web programming is done and will open new frontiers to those who dare to enter this exciting and rewarding new world.
 

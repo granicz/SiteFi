@@ -2,6 +2,7 @@
 title: "Try WebSharper: update notes for snippets"
 categories: "trywebsharper,f#,websharper"
 abstract: "A new release of Try WebSharper is out  featuring some enhancements regarding snippet meta-data and embedding."
+identity: "4540,80126"
 ---
 A new version of Try WebSharper just hit the live site featuring update notes to complement the addition of updates from the last release along with some quality of life changes.
 

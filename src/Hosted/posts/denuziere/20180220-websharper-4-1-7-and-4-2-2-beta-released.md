@@ -2,6 +2,7 @@
 title: "WebSharper 4.1.7 and 4.2.2-beta released"
 categories: "csharp,fsharp,websharper"
 abstract: "This is a bugfix release for both the stable and beta branches of WebSharper."
+identity: "5504,84606"
 ---
 This is a bugfix release for both the stable and beta branches of WebSharper. It is available as `dotnet` templates or as a Visual Studio installer; see [how to install WebSharper](http://developers.websharper.com/docs/v4.x/fs/install).
 

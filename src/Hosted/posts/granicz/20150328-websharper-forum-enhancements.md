@@ -2,6 +2,7 @@
 title: "WebSharper forum enhancements"
 categories: "website,fpish,websharper"
 abstract: "In recent weeks we had been busy with a series of enhancements to the WebSharper website and some underlying FPish services. [more...]"
+identity: "4272,79115"
 ---
 
 In recent weeks we had been busy with a series of enhancements to the WebSharper website and some underlying [FPish](http://fpish.net) services.

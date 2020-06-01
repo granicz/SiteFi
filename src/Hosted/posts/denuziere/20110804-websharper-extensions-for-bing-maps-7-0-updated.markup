@@ -2,6 +2,7 @@
 title: "WebSharper Extensions for Bing Maps 7.0 Updated"
 categories: "bing,maps,websharper"
 abstract: "The WebSharper Extensions for Bing Maps has been updated to reflect the last changes in the 7.0 API. Among notable additions are Directions, a simplified interface to the Routes REST API, Traffic and VenueMaps, as well as the possibility to implement your own extension modules."
+identity: "2054,74886"
 ---
 The WebSharper Extensions for Bing Maps has been updated to reflect the last changes in the 7.0 API. Here is a list of additions:
 

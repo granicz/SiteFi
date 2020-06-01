@@ -2,6 +2,7 @@
 title: "WebSharper 2010 Standard coming soon"
 categories: "f#,websharper"
 abstract: ""
+identity: "1020,74601"
 ---
 Hi everyone, and thanks for the emails asking about the delay in launching WebSharper 2010 Standard. A few days ago an internal release of Visual Studio 2010 RC was made available by Microsoft to various industry partners including ourselves for testing before the public release. As it came right at our official launch date we had to make the hard decision to “silently” postpone releasing WebSharper 2010 Standard until we finished thoroughly testing it on the new Visual Studio.
 

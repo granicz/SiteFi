@@ -2,6 +2,7 @@
 title: "WebSharper 3.4.19 released"
 categories: "ui.next,xs,release,fsharp,javascript,web,websharper"
 abstract: "This new release of WebSharper adds the Xamarin Studio addin to the main release channel and introduces checked UI.Next number inputs, among many minor features and bug fixes."
+identity: "4555,80344"
 ---
 We are happy to announce the release of version 3.4.19 of the WebSharper stack, which you can download [here](http://websharper.com/downloads). This release is mainly dedicated to bug fixes and minor features.
 

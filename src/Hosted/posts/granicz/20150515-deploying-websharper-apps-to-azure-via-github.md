@@ -2,6 +2,7 @@
 title: "Deploying WebSharper apps to Azure via GitHub"
 categories: "github,azure,websharper"
 abstract: "This article describes a basic WebSharper client-server application template that you can deploy to Azure via GitHub commits."
+identity: "4368,79468"
 ---
 More and more .NET developers come to appreciate functional programming, and this is really good news for F#.  A couple weeks ago Scott Hanselman ran a [short article](http://www.hanselman.com/blog/RunningSuaveioAndFWithFAKEInAzureWebAppsWithGitAndTheDeployButton.aspx) on running [Suave.io](http://suave.io) apps as Azure web apps deployed via GitHub.  His [setup](https://github.com/shanselman/suavebootstrapper) was the following:
 

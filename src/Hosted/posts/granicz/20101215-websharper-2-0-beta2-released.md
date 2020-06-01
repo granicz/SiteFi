@@ -2,6 +2,7 @@
 title: "WebSharper 2.0 Beta2 released"
 categories: "f#,websharper"
 abstract: "We just released a new WebSharper 2.0 Beta (2.0.63) and a matching WebSharper Manager (2.0.10) - please go to the WebSharper Download Page to grab the new binaries."
+identity: "1004,74585"
 ---
 We just released a new WebSharper 2.0 Beta (2.0.63) and a matching WebSharper Manager (2.0.10) - please go to the [WebSharper Download Page](http://www.websharper.com/Downloads.aspx) to grab the new binaries.
 
@@ -11,7 +12,6 @@ This beta release delivers a good number of improvements, most notably to sitele
 
 Here is the change log:
 
-```fsharp
 * Newly installed WebSharper fails with Invalid license issue date (#252)
 * License Invalid after obtaining a license on Win-7 (#246)
 * Compilation fails on rebuild (#244)
@@ -31,6 +31,5 @@ Here is the change log:
 * Lost AfterRender (#219)
 * google.maps.MapTypeId.ROADMAP undefined (#209)
 * Formlet Layout breaks Render contract (#208)
-```
 
 Your feedback is very important to us. Please go to the [WebSharper Community](http://www.websharper.com/Extensions.aspx) page to submit any further issues you may find. Here you can find various forums to help you get started with WebSharper.

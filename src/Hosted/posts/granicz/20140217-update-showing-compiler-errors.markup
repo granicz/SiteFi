@@ -2,6 +2,7 @@
 title: "Update: Showing compiler errors"
 categories: "cloudsharper,f#"
 abstract: "As of 0.9.5, you need to do a build (Ctrl+B) before type checking is initialized properly. Without such explicit build, you may face a whole host of errors while you edit your source files."
+identity: "3733,77059"
 ---
 As of 0.9.5, you need to do a build (Ctrl+B) before type checking is initialized properly. Without such explicit build, you may face a whole host of errors while you edit your source files. For instance, here is what you get when you open <c>Client.fs</c> in a newly created WebSharper Bundle project:
 

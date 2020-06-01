@@ -2,6 +2,7 @@
 title: "WebSharper 3.2.22 released"
 categories: "warp,fsharp,javascript,web,websharper"
 abstract: "This is a bugfix release including numerous fixes for compilation to JavaScript in Warp applications."
+identity: "4418,79766"
 ---
 This new WebSharper version is a bugfix release. The main fixes concern dynamic compilation to JavaScript, which includes Warp applications.
 

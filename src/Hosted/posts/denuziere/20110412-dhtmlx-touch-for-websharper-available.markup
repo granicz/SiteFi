@@ -2,6 +2,7 @@
 title: "DHTMLX Touch for WebSharper available"
 categories: "dhtmlx,f#,websharper"
 abstract: "Today we are happy to announce the release of a new extension for WebSharper: DHTMLX Touch. This library provides a complete set of UI widgets, alongside a number of tools to seamlessly connect them to application data, resulting in web applications with an impressive native feel."
+identity: "2061,74893"
 ---
 Today we are happy to announce the release of a new extension for WebSharper: <a href=http://dhtmlx.com/touch/>DHTMLX Touch</a>.
 

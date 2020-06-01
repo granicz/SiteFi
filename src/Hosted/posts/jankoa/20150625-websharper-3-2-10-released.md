@@ -2,6 +2,7 @@
 title: "WebSharper 3.2.10 released"
 categories: "javascript,f#,websharper"
 abstract: "This is a bugfix release mainly focusing on issues exposed by WebSharper.Warp"
+identity: "4412,79717"
 ---
 This release fixes some bugs when compiling from F# quotations (used for example by **WebSharper.Warp**).
 

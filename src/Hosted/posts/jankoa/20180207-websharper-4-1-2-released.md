@@ -2,6 +2,7 @@
 title: "WebSharper 4.1.2 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.1.2 has enhancements for C# routing and bug fixes"
+identity: "5495,84392"
 ---
 WebSharper 4.1.2 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](http://websharper.com/downloads).
 

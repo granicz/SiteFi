@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.30 with WebSharper 3 templates"
 categories: "cloudsharper,templates,websharper"
 abstract: "To match yesterdays's official WebSharper 3 release, we are following up with a CloudSharper update, version 0.9.30.  Most importantly, this release comes with updated WebSharper 3 project templates and the new UI.Next project template to make it easy to try out WebSharper 3 online."
+identity: "4324,79283"
 ---
 To match yesterdays's official [WebSharper 3 release](http://websharper.com/blog-entry/4323), we are following up with a [CloudSharper](http://cloudsharper.com) update, version 0.9.30.  Most importantly, this release comes with **updated WebSharper 3 project templates** and the new **UI.Next project template** to make it easy to try out WebSharper 3 online.
 

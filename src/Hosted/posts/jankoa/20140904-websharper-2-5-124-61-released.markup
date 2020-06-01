@@ -2,6 +2,7 @@
 title: "WebSharper 2.5.124.61 released"
 categories: "f#,websharper"
 abstract: "This new version brings bugfixes and WIG improvements"
+identity: "4015,77380"
 ---
 <h2>Bugfixes</h2>
 

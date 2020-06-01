@@ -2,6 +2,7 @@
 title: "WebSharper 4 beta-7 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4 beta now has F#4.1 and C#7 language support"
+identity: "5330,82881"
 ---
 WebSharper 4 beta now has F# 4.1 and C# 7 language support.
 

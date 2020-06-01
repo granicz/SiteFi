@@ -2,6 +2,7 @@
 title: "FP-BUD May Meetup"
 categories: "meetup,functional"
 abstract: "FP-BUD is the primary place for discussing functional programming in an easy-going, social setting."
+identity: "1026,74607"
 ---
 You may have seen our slogan for [FP-BUD](http://www.meetup.com/fp-bud) on meetup.com already - "FP-BUD is the primary place for discussing functional programming in an easy-going, social setting." Indeed, we founded this meetup group for attracting the FP crowd in and around Budapest - but of course that doesn't keep "outsiders" out and we do have a number of foreign visitors each time (mostly from IntelliFactory :)) - and that is adding quite a bit of fun to the mix. The first meetup about a month ago was excellent and we had a great time discussing different ideas around FP and its applications - and from this first time our aim quite simply was and continues to be staying on the forefront of the FP "revolution" in Budapest and Hungary.
 

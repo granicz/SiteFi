@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.16.1 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a minor bugfix release of CloudSharper Local alpha."
+identity: "4009,77372"
 ---
 We just released CloudSharper 0.9.16.1, a bugfix release fixing issues both in the GUI and the installed component. It is protocol-compatible, which means that you can still connect to CloudSharper using the 0.9.16.0 local component, but you will not benefit from some of the fixes listed below.
 

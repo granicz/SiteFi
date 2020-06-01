@@ -2,6 +2,7 @@
 title: "Running the jQuery Mobile WebSharper sample"
 categories: "jquerymobile,f#,websharper"
 abstract: "The jQuery Mobile sample on the WebSharper site has been out for quite some time now, but it fails to mention an important detail on how to run it standalone. Indeed, copying it straight into a new WebSharper ASP.NET project produces an empty page (which is not empty, only jQuery Mobile fails to kick in to decorate it into a full application), which can be a discouraging start for anyone looking into using jQuery Mobile for building mobile applications with F# and WebSharper. [...]"
+identity: "2982,76078"
 ---
 The <a href="http://websharper.com/samples/JQueryMobile">jQuery Mobile sample</a> on the <a href="http://websharper.com">WebSharper</a> site has been out for quite some time now, but it fails to mention an important detail on how to run it standalone. Indeed, copying it straight into a new WebSharper ASP.NET project produces an empty page (which is not empty, only jQuery Mobile fails to kick in to decorate it into a full application), which can be a discouraging start for anyone looking into using jQuery Mobile for building mobile applications with F# and WebSharper.
 

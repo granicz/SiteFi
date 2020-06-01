@@ -2,6 +2,7 @@
 title: "The road to WebSharper 4"
 categories: "c#,javascript,f#,websharper"
 abstract: "We started work on WebSharper 4 more than a year ago, open-sourced it in May and published first beta packages in August. It is a project with a big scope and still some features are planned before we would call it stable. This article is an introduction and also a status report."
+identity: "5203,82343"
 ---
 We started work on WebSharper 4 more than a year ago, open-sourced it in May and published first beta packages in August.
 It is a project with a big scope and still some features are planned before we would call it stable.

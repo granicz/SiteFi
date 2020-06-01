@@ -2,6 +2,7 @@
 title: "WebSharper 4 beta-6 released"
 categories: "csharp,fsharp,javascript,websharper"
 abstract: "WebSharper 4 beta-6 contains updates to DOM and JQuery bindings, erased union types, JS output optimizations and fixes"
+identity: "5278,82676"
 ---
 WebSharper 4 beta-6 contains updates to DOM and JQuery bindings, erased union types, JS output optimizations and fixes. 
 

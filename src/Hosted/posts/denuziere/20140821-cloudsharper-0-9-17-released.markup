@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.17 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a minor bugfix release."
+identity: "4010,77373"
 ---
 We just published a bugfix release to CloudSharper Local alpha. This bugfix slightly alters the communication protocol between the web application and the installed component, which is why the version number was bumped to 0.9.17 and upgrading is required.
 

@@ -2,6 +2,7 @@
 title: "Visual Studio book with F# chapter"
 categories: "book,vs,f#"
 abstract: "I am proud to announce the availability of the third F# book that I coauthored, Visual Studio 2010 and .NET 4 Six-in-One by Wrox."
+identity: "1002,74583"
 ---
 I am proud to announce the availability of the third F# book that I coauthored, [Visual Studio 2010 and .NET 4 Six-in-One](http://www.amazon.com/Visual-Studio-2010-NET-Programmer/dp/0470499486/) by Wrox:
 

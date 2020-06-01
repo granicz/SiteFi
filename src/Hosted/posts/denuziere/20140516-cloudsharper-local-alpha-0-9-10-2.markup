@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha 0.9.10.2"
 categories: "ide,cloudsharper,cloud,f#,websharper"
 abstract: "This minor release of CloudSharper alpha focuses on a few long-standing bug fixes, as well as the addition of the \"Search and replace\" functionality in the editor."
+identity: "3863,77196"
 ---
 This minor release of CloudSharper alpha focuses on a few long-standing bug fixes, as well as the addition of the "Search and replace" functionality in the editor.
 

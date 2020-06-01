@@ -2,6 +2,7 @@
 title: "WebSharper 4.5.9 released with F# anonymous record support"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.5.9 has client-side support for F# anonymous records and build fixes."
+identity: "5730,86510"
 ---
 WebSharper 4.5.9 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](https://websharper.com/downloads).
 

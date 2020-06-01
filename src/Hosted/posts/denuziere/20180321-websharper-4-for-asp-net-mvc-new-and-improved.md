@@ -2,6 +2,7 @@
 title: "WebSharper 4 for ASP.NET MVC: new and improved"
 categories: "csharp,aspnetmvc,websharper"
 abstract: "Today we are releasing WebSharper.AspNetMvc 4.2.0, with a simplified API."
+identity: "5513,84826"
 ---
 We are happy to announce the release of [WebSharper 4.2.7](https://www.nuget.org/packages/WebSharper/4.2.7.254), and with it, [WebSharper.AspNetMvc 4.2.0](https://www.nuget.org/packages/WebSharper.AspNetMvc/4.2.0.1). This layer for running WebSharper applications alongside ASP.NET MVC has been simplified compared to its previous 3.x incarnations.
 

@@ -2,6 +2,7 @@
 title: "Expiring WebSharper Professional trials"
 categories: "f#,websharper"
 abstract: "Since we released WebSharper Professional last week, we received ~200 requests about extending prior trial versions that expired.  As it turns out WebSharper Professional has been in beta for several months and the first users who opted in to try it were now unable to check out the final release due to expired trial licenses. [...]"
+identity: "988,74569"
 ---
 Since we [released WebSharper Professional](http://www.websharper.com/blog/2011/5/630) last week, we received ~200 requests about extending prior trial versions that expired. As it turns out WebSharper Professional has been in beta for several months and the first users who opted in to try it were now unable to check out the final release due to expired trial licenses. To add to the burden, we originally offered 90-day trials but switched to 30 days as we were approaching the final release date. This was in a conscious effort to retire WebSharper Professional Beta trials so the new final release can be offered on a separate trials database without people getting stuck in the old one (e.g. so users have a fresh trial period on the final release).
 

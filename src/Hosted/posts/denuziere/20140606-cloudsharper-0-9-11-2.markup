@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.11.2"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a bugfix release."
+identity: "3904,77244"
 ---
 This minor release fixes several bugs and hopefully clarifies the situation regarding SSL certificates for nuget.org.
 

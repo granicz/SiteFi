@@ -2,6 +2,7 @@
 title: "WebSharper Binding for Leaflet released"
 categories: "leaflet,openstreetmap,f#,websharper"
 abstract: "We are happy to announce the release of a WebSharper binding for Leafletjs, a library that makes it easy to display and work with maps such as OpenStreetMap."
+identity: "3867,77204"
 ---
 We are happy to announce the release of a WebSharper binding for Leafletjs, a library that makes it easy to display and work with maps such as OpenStreetMap. It is available <a href="http://www.nuget.org/packages/WebSharper.Leaflet">on NuGet</a>, and the sources are <a href="https://github.com/intellifactory/websharper.leaflet">on Github</a>.
 

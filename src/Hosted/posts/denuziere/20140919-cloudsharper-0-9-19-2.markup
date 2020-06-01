@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.19.2"
 categories: "cloudsharper,f#,websharper"
 abstract: ""
+identity: "4036,77432"
 ---
 We just released CloudSharper 0.9.19.2 for your enjoyment. The main new feature is a dockable Browse window, allowing you to work on a web or mobile application and seeing the result directly next to your code.
 

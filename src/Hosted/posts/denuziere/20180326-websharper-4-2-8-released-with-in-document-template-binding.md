@@ -2,6 +2,7 @@
 title: "WebSharper 4.2.8 released with in-document template binding"
 categories: "ui,templating,csharp,fsharp,websharper"
 abstract: "The main highlight of this release is in-document template binding, a client-side feature which treats the whole document as a template to be filled."
+identity: "5515,84856"
 ---
 We are happy to announce the release of [WebSharper 4.2.8](https://nuget.org/packages/websharper/4.2.8.255) and [WebSharper.UI 4.2.3](https://nuget.org/packages/websharper.ui/4.2.3.111).
 

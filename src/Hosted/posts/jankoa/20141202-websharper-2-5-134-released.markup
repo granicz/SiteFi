@@ -2,6 +2,7 @@
 title: "WebSharper 2.5.134 released"
 categories: "f#,websharper"
 abstract: "Introducing proxies for Async cancellation, MailboxProcessor, Printf."
+identity: "4123,77566"
 ---
 A lot of useful functions of FSharp.Core are now translatable by WebSharper.
 

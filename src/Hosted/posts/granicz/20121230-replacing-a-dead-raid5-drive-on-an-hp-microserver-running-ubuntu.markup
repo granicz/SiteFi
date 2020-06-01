@@ -2,6 +2,7 @@
 title: "Replacing a dead RAID5 drive on an HP Microserver running Ubuntu"
 categories: "raid,raid5,replacing,drive"
 abstract: "A while ago I found myself in the unfortunate situation of having a degraded RAID5 array failing to boot after a blackout. So I hooked a monitor to it to see what was going on and found that it got stuck at boot time with identifying one of the disks. After a long timeout, it finally booted into Ubuntu from the attached Flash drive where it reported the degraded RAID array and dropped back to diagnostic mode. [...]"
+identity: "2983,76079"
 ---
 A while ago I found myself in the unfortunate situation of having a degraded RAID5 array failing to boot after a blackout. So I hooked a monitor to it to see what was going on and found that it got stuck at boot time with identifying one of the disks. After a long timeout, it finally booted into Ubuntu from the attached Flash drive where it reported the degraded RAID array and dropped back to diagnostic mode.
 <h3>Finding out what broke</h3>

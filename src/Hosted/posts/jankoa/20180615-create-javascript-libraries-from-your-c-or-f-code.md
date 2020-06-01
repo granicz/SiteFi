@@ -2,6 +2,7 @@
 title: "Create JavaScript libraries from your C# or F# code"
 categories: "c#,f#,websharper"
 abstract: "Learn how to use WebSharper's JavaScriptExport feature to create standalone .js files from your .NET projects"
+identity: "5601,85353"
 ---
 There might be many reasons why a .NET-to-JavaScript transpiler is useful, some of the most common use cases:
 

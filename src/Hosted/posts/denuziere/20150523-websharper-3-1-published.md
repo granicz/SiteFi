@@ -2,6 +2,7 @@
 title: "WebSharper 3.1 published"
 categories: "razor,fsharp,javascript,aspnetmvc,web,websharper"
 abstract: "The main highlights of this release are ASP.NET MVC support (including Razor pages), and a lighter syntax to embed client-side controls in sitelets."
+identity: "4372,79484"
 ---
 It's barely been a month since we released WebSharper 3.0, and we are now at it again with the release of WebSharper 3.1. Without further ado, here are the main highlights.
 

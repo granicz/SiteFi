@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.14 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release is geared towards enhanced usability with two main features: a reworked dashboard and a new solution view."
+identity: "3929,77269"
 ---
 We just released version 0.9.14 of CloudSharper. This release is mainly geared towards enhanced usability with two main features:
 

@@ -2,6 +2,7 @@
 title: "WebSharper.3.0.26-alpha released"
 categories: "javascript,f#,websharper"
 abstract: "New release of WebSharper 3.0-alpha contains strong typing for all kinds of JavaScript functions and a major update to the Interface Generator API."
+identity: "4210,77685"
 ---
 This release of WebSharper 3.0 alpha ships several major and breaking changes: introducing strongly-typed JavaScript function interoperability, various WebSharper Interface Generator (WIG) API enhancements and revisions, bringing the JQuery binding up to date (to 1.11.2) and more type-safe, and lots of other small fixes and improvements.
 

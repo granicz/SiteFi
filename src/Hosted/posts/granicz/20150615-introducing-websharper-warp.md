@@ -2,6 +2,7 @@
 title: "Introducing WebSharper Warp"
 categories: "warp,f#,websharper"
 abstract: "WebSharper Warp is a friction-less web development library for building scripted and standalone full-stack F# client-server applications. Warp is built on top of WebSharper and is designed to help you become more productive and benefit from the rich WebSharper features more quickly and more directly.  While Warp shorthands target the most typical applications (text, SPAs, multi-page) and easy exploration, you can extend your Warp applications with the full WebSharper capabilities at any time."
+identity: "4409,79675"
 ---
 [WebSharper Warp](https://github.com/intellifactory/websharper.warp) is a friction-less web development library for building scripted and standalone **full-stack** F# client-server applications. Warp is built on top of WebSharper and is designed to help you become more productive and benefit from the rich WebSharper features more quickly and more directly.  While Warp shorthands target the most typical applications (text, SPAs, multi-page) and easy exploration, you can extend your Warp applications with the full WebSharper capabilities at any time.
 

@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.9.2"
 categories: "cloudsharper,f#,websharper"
 abstract: "A bugfix release of CloudSharper in preparation for the upcoming remote multi-user server feature."
+identity: "3787,77108"
 ---
 This bugfix release addresses the following issues:
 

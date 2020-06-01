@@ -2,6 +2,7 @@
 title: "Rapid prototyping of DSLs in F# - Part III"
 categories: "dsl,f#,websharper"
 abstract: "The third part of \"Rapid prototyping of DSLs in F#\" presents the semantic checker for Simply, a small programming language with functions and expressions."
+identity: "1022,74603"
 ---
 Consider the following short Simply program:
 

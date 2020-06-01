@@ -2,6 +2,7 @@
 title: "Serving SPAs"
 categories: "templating,ui,routing,f#,websharper"
 abstract: "Consider a very typical scenario: you have a web application that serves an SPA. The SPA itself has several \"pages,\" each with its own client-side routed URLs (think of Gmail, for instance.) Then people copy some of these URLs from their \"session\" and send them to others, who in turn expect to find exactly what the sender saw. Except with most SPAs, the server-side knows nothing about the URLs generated on the client and usually throws you back to some initial SPA page. Implementing this properly requires you to share all or a subset of the URLs both on the server and on the client. With WebSharper, this is easy."
+identity: "5488,84145"
 ---
 # Serving SPAs
 

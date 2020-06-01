@@ -2,6 +2,7 @@
 title: "Password-less authentication with WebSharper.OAuth"
 categories: "authentication,oauth,websharper"
 abstract: "This tutorial shows how to authenticate a WebSharper Client-Server Application with an OAuth2 service and query its API."
+identity: "5492,84332"
 ---
 It used to be that authenticating users in a properly secure way was a big hassle; but with protocols like OAuth and OpenID, things are now much simpler. We can delegate most of the trouble to services such as Facebook, Google, Twitter, Github, etc and simply interface with them.
 

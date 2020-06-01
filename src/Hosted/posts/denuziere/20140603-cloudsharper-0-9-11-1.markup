@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.11.1"
 categories: "cloudsharper,f#,websharper"
 abstract: "This is a bugfix version after yesterday's bigger release."
+identity: "3900,77237"
 ---
 We are releasing CloudSharper alpha 0.9.11.1, a bugfix version after yesterday's bigger release. As usual, some of the fixes require you to download the latest local component.
 

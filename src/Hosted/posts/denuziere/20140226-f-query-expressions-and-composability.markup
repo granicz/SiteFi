@@ -2,6 +2,7 @@
 title: "F# query expressions and composability"
 categories: "query,composability,quotations,linq,f#"
 abstract: "F# 3.x Query Expressions are a nice piece of syntactic sugar, but they are notably difficult to compose. This article discusses the auto-quoting mechanism of query expressions and how it can be leveraged to implement not-too-clunky composition."
+identity: "3508,76794"
 ---
 Anyone who has written non-trivial applications that need to access a SQL database can attest it: being able to compose SQL queries, insert parts of query that depend on some runtime criterion, is tremendously helpful. Not having this capability often means having to copy and paste queries just to be able to add a "where" or a "join" clause, and I know few better ways to end up with buggy, hard-to-maintain code.
 

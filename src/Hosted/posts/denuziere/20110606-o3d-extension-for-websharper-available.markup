@@ -2,6 +2,7 @@
 title: "O3D Extension for WebSharper available"
 categories: "o3d,webgl,f#,websharper"
 abstract: "In our continuing effort to make the most powerful JavaScript tools available to WebSharper developers, we are releasing the extension for Google O3D. O3D is a 3D programming library built on top of WebGL, enabling high-level resource and rendering management for 3D scenes."
+identity: "2060,74892"
 ---
 In our continuing effort to make the most powerful JavaScript tools available to WebSharper developers, we are releasing the extension for Google O3D. O3D is a 3D programming library built on top of WebGL. Its functionalities include:
 <ul>

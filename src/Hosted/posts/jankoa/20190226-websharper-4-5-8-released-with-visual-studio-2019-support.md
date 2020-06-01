@@ -2,6 +2,7 @@
 title: "WebSharper 4.5.8 released with Visual Studio 2019 support"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.5.8 has client-side support for FSharp.Core 4.6 functions and templates for VS2019"
+identity: "5729,86428"
 ---
 WebSharper 4.5.8 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](https://websharper.com/downloads).
 

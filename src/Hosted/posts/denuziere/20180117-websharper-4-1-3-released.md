@@ -2,6 +2,7 @@
 title: "WebSharper 4.1.3 released"
 categories: "websharper"
 abstract: "This is a small bugfix release"
+identity: "5496,84399"
 ---
 WebSharper 4.1.3 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a Visual Studio installer on the [WebSharper website](https://websharper.com/downloads). It is a small bugfix release:
 

@@ -2,6 +2,7 @@
 title: "WebSharper 2.5.127 released"
 categories: "f#,websharper"
 abstract: "This version brings small fixes and RPC improvements"
+identity: "4056,77462"
 ---
 <h2>Additions to RPC functionality</h2>
 

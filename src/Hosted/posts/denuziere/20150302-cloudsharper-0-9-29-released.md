@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.29 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "CloudSharper 0.9.29 is out, with UI enhancements and a number of fixes to the editor."
+identity: "4245,77760"
 ---
 
 Here comes a new release of CloudSharper, with a bunch of bug fixes as well as the first steps of a big UI enhancement.

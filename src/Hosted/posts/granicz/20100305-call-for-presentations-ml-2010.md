@@ -2,6 +2,7 @@
 title: "Call for Presentations - ML 2010"
 categories: "workshop,ml,conference,f#"
 abstract: "ML is a family of programming languages that includes dialects knownas Standard ML, Objective Caml, and F#. The development of theselanguages has inspired a large amount of computer science research,both practical and theoretical. This workshop aims to provide a forumto encourage discussion and research on ML and related technology(higher-order, typed, or strict languages)."
+identity: "1019,74600"
 ---
 The ML workshop, co-located with ICFP 2010 in Baltimore, MD, is seeking F# submissions. Please have a look at the CfP below and let me know if you are interested in submitting. The date for the workshop is Sunday, September 26, 2010.
 

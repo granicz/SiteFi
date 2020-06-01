@@ -2,6 +2,7 @@
 title: "WebSharper 3.4 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "WebSharper 3.4 is out with a slew of features: new F# 4.0 collection functions, revamped sitelets API, anti-CSRF protection for RPC functions, and a reworked HTML language in UI.Next with server-side capability."
+identity: "4422,79881"
 ---
 We are happy to announce the availability of WebSharper 3.4, which you can download [here](http://websharper.com/downloads). Here are the main highlights of this release.
 

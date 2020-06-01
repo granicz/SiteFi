@@ -2,6 +2,7 @@
 title: "Simple reactive scenarios with WebSharper"
 categories: "ui.next,websharper"
 abstract: "One of the most fundamental design considerations any developer must deal with is handling change. In this article, we are primarily concerned with client-side state and changes to it. Change can be brought about by various external factors (user input such as mouse or keyboard events, server push messages, etc.) or by means internal to the application itself."
+identity: "5226,82407"
 ---
 (This post is part of [F# Advent 2016](https://sergeytihon.wordpress.com/2016/10/23/f-advent-calendar-in-english-2016/) - Happy 2017!)
 

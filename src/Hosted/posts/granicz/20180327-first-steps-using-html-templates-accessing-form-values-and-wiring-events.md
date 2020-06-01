@@ -2,6 +2,7 @@
 title: "First steps: Using HTML templates, accessing form values, and wiring events"
 categories: "templating,ui,f#,websharper"
 abstract: "Congratulations on taking the first step to learn WebSharper! We have carefully put together this hands-on tutorial with the aim to help you get started with WebSharper and on your way to learn functional, reactive web development, putting you on a fast track to unleash the real web developer in you. The skills you pick up with WebSharper will make you a better web developer, and the concepts you learn will remain valid and useful with other functional, reactive web frameworks and libraries as well."
+identity: "5516,84858"
 ---
 
 # First steps: Using HTML templates, accessing form values, and wiring events

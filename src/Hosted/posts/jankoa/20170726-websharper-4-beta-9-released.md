@@ -2,6 +2,7 @@
 title: "WebSharper 4 beta-9 released"
 categories: "csharp,fsharp,javascript,websharper"
 abstract: "Compiler and output optimizations, auto-versioning scripts"
+identity: "5376,83030"
 ---
 Lates WebSharper 4 beta has compiler and output optimizations, auto-versioning scripts.
 

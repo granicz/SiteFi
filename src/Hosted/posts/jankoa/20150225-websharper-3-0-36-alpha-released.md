@@ -2,6 +2,7 @@
 title: "WebSharper-3.0.36-alpha released"
 categories: "javascript,f#,websharper"
 abstract: "This is our release candidate API-wise, last batch of breaking changes."
+identity: "4241,77739"
 ---
 This release brings the last batch of breaking changes we have planned before 3.0 stable. 
 The three bigger items we have left are updating/fixing TypeScript output, reviewing code mapping and adding more documentation.

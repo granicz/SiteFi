@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.22.0 released"
 categories: "cloudsharper,f#,websharper"
 abstract: "This release adds cloud workspace management and bug fixes."
+identity: "4075,77501"
 ---
 The dashboard is now showing your cloud-synced workspaces as well as your local ones. Separate icons show the availability of your workspaces in local working directory and the cloud storage. You can access the sync up/down commands on the context menu of the workspaces grid or by the More menu above. If both cloud and local copy exists, sync up or down will overwrite the other copy or if newer files exist at the destination, you will have the choice of keeping the newer version of all files.
 

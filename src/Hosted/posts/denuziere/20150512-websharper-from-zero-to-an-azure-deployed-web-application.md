@@ -2,6 +2,7 @@
 title: "WebSharper: From Zero to an Azure-deployed Web Application"
 categories: "paket,azure,fsharp,deployment,tutorial,web,websharper"
 abstract: "Find out how to easily set up a WebSharper application for deployment to Azure."
+identity: "4367,79405"
 ---
 We are often asked what the deployment story is like for WebSharper applications. Our usual reply has long been that WebSharper applications follow standard formats, in particular:
 

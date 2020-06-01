@@ -2,6 +2,7 @@
 title: "WebSharper 3.6.6 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "This release adds a small client-side cookies library, a function to require resources in client-side markup, and various bug fixes."
+identity: "4636,80943"
 ---
 We are happy to announce the release of WebSharper 3.6.6. Here are the main highlights.
 

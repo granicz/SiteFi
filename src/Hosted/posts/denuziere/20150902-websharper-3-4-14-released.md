@@ -2,6 +2,7 @@
 title: "WebSharper 3.4.14 released"
 categories: "ui.next,owin,release,fsharp,javascript,web,websharper"
 abstract: "This release introduces features such as lenses to UI.Next and prepares the terrain for UI.Next versions of Formlets and Piglets."
+identity: "4547,80162"
 ---
 We are happy to announce the availability of WebSharper 3.4.14, which you can download [here](http://websharper.com/downloads). Here are the main highlights of this release.
 

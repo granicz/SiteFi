@@ -2,6 +2,7 @@
 title: "Announcing WebSharper.Suave"
 categories: "suave,fsharp,web,websharper"
 abstract: "We are happy to announce the release of WebSharper.Suave, an adapter to run WebSharper applications on Suave."
+identity: "4556,80384"
 ---
 We are happy to announce the release of WebSharper.Suave, an adapter to run WebSharper applications on [Suave](http://suave.io).
 

@@ -2,6 +2,7 @@
 title: "WebSharper 3.3 released with client-side JSON serialization"
 categories: "json,fsharp,javascript,web,websharper"
 abstract: "We just released WebSharper 3.3 with a new capability: Sitelets-compatible JSON serialization and deserialization on the client."
+identity: "4419,79787"
 ---
 We are happy to announce the availability of WebSharper 3.3, which you can download [here](http://websharper.com/downloads). The main highlight of this release is the addition of JSON serialization functions for client-side code.
 

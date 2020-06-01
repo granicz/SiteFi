@@ -2,6 +2,7 @@
 title: "WebSharper 3.5.16 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "WebSharper 3.5.16 splits off the WebSharper.Testing framework into a separate package and fixes a few bugs."
+identity: "4625,80630"
 ---
 We are happy to announce the release of WebSharper 3.5.16 available through the usual channels. Here is the change log:
 

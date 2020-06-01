@@ -2,6 +2,7 @@
 title: "WebSharper 4.1.1 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.1.1 expands and fixes multiple client-server features"
+identity: "5491,84324"
 ---
 WebSharper 4.1.1 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](http://websharper.com/downloads).
 

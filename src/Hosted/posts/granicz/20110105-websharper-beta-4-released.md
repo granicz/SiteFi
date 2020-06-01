@@ -2,6 +2,7 @@
 title: "WebSharper Beta 4 released"
 categories: "f#,websharper"
 abstract: "Happy new year folks, we just rolled out the WebSharper 2.0 Beta4 release - with an enhanced installer and better support for sitelet-based development with some significant performance improvements. The new installer also became smarter and for new users obtains a 90-day trial license automatically so you no longer have to manually activate."
+identity: "1000,74581"
 ---
 Happy new year folks, we just rolled out the [WebSharper 2.0 Beta 4](http://www.intellifactory.com/AssetDownload.aspx?AssetName=WebSharperInstaller-2.0.88.msi) release - with an enhanced installer and better support for sitelet-based development with some significant performance improvements. The new installer also became smarter and for new users obtains a 90-day trial license automatically so you no longer have to manually activate.
 
@@ -10,7 +11,7 @@ It also contains the first batch of the documentation as a Compiled HTML manual 
 All in all, you can get productive immediately after installation, choose between the six available Visual Studio project templates for WebSharper-based development (ASP.NET, MVC, and sitelets), and start developing stunning HTML5 and other client-based web applications. Remember to try sitelets - these allow you to develop markup-less web applications in a single language. Subsequent Beta's will supply even more tools around sitelets, so make sure you follow the beta announcements in the coming weeks.
 
 You can find the combined release notes [here](http://www.websharper.com/ChangeLog.aspx), and the relevant change log below:
-```fsharp
+
  * Avoid dynamically linking to all ~/bin assemblies on startup (#264)
  * DateTime values fail to pass over RPC (#262)
  * Add missing HTML4 attributes/tags to the server-side HTML repre... (#272)
@@ -26,4 +27,3 @@ You can find the combined release notes [here](http://www.websharper.com/ChangeL
  * Css and Attr return a JQuery object (#178)
  * Missing method - Css : string -> string (#226)
  * Fx attribute not found in jQuery (#284)
-```

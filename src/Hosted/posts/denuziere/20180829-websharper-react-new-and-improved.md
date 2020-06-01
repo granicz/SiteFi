@@ -2,6 +2,7 @@
 title: "WebSharper.React: new and improved!"
 categories: "react,fsharp,javascript,websharper"
 abstract: "The new release makes it easy to use React in F#"
+identity: "5625,85767"
 ---
 Let's talk about WebSharper and React.
 

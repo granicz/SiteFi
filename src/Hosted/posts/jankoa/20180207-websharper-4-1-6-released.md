@@ -2,6 +2,7 @@
 title: "WebSharper 4.1.6 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.1.6 has enhancements for bundle projects and bug fixes"
+identity: "5500,84533"
 ---
 WebSharper 4.1.6 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](http://websharper.com/downloads).
 

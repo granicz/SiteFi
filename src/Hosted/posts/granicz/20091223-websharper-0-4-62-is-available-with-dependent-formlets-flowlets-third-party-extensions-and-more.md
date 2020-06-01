@@ -2,6 +2,7 @@
 title: "WebSharper 0.4.62 is available - with dependent formlets-flowlets-third-party extensions-and more!"
 categories: "f#,websharper"
 abstract: "We are happy to announce the availability of WebSharper 0.4.62 - the latest version of the WebSharper Platform that aims to equip professional F# developers with the right platform to rapidly develop rich, scalable, client-based web applications.  This is the first release candidate of WebSharper Platform 2010 - our commercial offering for client-based reactive web development with F#. In this release there are a number of new features, including: ..."
+identity: "1021,74602"
 ---
 We are happy to announce the availability of WebSharper 0.4.62 - the latest version of the WebSharper Platform that aims to equip professional F# developers with the right platform to rapidly develop rich, scalable, client-based web applications. This is the first release candidate of WebSharper Platform 2010 - our commercial offering for client-based reactive web development with F#. In this release there are a number of new features, including:
 

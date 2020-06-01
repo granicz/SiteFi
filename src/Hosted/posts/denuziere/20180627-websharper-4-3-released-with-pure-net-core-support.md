@@ -2,6 +2,7 @@
 title: "WebSharper 4.3 released with pure .NET Core support"
 categories: "netcore,csharp,fsharp,javascript,websharper"
 abstract: "With this release, mono is not required during compile time anymore."
+identity: "5617,85409"
 ---
 We are happy to announce the release of WebSharper 4.3.
 

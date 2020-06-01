@@ -2,6 +2,7 @@
 title: "Deploying a .NET Core WebSharper site in AWS Lambda"
 categories: "serverless,aws,c#,f#,websharper"
 abstract: "Tutorial for instantiating a WebSharper site and configuring it to run on AWS Lambda"
+identity: "5505,84614"
 ---
 With the .NET Core support added to AWS lambda, it is a great platform to run services or sites that are stateless and lightweight.
 A free AWS account is enough to try this, up to one million requests per month. [WebSharper 4.2](https://github.com/dotnet-websharper/core)'s new .NET Core templates can be quickly configured to be published on Lambda.

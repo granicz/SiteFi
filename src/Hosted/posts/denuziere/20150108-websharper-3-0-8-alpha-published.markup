@@ -2,6 +2,7 @@
 title: "WebSharper 3.0.8-alpha published"
 categories: "f#,websharper"
 abstract: "This release of WebSharper streamlines a lot of the namespaces, making it more intuitive to use than ever. It is a breaking update, and this article describes all the (mostly trivial) changes that need to be done to existing projects."
+identity: "4155,77618"
 ---
 As we advance closer to the stable release of WebSharper 3.0, more and more of the breaking changes we have wanted to implement for a long time are coming out. The main theme of the just-released version 3.0.8-alpha is naming conventions streamlining. With these changes, WebSharper should be more intuitive to use than ever. The changes necessary to update an existing project are fairly simple and detailed in the comprehensive guide below.
 

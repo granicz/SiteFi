@@ -2,6 +2,7 @@
 title: "WebSharper 3.6 released with CDN support"
 categories: "fsharp,javascript,web,websharper"
 abstract: "We released WebSharper 3.6 which allows you to automatically point to our CDN for WebSharper libraries."
+identity: "4630,80742"
 ---
 We are happy to announce the release of WebSharper 3.6.
 

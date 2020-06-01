@@ -2,6 +2,7 @@
 title: "WebSharper 3.5.13 released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "This release adds Visual Studio 2015 Enterprise Edition support, and several bug fixes and minor features."
+identity: "4618,80568"
 ---
 We are happy to announce the release of WebSharper 3.5.13, with minor features and bug fixes. Here is the full change log:
 

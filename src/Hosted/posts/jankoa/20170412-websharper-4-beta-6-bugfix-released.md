@@ -2,6 +2,7 @@
 title: "WebSharper 4 beta-6 bugfix released"
 categories: "c#,javascript,f#,websharper"
 abstract: "Fixes for tail recursion optimizations, lighter representation of F# unions/records with no extra members"
+identity: "5283,82728"
 ---
 `Zafir.4.0.160.40-beta6` Is now available on NuGet, `.vsix` installers at [WebSharper downloads](http://websharper.com/downloads) ("Other versions" section).
 

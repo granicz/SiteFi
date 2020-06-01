@@ -2,6 +2,7 @@
 title: "Announcing WebSharper 4 Release Candidate"
 categories: "c#,javascript,f#,websharper"
 abstract: "Full stack of `WebSharper.4.0-rc` packages are now available on NuGet."
+identity: "5414,83295"
 ---
 WebSharper 4 was a long journey.
 Started from the initial idea to add C# support and move to read F# source code directly for covering F# language features better,

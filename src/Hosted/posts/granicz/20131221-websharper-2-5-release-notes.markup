@@ -2,6 +2,7 @@
 title: "WebSharper 2.5 Release Notes"
 categories: "f#,websharper"
 abstract: "We are happy to announce the general availability of WebSharper 2.5, and the corresponding new WebSharper site that has gone through a major facelift. I plan to blog about the major individual features in detail as separate blog entries, until then, here is a short list of the main changes."
+identity: "3627,76908"
 ---
 We are happy to announce the general availability of <a href="http://websharper.com/downloads">WebSharper 2.5</a>, and the corresponding new <a href="http://websharper.com">WebSharper site</a> that has gone through a major facelift. I plan to blog about the major individual features in detail as separate blog entries, until then, here is a short list of the main changes.
 

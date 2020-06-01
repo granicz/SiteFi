@@ -2,6 +2,7 @@
 title: "WebSharper 4.2.4 released"
 categories: "c#,javascript,f#,websharper"
 abstract: "WebSharper 4.1.6 has F# query on the client and net4x builds not depending on netstandard"
+identity: "5510,84735"
 ---
 WebSharper 4.2.4 is now available on [NuGet](https://www.nuget.org/packages/websharper), and as a vsix installer on the [WebSharper website](https://websharper.com/downloads).
 

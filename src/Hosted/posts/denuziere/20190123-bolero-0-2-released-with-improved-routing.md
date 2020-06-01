@@ -2,6 +2,7 @@
 title: "Bolero 0.2 released with improved routing"
 categories: "bolero,webassembly,fsharp,websharper"
 abstract: "You can now specify full path templates for routers."
+identity: "5715,86366"
 ---
 We are happy to announce the release of Bolero version 0.2. Bolero is a library that enables writing full-stack applications in F#, whose client side runs in WebAssembly using Blazor.
 

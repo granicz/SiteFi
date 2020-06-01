@@ -2,6 +2,7 @@
 title: "WebSharper 4.2.9 released"
 categories: "ui,csharp,fsharp,websharper"
 abstract: "This is a minor release for WebSharper and WebSharper.UI."
+identity: "5565,84998"
 ---
 This is a minor release for WebSharper and WebSharper.UI.
 

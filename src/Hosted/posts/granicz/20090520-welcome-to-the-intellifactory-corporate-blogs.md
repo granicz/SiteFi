@@ -2,6 +2,7 @@
 title: "Welcome to the IntelliFactory corporate blogs!"
 categories: "corporate,f#"
 abstract: "Welcome to the IntelliFactory corporate blogs!"
+identity: "1027,74608"
 ---
 The time has finally come to unravel our own corporate blogging engine! You may ask - why write a new blog engine when there are many good ones out there? Well, the answer may be quite surprising: we used this web project to try out a couple things we had been working on for developing web applications in a more rapid and functional way. You will surely see me blog more about what we came up with, for now here are the main highlights of this current blog engine.
 

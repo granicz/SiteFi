@@ -2,6 +2,7 @@
 title: "CloudSharper 0.9.13.1"
 categories: "cloudsharper,f#,websharper"
 abstract: "A bugfix release for NuGet management and Mono."
+identity: "3925,77266"
 ---
 This is a bugfix release fixing issues with NuGet integration and Mono.
 

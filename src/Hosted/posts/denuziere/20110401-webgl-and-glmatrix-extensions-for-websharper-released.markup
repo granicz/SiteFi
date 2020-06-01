@@ -2,6 +2,7 @@
 title: "WebGL and glMatrix Extensions for WebSharper Released"
 categories: "webgl,f#,websharper"
 abstract: "Today we are happy to announce the release of not one, but two new WebSharper extensions: WebGL and glMatrix. Together, they bring the power of hardware-accelerated 3D into WebSharper."
+identity: "2062,74894"
 ---
 Today we are happy to announce the release of not one, but two new WebSharper extensions: <a href=http://www.websharper.com/extension/358-webgl/None>WebGL</a> and <a href=http://www.websharper.com/extension/358-glmat/None>glMatrix</a>. Together, they bring the power of hardware-accelerated 3D into WebSharper.
 

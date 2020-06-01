@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha available"
 categories: "cloudsharper,f#,websharper"
 abstract: "We are excited to announce the first release of CloudSharper Local, a spin-off of CloudSharper that uses your local machine to serve the main CloudSharper front-end.  CloudSharper is an awesome new way to work with F# on the web. It enables you to use F# to easily connect to various data sources and visualize data from those data sources in rich HTML5 charts and diagrams. You can also develop HTML5 games, web and mobile applications in pure F# code, and you will feel more productive than ever. CloudSharper comes with a set of project templates to easily get you started and gives you full-fledged interactive web programming capabilities to test on the fly and in small before you deploy your larger applications."
+identity: "3728,77054"
 ---
 We are excited to announce the first release of CloudSharper Local, a spin-off of CloudSharper that uses your local machine to serve the main CloudSharper front-end.  CloudSharper is an awesome new way to work with F# on the web. It enables you to use F# to easily connect to various data sources and visualize data from those data sources in rich HTML5 charts and diagrams. You can also develop HTML5 games, web and mobile applications in pure F# code, and you will feel more productive than ever. CloudSharper comes with a set of project templates to easily get you started and gives you full-fledged interactive web programming capabilities to test on the fly and in small before you deploy your larger applications.
 

@@ -2,6 +2,7 @@
 title: "Announcing WebSharper 3.5 with pluggable HTML support"
 categories: "ui.next,fsharp,websharper"
 abstract: "We are happy to announce the availability of WebSharper 3.5, bringing a couple important changes and numerous bug fixes. Most notably, this release brings alternate HTML implementations to your WebSharper applications, and while there are only two at the moment, new flavors and variations (both in syntax and capabilities), and integrations with third-party markup engines are coming your way soon."
+identity: "4584,80431"
 ---
 We are happy to announce the availability of WebSharper 3.5, bringing a couple important changes and numerous bug fixes.
 

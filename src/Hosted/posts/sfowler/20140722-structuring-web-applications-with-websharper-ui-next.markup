@@ -2,6 +2,7 @@
 title: "Structuring Web Applications with WebSharper.UI.Next"
 categories: "reactivedom,spa,ui.next,f#,websharper"
 abstract: "In this post, we see how WebSharper.UI.Next may be used to structure single-page applications with multiple sub-pages, and how this can be integrated with URL synchronisation."
+identity: "3965,77308"
 ---
 <h1>Structuring Single-Page Applications with WebSharper.UI.Next</h1>
 

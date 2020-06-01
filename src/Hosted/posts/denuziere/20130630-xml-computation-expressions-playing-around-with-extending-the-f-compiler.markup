@@ -2,6 +2,7 @@
 title: "XML computation expressions: Playing around with extending the F# compiler"
 categories: "edsl,ce,dsl,compiler,f#"
 abstract: "Existing embedded DSLs for XML in F# all have their quirks and inconvenients. I'm presenting a small patch to the F# compiler that allows to implement a better XML EDSL."
+identity: "3394,76694"
 ---
 It's been a couple months since <a href="https://groups.google.com/forum/?fromgroups=#!searchin/fsharp-opensource/xml/fsharp-opensource/lvqnyb1CZUA">this discussion</a> in the F# Open-Source mailing list about a unified F# EDSL for XML trees, but I've remained intrigued by this problem and wanting to improve on the solutions proposed. I found <a href="http://fssnip.net/hf">Tomas Petricek's computation expression-based solution</a>, in particular, quite nice in its conciseness and non-reliance on custom operators, which makes it much more intuitive. Its big problem, though, is its complete reliance on side-effects at every level.
 

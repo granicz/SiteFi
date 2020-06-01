@@ -2,6 +2,7 @@
 title: "WebSharper.UI 4.2.4 released"
 categories: "ui,csharp,fsharp,websharper"
 abstract: "This is a minor feature release of WebSharper.UI, out-of-band from WebSharper."
+identity: "5517,84872"
 ---
 We are happy to announce the release of [WebSharper.UI 4.2.4](https://www.nuget.org/packages/WebSharper.UI/4.2.4.114).
 

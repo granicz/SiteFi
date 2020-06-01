@@ -2,6 +2,7 @@
 title: "ML 2010 Workshop - Final Call for Presentations"
 categories: "ml,conference,f#"
 abstract: "There is still time to submit your F# talk/presentation/report/demo proposal to <a href=\"http://www.cs.rit.edu/~mtf/ml2010/\">ML 2010</a>, co-located with ICFP in Baltimore, MD, USA!"
+identity: "1014,74595"
 ---
 There is still time to submit your F# talk/presentation/report/demo proposal to [ML 2010](http://www.cs.rit.edu/~mtf/ml2010/), co-located with ICFP in Baltimore, MD, USA! I would like to confirm that your submission is still welcome even after the deadline (June 25) - just let us know that you intend to submit and we will make sure that your proposal gets full attention.
 

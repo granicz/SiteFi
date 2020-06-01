@@ -2,6 +2,7 @@
 title: "WebSharper 4.2.10 and UI 4.2.6 released"
 categories: "ui,csharp,fsharp,websharper"
 abstract: "This minor release brings bug fixes and a few features to WebSharper and UI."
+identity: "5569,85081"
 ---
 This minor release brings bug fixes and a few features to WebSharper and UI.
 

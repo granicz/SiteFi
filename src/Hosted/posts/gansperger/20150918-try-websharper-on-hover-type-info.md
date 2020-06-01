@@ -2,6 +2,7 @@
 title: "Try WebSharper: on-hover type info"
 categories: "trywebsharper,f#,websharper"
 abstract: "A new version of Try WebSharper is out featuring type information on hover and the addition of most of our private and premium extensions!"
+identity: "4552,80310"
 ---
 Try WebSharper has just been updated with some enticing features to help you write code even more easily!
 

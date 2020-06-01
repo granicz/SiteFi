@@ -2,6 +2,7 @@
 title: "WebSharper 3.2 with support for scriptable applications, better resource management, and additional streamlined syntax"
 categories: "f#,websharper"
 abstract: "We are thrilled to announce the availability of WebSharper 3.2, paving the road to further upcoming enhancements to streamline developing and deploying WebSharper apps, and also shipping several key changes summarized here."
+identity: "4401,79660"
 ---
 We are thrilled to announce the availability of WebSharper 3.2, paving the road to further upcoming enhancements to streamline developing and deploying WebSharper apps, and also shipping several key changes summarized here.
 

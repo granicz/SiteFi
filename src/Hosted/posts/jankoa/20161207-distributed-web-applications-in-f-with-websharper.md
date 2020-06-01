@@ -2,6 +2,7 @@
 title: "Distributed web applications in F# with WebSharper"
 categories: "remoting,javascript,f#,websharper"
 abstract: "Introducing new and improved WebSharper 4 beta features for RPCs: customizing both client and server side."
+identity: "5204,82344"
 ---
 This article is part of [F# Advent 2016](https://sergeytihon.wordpress.com/2016/10/23/f-advent-calendar-in-english-2016/)
 

@@ -2,6 +2,7 @@
 title: "Try Websharper: version info about extensions and some embedding improvements"
 categories: "trywebsharper,f#,websharper"
 abstract: "A new dialog has been added showing a version number for the site and all the version info about the extensions for better transparency. A new feature has also been introduced, which lets the user decide which page they want to show by default when embedding a snippet."
+identity: "4559,80399"
 ---
 Try WebSharper has been updated with some minor improvements regarding version info and embedding snippets.
 

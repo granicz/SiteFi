@@ -2,6 +2,7 @@
 title: "Clear and simple reactive code with WebSharper.UI's V"
 categories: "ui,fsharp,reactive,websharper"
 abstract: "Reactive code can be just as clear and readable as static code with this new WebSharper.UI feature!"
+identity: "5508,84675"
 ---
 Writing reactive code in WebSharper.UI can result in the use of a lot of functions and combinators, and code that is more verbose than a static counterpart would be. However, a recent new feature can help reduce most of this overhead: the `V` property. Let's get started with it!
 

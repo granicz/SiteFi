@@ -2,6 +2,7 @@
 title: "WebSharper 3.0 RC released"
 categories: "fsharp,javascript,web,websharper"
 abstract: "We are finally closing in on the final WebSharper 3.0 with this release candidate."
+identity: "4247,79011"
 ---
 Today we just pushed out our release candidate for WebSharper 3.0. This means that WebSharper 3.0 is now in **feature freeze**, and we will only be releasing bug fixes until the stable release of WebSharper. So if you were holding out on switching to 3.0 because of continuous breaking changes, now is the time to try it out!
 

@@ -2,6 +2,7 @@
 title: "A faster and slicker Try WebSharper"
 categories: "trywebsharper,f#,websharper"
 abstract: "A while ago we rolled out a new UI for Try WebSharper, essentially changing it into a snappy single-page application (SPA). Among others, you can now switch between trying out various snippets and making your own without any noticable delay, no more annoying page refreshes. [more..]"
+identity: "4764,81441"
 ---
 A while ago we rolled out a new UI for [Try WebSharper](http://try.websharper.com), essentially changing it into a snappy single-page application (SPA). Among others, you can now switch between trying out various snippets and making your own without any noticable delay, no more annoying page refreshes.
 

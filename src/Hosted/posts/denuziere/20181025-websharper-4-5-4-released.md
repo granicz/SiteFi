@@ -2,6 +2,7 @@
 title: "WebSharper 4.5.4 released"
 categories: "cors,csharp,fsharp,javascript,websharper"
 abstract: "This minor release adds sitelet CORS support, drops jQuery from UI's dependencies and fixes a number of issues."
+identity: "5627,86006"
 ---
 We are happy to announce the release of WebSharper 4.5.4.
 
