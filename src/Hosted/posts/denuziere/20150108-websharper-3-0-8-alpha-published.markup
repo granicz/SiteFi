@@ -1,0 +1,112 @@
+---
+title: "WebSharper 3.0.8-alpha published"
+categories: "f#,websharper"
+abstract: "This release of WebSharper streamlines a lot of the namespaces, making it more intuitive to use than ever. It is a breaking update, and this article describes all the (mostly trivial) changes that need to be done to existing projects."
+---
+As we advance closer to the stable release of WebSharper 3.0, more and more of the breaking changes we have wanted to implement for a long time are coming out. The main theme of the just-released version 3.0.8-alpha is naming conventions streamlining. With these changes, WebSharper should be more intuitive to use than ever. The changes necessary to update an existing project are fairly simple and detailed in the comprehensive guide below.
+
+<h1>Naming changes</h1>
+In names below, <c>IF</c> is short for <c>IntelliFactory</c> and <c>IFWS</c> for <c>IntelliFactory.WebSharper</c>.
+
+<h2>JavaScript standard library</h2>
+Until now, the JavaScript standard library was split into a number of namespaces and modules, making it sometimes difficult to find where something was. The new namespace <c>IFWS.JavaScript</c> is now the home of everything built in the browser, whether it's basic language constructs, DOM, HTML5, etc.
+
+The general rule is:
+<b>If a module contains client-side code, you should <c>open IntelliFactory.WebSharper.JavaScript</c>.
+If it only contains server-side code, you should not.</b>
+
+For the purpose of the above rule, WIG definitions ("Extension" projects) are not considered client-side code, since they are run <i>during compilation</i> to generate inlines. In fact, it is important <i>not</i> to <c>open IFWS.JavaScript</c> in a WIG definition because of a conflict on the <c>(?)</c> operator.
+
+In more detail:
+<ul>
+<li><c>IFWS.EcmaScript</c> and <c>IFWS.Html5</c> are removed and all types defined under them are now under <c>IFWS.JavaScript</c>. The module <c>IFWS.EcmaScript.Global</c> is merged with the old <c>IFWS.JavaScript</c> and renamed to <c>IFWS.JavaScript.JS</c>. A few HTML5 items have also been cleaned up, and more will certainly come in the future. For example, code that used to read:
+<code lang=fsharp>
+open IntelliFactory.WebSharper
+
+let a = EcmaScript.Date.Now()
+let b = new Html5.Float32Array()
+let c = Global.NaN
+let d = JavaScript.Undefined
+let e : EcmaScript.WebGLRenderingContext = (* ... *)
+let f : Html5.Position = (* ... *)
+JavaScript.Log "Some text on the console"
+</code>
+now reads:
+<code lang=fsharp>
+open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.JavaScript
+
+let a = Date.Now()
+let b = new Float32Array()
+let c = JS.NaN
+let d = JS.Undefined
+let e : WebGL.RenderingContext = (* ... *)
+let f : Geolocation.Position = (* ... *)
+Console.Log "Some text on the console"
+</code>
+<c>JS</c> now basically contains all top-level values and language constructs defined in JavaScript. This includes <c>JS.Window</c> and <c>JS.Document</c>, which obsolete <c>Html5.Window.Self</c> and <c>Dom.Document.Current</c>, respectively.</li>
+<li><c>IFWS.Dom</c> is renamed to <c>IFWS.JavaScript.Dom</c>.</li>
+<li>The auto-opened <c>IFWS.Pervasives</c> is split in two:
+<ul>
+<li><c>IFWS.Pervasives</c> contains definitions useful for both client-side and server-side code, such as attributes (<c>[<JavaScript>]</c>, <c>[<Inline>]</c>, <c>[<Rpc>]</c>, etc).</li>
+<li><c>IFWS.JavaScript.Pervasives</c> contains client-side definitions, such as:
+<code lang=fsharp>
+open IntelliFactory.WebSharper.JavaScript
+
+// notation for plain JavaScript object creation
+let g = New ["x" => 12; "y" => 14]
+// plain JavaScript field access
+let h = e?x
+// "dotted" operators, inlined to the corresponding JavaScript operator
+if g ===. h then ()
+</code></li>
+</ul></li>
+</ul>
+
+<h2>HTML combinators</h2>
+<ul>
+<li>The namespaces <c>IF.Html</c> and <c>IFWS.Html</c> have been a constant source of confusion for beginners. In WebSharper 3.0.8, they have been renamed to <c>IFWS.Html.Server</c> and <c>IFWS.Html.Client</c>, respectively. Hopefully this should make it more obvious when one or the other is needed.</li>
+<li>Tag and attribute combinators that were previously under a <c>HTML5</c> module are now grouped back together with the "normal" ones. We judged that it doesn't make sense to separate them out anymore.</li>
+<li>The type <c>IF.Html.Element<'T></c> was originally intended to allow embedding various types of client-side controls. But ultimately, only <c>Web.Control</c> has ever been used for this purpose. Therefore, we made the corresponding new <c>IFWS.Html.Server.Element</c> and all associated types (such as <c>INode</c> and <c>Attribute</c>) non-parametric.</li>
+</ul>
+
+<h2>Formlets</h2>
+The following namespaces have been renamed for consistency with Sitelets and Piglets:
+<ul>
+<li><c>IF.Formlet --> IF.Formlets</c></li>
+<li><c>IFWS.Formlet --> IFWS.Formlets</c></li>
+<li><c>IFWS.Formlet.JQueryUI --> IFWS.Formlets.JQueryUI</c> (extension)</li>
+<li><c>IFWS.Formlet.TinyMce --> IFWS.Formlets.TinyMce</c> (extension)</li>
+</ul>
+The NuGet package WebSharper.Formlet.JQueryUI has also been renamed to WebSharper.Formlets.JQueryUI.
+
+<h1>Functionality changes</h1>
+<h2>Web.Control and HTML type hierarchy</h2>
+In preparation for an upcoming tighter integration of UI.Next, we changed the behavior of <c>Web.Control</c>. Namely, the <c>Body</c> property doesn't have the type <c>IPagelet</c> anymore, but a new interface <c>IControlBody</c> that is implemented by pagelets and will be soon implemented by UI.Next <c>Doc</c>s. As a consequence:
+<ul>
+<li>The interface <c>IPagelet</c> is replaced by an abstract class <c>Pagelet</c>, which implements <c>IControlBody</c> appropriately.</li>
+<li>The <c>Body</c> property of <c>Html.Client.Element</c>s now has type <c>Dom.Node</c> instead of <c>Dom.Element</c>. Some methods (such as <c>JQuery.Append</c>) require a <c>Dom.Element</c>; in this case, replace <c>.Body</c> with <c>.Dom</c>:
+<code lang=fsharp>
+// old code
+open IntelliFactory.WebSharper.Html
+open IntelliFactory.WebSharper.JQuery
+
+let e = Div [Text "some content"]
+JQuery.Of("#myElt").Append(e.Body).Ignore
+
+// new code
+open IntelliFactory.WebSharper.Html.Client
+open IntelliFactory.WebSharper.JQuery
+
+let e = Div [Text "some content"]
+JQuery.Of("#myElt").Append(e.Dom).Ignore
+</code></li>
+</ul>
+
+<h2>Assembly referencing</h2>
+This one gets a bit more technical and is related to the WebSharper build process. WebSharper contains a custom MSBuild task written in F#, which is in charge of compiling code to JavaScript and extracting the compiled JavaScript code into a web project, among other things. Until now, this task was also in charge of adding all the WebSharper assembly references to the project just before running the F# compiler. This had several unfortunate consequences: the solution explorer in Visual Studio did not show the WebSharper references, and in some cases on Mono (such as when compiling a full solution in CloudSharper), XBuild would fail to add the references correctly. In this new release, we switched to a more conventional scheme where references are added to the project file itself by <c>nuget install</c>. This more standard behavior should harbor fewer opportunities for problems.
+
+<h1>Conclusion</h1>
+Phew, that was a long one! Overall these changes are fairly simple to apply to an existing project, and we are confident that they remove a number of idiosyncrasies that hinder the learning of WebSharper for beginners.
+
+If you encounter any problems porting a project to the latest WebSharper, don't hesitate to tell us on <a href="https://github.com/intellifactory/websharper/issues">the issue tracker</a>. Happy coding!

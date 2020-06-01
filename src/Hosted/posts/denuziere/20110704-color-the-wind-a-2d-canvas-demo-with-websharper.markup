@@ -1,0 +1,12 @@
+---
+title: "Color the Wind - a 2D Canvas demo with WebSharper"
+categories: "demoscene,f#,websharper"
+abstract: "At DemoJS, a demoparty dedicated to web technologies that took place this weekend in Paris, a demo coded with WebSharper was released."
+---
+The demoscene is a computer subculture focused on the creation of demos: short real-time animations showcasing a wide variety of technologies. Among these, web technologies have been getting increasing interest during the last months. DemoJS is an example of this interest: it is a demoparty (a demoscene meeting and competition) that was co-organized by Mozilla Labs in Paris on the 2nd and 3rd of July.
+
+<a href=http://demojs.org/2011/releases/Freestyle/online/Ctrl-Alt-Test_-_Color_The_Wind>Color the Wind</a> is a demo that was developed with WebSharper and presented at DemoJS. It uses the HTML5 Canvas element with a 2D context.
+
+<img src="http://intellifactory.com/ShowDigitalAsset.aspx?DigitalAsset=198">
+
+Color the Wind was created in just a few hours, and took the sixth place in the competition. You can have a look at the F# source code at <a href=http://demojs.org/2011/releases/Freestyle/online/Ctrl-Alt-Test_-_Color_The_Wind/source/>this address</a>.

@@ -1,0 +1,31 @@
+---
+title: "CloudSharper 0.9.19 released"
+categories: "cloudsharper,f#,websharper"
+abstract: ""
+---
+CloudSharper 0.9.19 is out! Here are some highlights:
+
+<ul>
+<li>Workspaces are now capable of managing zero, one or several solutions, instead of just one. No solution file is created when you first create a workspace, but it can be automatically created when you create a project containing a project file; this behavior is customized by the combobox in the "New project" window.
+<a href="http://i.imgur.com/UjmxMPw.png"><img src="http://i.imgur.com/UjmxMPw.png"></a>
+</li>
+<li>Configuration of listening urls and ports has slightly changed, both in <c>CloudSharper.Console.exe.config</c> if you use the console and on the <c>CloudSharper.exe</c> command line options. There is now a <c>serveip</c> to decide on which IP the various servers (Websockets, static files, sitelets) should listen, and a <c>*port</c> option for each of these servers.</li>
+</ul>
+
+Here is the full change log:
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/444/support-multiple-solution-files-in-a">#444</a>: Support multiple solution files in a workspace</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/484/missing-files-should-be-marked-in-solution">#484</a>: Missing files marked in the Solution view</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/514/unable-to-add-existing-files-to-project">#514</a>: Problem adding existing files to a project</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/515/rename-project-item-should-update-proj">#515</a>: Update project file when renaming a project item</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/516/loading-custom-editors-stays-on-forever-if">#516</a>: "Loading custom editors" stays on forever if the user has custom editors without js dependencies</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/517/cloudsharper-workspace-filename-do-not">#517</a>: CloudSharper workspace filename do not refresh</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/518/solution-less-workspaces">#518</a>: Support no solution files in a workspace</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/523/nuget-dll-reference-gets-removed-when">#523</a>: NuGet dll reference gets removed when updating another package</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/525/the-new-project-dialog-fails-to-show-up">#525</a>: The New Project... dialog fails to show up</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/526/cloudsharper-service-exception-on-start">#526</a>: Fix detecting http server failure to listen</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/527/project-file-updating">#527</a>: Project file updating in solution tree</li>
+</ul>
+
+Happy coding!

@@ -1,0 +1,10 @@
+---
+title: "WebSharper migration to GitHub complete!"
+categories: "bitbucket,github,f#,websharper"
+abstract: "WebSharper sources and issues have moved from BitBucket to GitHub."
+---
+When we <a href="https://groups.google.com/forum/#!topic/fsharp-opensource/4gS-qoZ2Z1g">announced WebSharper 3.0</a> on Wednesday, we also mentioned that we would be migrating from BitBucket to GitHub. Well, this is now done!
+
+<a href="https://github.com/intellifactory/websharper">Here</a> is the new main repository for WebSharper. All tickets from the BitBucket tracker have also been migrated (apologies to everyone whose mailbox has been spammed by this!), and are available at <a href="https://github.com/intellifactory/websharper/issues">this address</a>. Finally, public extensions have been transferred too (for those that weren't already GitHub-based), and are listed under the <a href="https://github.com/intellifactory?query=websharper">IntelliFactory</a> organization.
+
+We eagerly await your suggestions, bug reports and pull requests on our new repositories!

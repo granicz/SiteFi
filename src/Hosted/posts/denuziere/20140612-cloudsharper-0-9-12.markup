@@ -1,0 +1,13 @@
+---
+title: "CloudSharper 0.9.12"
+categories: "cloudsharper,f#,websharper"
+abstract: "Version 0.9.12 of CloudSharper alpha is out!"
+---
+This new release of CloudSharper alpha improves the NuGet package management workflow.
+
+<ul>
+<li>Automatic referencing of newly installed or updated packages: CloudSharper inserts references in the project file, similarly to how Visual Studio does.</li>
+<li>Support for package sources with authentication. Credentials are not saved and have to be provided again after reloading a workspace. For upcoming versions we are considering options to allow a better workflow without risking to compromise user authentication data.</li>
+</ul>
+
+This is a protocol-changing version, so make sure that you install the latest version of the CloudSharper local component. Happy coding!

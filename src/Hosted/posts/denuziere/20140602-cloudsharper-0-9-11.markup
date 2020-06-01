@@ -1,0 +1,32 @@
+---
+title: "CloudSharper 0.9.11"
+categories: "cloudsharper,f#,websharper"
+abstract: "Version 0.9.11 of CloudSharper alpha is out!"
+---
+We just released version 0.9.11 of CloudSharper alpha. The main highlights are:
+<ul>
+<li>Better version compatibility management. If you are trying to use CloudSharper with a local component that is not the latest, you will see either an error or a warning, depending on whether your local component is protocol-compatible with the current CloudSharper.</li>
+<li>A user interface for NuGet package management, accessible by right-clicking the folder of a project and selecting "Manage packages".
+Note that this only installs the package into the <c>/packages</c> folder; modifying the project file to add references, as Visual Studio does, will be added in an upcoming release.</li>
+
+<img src="http://i.imgur.com/nPWDwVs.png">
+</ul>
+
+Here is the full change log:
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/386/add-protocol-version-negociation-on">#386</a>: Add protocol version negociation on websocket connect</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/388/cloudsharperconsoleexe-not-in">#388</a>: CloudSharper.Console.exe not in CloudSharper.zip</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/389/code-completion-tooltips-show-loading">#389</a>: Code completion tooltips show "(Loading description...)" most of the time</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/399/using-the-same-type-provider-in-several">#399</a>: Using the same type provider in several workspaces confuses the code service</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/400/on-disconnect-offer-to-reconnect">#400</a>: On disconnect, offer to reconnect immediately instead of waiting 30s</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/401/better-deal-with-projects-that-failed-to">#401</a>: Better deal with projects that failed to load in the code service</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/403/code-service-when-a-standalone-fs-file">#403</a>: Code service: when a standalone fs file becomes integrated in a project, clear errors on it</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/404/registration-form-no-feedback-on-success">#404</a>: Registration form - no feedback on success</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/405/nuget-window-typing-in-search-input-should">#405</a>: NuGet window: typing <enter> in search input should trigger the search</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/406/writing-packagesconfig-omits-the-line">#406</a>: Writing packages.config omits the <c><?xml ... ?></c> line</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/407/nuget-manager-exception-when-reading-the">#407</a>: Nuget manager: exception when reading the installed packages</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/409/wrong-packages-in-packageconfig">#409</a>: Wrong packages in package.config</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/410/jquerymobile-application-template-fixes">#410</a>: WebSharper template fixes</li>
+</ul>
+
+Happy coding!

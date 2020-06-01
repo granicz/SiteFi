@@ -1,0 +1,13 @@
+---
+title: "CloudSharper 0.9.9.1"
+categories: "cloudsharper,f#,websharper"
+abstract: "This is a bugfix release, the most important fix being the fsi interactive features."
+---
+As the version number suggests, this is only a bugfix release. The issues addressed are:
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/301/trying-to-start-msbuild-when-a-build-is">#301</a>: Trying to start MSBuild while a build was already running caused the server to crash; this is no longer the case.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/302/f-interactive-init-fails-to-run">#302</a>: The initialization code for fsi failed to run due to mismatched FSharp.Core.dll version; this caused charting and on-the-fly WebSharper compilation to fail.</li>
+</ul>
+
+As announced yesterday, we are now focusing on providing a centralized platform experience to provide CloudSharper to a group of developers or students off a single install. Follow us on twitter <a href="http://twitter.com/cloudsharper">@CloudSharper</a> for further announcements!

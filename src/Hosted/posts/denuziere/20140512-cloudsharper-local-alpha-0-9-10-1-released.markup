@@ -1,0 +1,78 @@
+---
+title: "CloudSharper Local alpha 0.9.10.1 released"
+categories: "ide,cloudsharper,cloud,f#,websharper"
+abstract: ""
+---
+<a href="http://cloudsharper.com">CloudSharper 0.9.10.1</a> is here! It has been several weeks since the previous release, therefore this version includes several major improvements.
+
+<ul>
+<li>CloudSharper is now <b>officially supported on mono</b>. Here are the installation instructions for Ubuntu 14.04:
+<ul>
+<li>Install the following packages from the Ubuntu repository:
+<c>mono-complete fsharp</c></li>
+<li>Download the zip version of CloudSharper Local, available <a href="http://cloudsharper.com/downloads/CloudSharper.zip">here</a> (or linked on the login page) and extract it in the folder of your choice.</li>
+<li>To start CloudSharper Local, run the following command:
+<c>mono CloudSharper.exe</c></li>
+</ul></li>
+<li>The <b>F# Intellisense service</b> is now based on the latest <a href="https://github.com/fsharp/FSharp.Compiler.Service">FSharp.Compiler.Service</a>, the community-maintained library used by the MonoDevelop and Emacs modes for F#.</li>
+<li>The <b>F# Interactive service</b> is also based on FSharp.Compiler.Service. This gives us more control over the internals of fsi and allows more reliable extensibility for tools such as our inline charting library and on-the-fly compilation to JavaScript via WebSharper.</li>
+<li>CloudSharper now manages a <b>solution file</b> per workspace. It is a standard Visual Studio solution file, allowing you to work comfortably on the same workspace with CloudSharper and Visual Studio. Projects are automatically added to it when created with the "Create new project" window, and removed when the <c>.*proj</c> file is deleted.</li>
+<li>Minimal <b>NuGet package management</b>. CloudSharper checks for any <c>packages.config</c> file in your workspace and automatically installs the corresponding packages. Upcoming versions will provide automatic insertion of the relevant references in project files and a GUI to easily search, install and reference NuGet packages.</li>
+</ul>
+
+The following long-standing bugs have been fixed:
+
+<ul>
+<li>On some computers, the CloudSharper Local Console failed to start properly, which forced these users to start <c>CloudSharper.exe</c> from the command line. This is not the case anymore.</li>
+<li>The installer now properly removes older versions of CloudSharper Local.</li>
+</ul>
+
+Here is the complete change list:
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/139/exit-1-in-f-interactive-gives-error">#139</a>: "exit 1;;" in F# Interactive gives error message</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/272/console-doesnt-start-service-properly">#272</a>: Console doesn't start service properly</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/305/projects-not-in-subfolders-crash-the">#305</a>: Projects not in subfolders crash the console</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/308/cloudsharperinstallermsi-is-not-removing">#308</a>: CloudSharper.Installer.msi is not removing older versions</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/309/use-fsi-from-fsharpcompilerservice-instead">#309</a>: Use fsi from FSharp.Compiler.Service instead of the current wrapper</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/313/context-menu-on-workspaces-list">#313</a>: Context menu on workspaces list</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/316/do-not-ship-systemdll-microsoftbuild-etc">#316</a>: Do not ship System.dll, Microsoft.Build.* etc - breaks on Mono</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/318/fsharpcore-4300-vs-4310">#318</a>: FSharp.Core 4.3.0.0 vs 4.3.1.0</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/319/conflicts-between-ms-build-40-and-120">#319</a>: Conflicts between MS Build 4.0 and 12.0</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/323/mono-stuck-at-creating-interactive-service">#323</a>: Mono; stuck at creating Interactive service</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/324/mono-downloadtemplate-hits-notimplemented">#324</a>: Mono: downloadTemplate hits NotImplemented</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/325/start-csexe-bug">#325</a>: Start cs.exe bug</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/326/login-with-fpish-redirect-needs-updating">#326</a>: Login with FPish redirect needs updating</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/327/file-tabs-improvements">#327</a>: File tabs improvements</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/329/solution-file-support">#329</a>: Solution file support</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/330/project-references-dialog">#330</a>: Project references dialog</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/331/closing-affected-file-tabs-on-folder">#331</a>: Closing affected file tabs on folder delete</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/332/asyncdisposable-losing-exceptions">#332</a>: AsyncDisposable losing exceptions.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/333/bug-in-portrangeallocator-asyncdisposable">#333</a>: bug in portRangeAllocator + AsyncDisposable</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/334/fsi-gets-started-twice-per-session">#334</a>: FSI gets started twice per session</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/335/weird-behavior-in-fsi-values-not-printed">#335</a>, <a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/337/mono-fsi-does-not">#337</a>: Mono: fsi does not print anything to the console</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/336/cloudsharperexe-spinning-cpu">#336</a>: CloudSharper.exe spinning CPU</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/339/msbuild-building-cleaning-projects-fails">#339</a>: MSBuild building/cleaning projects fails on Mono</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/341/executing-an-fsi-script-fails-with">#341</a>: Executing an FSI script fails with fireworks on Mono</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/342/msbuild-service-find-a-solution-that-works">#342</a>: MSBuild service -- find a solution that works both on Mono and .NET</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/343/allow-creating-an-empty-workspace-without">#343</a>: Allow creating an empty workspace without needing to go to azure</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/345/fsharpcore-v4310-not-found-on-mono">#345</a>: FSharp.Core v4.3.1.0 not found on Mono</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/346/mono-html-project-connection-reset-when">#346</a>: Mono / HTML project: Connection Reset when viewing generated HTML</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/347/mono-native-failure-on">#347</a>: Mono: native failure on FSharpInterfaceDataVersionAttribute ctor</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/349/completion-returns-nothing-when-the">#349</a>: Completion returns nothing when the project file has been opened</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/350/build-dependencies-missing">#350</a>: Build dependencies missing</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/351/completion-not-working-for-websharper">#351</a>: Completion not working for WebSharper projects (mono + windows)</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/352/completion-not-working-after-build-in-mono">#352</a>: Completion not working after build in Mono</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/353/add-the-latest-nugetexe-to-the-installer">#353</a>: Add the latest nuget.exe to the installer and zip</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/354/execute-nuget-package-restore-when">#354</a>: Execute NuGet package restore when necessary</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/355/add-a-nuget-package-restore-context-menu">#355</a>: Add a "NuGet Package Restore" context menu item</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/357/package-restore-output-should-go-into">#357</a>: "Package restore" output should go into Build Messages</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/358/fsproj-changes-not-getting-picked-up">#358</a>: fsproj changes not getting picked up</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/363/triggering-msbuild-when-another-build-is">#363</a>: Triggering msbuild when another build is already running crashes the local component</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/364/msbuild-service-throws-an-exception-if-a">#364</a>: MSBuild service throws an exception if a project file is invalid</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/365/msbuild-is-silent-when-passed-an-invalid">#365</a>: MSBuild is silent when passed an invalid project file</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/367/fsi-websharper-code-raises-failed-to">#367</a>: fsi: WebSharper code raises Failed to translate property access</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/370/mono-exception-when-writing-to-the">#370</a>: Mono: exception when writing to the solution file</li>
+</ul>
+
+Happy coding!

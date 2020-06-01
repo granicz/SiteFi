@@ -1,0 +1,14 @@
+---
+title: "CloudSharper 0.9.9.2"
+categories: "cloudsharper,f#,websharper"
+abstract: "A bugfix release of CloudSharper in preparation for the upcoming remote multi-user server feature."
+---
+This bugfix release addresses the following issues:
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/303/systemthreadingtasksdataflowdll-missing">#303</a>: Distribute System.Threading.Tasks.Dataflow.dll. The absence of this file could prevent running <c>msbuild</c> unless installed on your system.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/304/the-local-component-can-only-serve-one">#304</a>: Allow the local component's sitelet server to serve several sitelets in parallel. This allows you to have several workspaces open (in separate browser tabs) and to test them simultaneously. This will also allow the upcoming multi-user component to serve sitelets for several users.
+This comes with a change in the configuration file (<c>CloudSharper.Console.exe.config</c> in the installation directory): the <c>siteleturl</c> setting is now split into <c>siteletbaseurl</c> and <c>siteletportrange</c>.</li>
+</ul>
+
+Happy coding!

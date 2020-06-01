@@ -1,0 +1,31 @@
+---
+title: "CloudSharper 0.9.17.1 released"
+categories: "cloudsharper,f#,websharper"
+abstract: "This release enables running F# interactive without a workspace, in addition to a set of bug fixes."
+---
+It's release time again! CloudSharper 0.9.17.1 is out with a new feature: workspace-less fsi.
+
+You can now run F# Interactive without having a workspace open, which is quite convenient for quick exploratory programming. Note that your fsi session will be reset as soon as you open a workspace.
+
+You can also dock the interactive window to the right of the main tabset, making it easier to work interactively with a script or a documentation page.
+
+<a href="http://i.imgur.com/NPrQKRo.png"><img src="http://i.imgur.com/4ks9yyQ.png"></a>
+
+This release also fixes a critical issue where the MSBuild agent on mono would throw an exception when trying to start a build.
+
+As usual, here is the complete change log:
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/467/check-subprotocol-for-globalcommands-too">#467</a>: Check subprotocol for GlobalCommands too</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/474/line-endings-in-console-for-foreign">#474</a>: Fix newlines in console output of foreign commands</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/478/show-the-cs-version-number-on-the">#478</a>: Show the CloudSharper version number on the dashboard</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/490/enable-fsi-in-workspace-less-scenarios">#490</a>: Enable fsi in workspace-less scenarios</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/499/select-current-file-in-sln-and-files-tree">#499</a>: Add "Find in solution explorer" and "Find in file explorer" to tab context menu</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/503/dialog-layout-on-viewport-resize">#503</a>: Dialog layout on viewport resize</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/504/workspace-create-a-workspace-does-nothing">#504</a>: Fix the <c>new-ws</c> command</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/505/fpish-account-association-page-style">#505</a>: Fix styling of the FPish account association page</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/507/the-msbuild-agent-throws-an-exception-on">#507</a>: Fix exception thrown by the MSBuild agent on mono when triggering a build</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/509/websocket-server-refuses-connections-from">#509</a>: Correctly connect to a local component running on another machine</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/510/allow-docking-the-interactive-window">#510</a>: Allow docking the interactive window</li>
+</ul>
+
+Happy coding!

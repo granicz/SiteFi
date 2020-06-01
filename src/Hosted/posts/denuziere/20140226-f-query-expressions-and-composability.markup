@@ -1,0 +1,221 @@
+---
+title: "F# query expressions and composability"
+categories: "query,composability,quotations,linq,f#"
+abstract: "F# 3.x Query Expressions are a nice piece of syntactic sugar, but they are notably difficult to compose. This article discusses the auto-quoting mechanism of query expressions and how it can be leveraged to implement not-too-clunky composition."
+---
+Anyone who has written non-trivial applications that need to access a SQL database can attest it: being able to compose SQL queries, insert parts of query that depend on some runtime criterion, is tremendously helpful. Not having this capability often means having to copy and paste queries just to be able to add a "where" or a "join" clause, and I know few better ways to end up with buggy, hard-to-maintain code.
+
+This article discusses the auto-quoting mechanism of F# 3.x query expressions and how it can be leveraged to implement not-too-clunky composition.
+
+<h2>PowerPack.Linq</h2>
+
+In F# 2.0, the standard / usual way to access SQL databases was PowerPack.Linq, which featured a <c>query</c> function capable of translating a quotation containing sequence operations into a LINQ query. Therefore, composing sub-queries basically meant composing sequence operations, and it was not too difficult: quotation splicing did the trick.
+
+Let's take the classic example of a web forum, with a <c>Message</c> table containing a field <c>UserId</c> that keys into a <c>User</c> table through its <c>Id</c> field. Let's write the following function:
+
+<code lang=fsharp>
+val GetLatestMessages : num: int -> username: string option -> Message[]
+</code>
+
+If <c>username</c> is <c>None</c>, we return the <c>num</c> latest messages posted by anyone; else, only those posted by the given user. So depending on <c>username</c>, we will need two different SQL queries: one with a join into the users table, and one without.
+
+With PowerPack.Linq, it will look like this:
+
+<code lang=fsharp>
+let GetLatestMessages num usernameOpt =
+  use db = (* retrieve LINQ-to-SQL context *)
+  let baseQuery =
+    <@ db.Messages |> Seq.sortBy (fun m -> m.PostedDate) @>
+  let filteredQuery =
+    match usernameOpt with
+    | None -> baseQuery
+    | Some username ->
+      <@ seq { for m in %baseQuery do
+               for u in db.Users do
+               if u.Username = username && m.UserId = u.Id then
+                 yield m } @>
+  query <@ %filteredQuery |> Seq.take num @>
+  |> Array.ofSeq
+</code>
+
+Note the use of the percent operator. It performs quotation splicing, which means that its argument, itself a quotation, is put as-is into the quotation being defined. In the end, the quotation compiled by <c>query</c> depends on the value of <c>usernameOpt</c>. If it is <c>None</c>, then the final quotation is:
+
+<code lang=fsharp>
+<@ db.Messages
+   |> Seq.sortBy (fun m -> m.PostedDate)
+   |> Seq.take num @>
+</code>
+
+If it is <c>Some username</c>, then the final quotation is:
+
+<code lang=fsharp>
+<@ seq { for m in (db.Messages |> Seq.sortBy (fun m -> m.PostedDate)) do
+         for u in db.Users do
+         if u.Username = username && m.UserId = u.Id then
+           yield m }
+   |> Seq.take num @>
+</code>
+
+The function <c>query</c> is then able to take whichever of these quotations, compile it into a valid SQL query, and run it. We do have the functionality we need, with the totality of the query being performed by the database.
+
+<h2>Query Expressions: The Problem</h2>
+
+F# 3.0 introduced query expressions, with the intent of creating a syntax similar to C#'s own LINQ syntax, itself very close to plain SQL. Using query expressions, the two above variants would be written as follows:
+
+<code lang=fsharp>
+query { for m in db.Messages do
+        sortBy m.PostedDate
+        select m
+        take num }
+
+query { for m in db.Messages do
+        sortBy m.PostedDate
+        join u in db.Users on (m.UserId = u.Id)
+        where (u.Username = username)
+        select m
+        take num }
+</code>
+
+But how can we choose between these two queries without having to duplicate the common parts, just like we did with <c>PowerPack.Linq</c>? As a first attempt, we can try to use the result of the previous fragment in the <c>for</c> part of the next one.
+
+<code lang=fsharp>
+let GetLatestMessages num usernameOpt =
+  use db = (* retrieve LINQ-to-SQL context *)
+  let baseQuery =
+    query { for m in db.Messages do
+            sortBy m.PostedDate
+            select m }
+  let filteredQuery =
+    match usernameOpt with
+    | None -> baseQuery
+    | Some username ->
+      query { for m in baseQuery do
+              join u in db.Users on (m.UserId = u.Id)
+              where (u.Username = username)
+              select m }
+  query { for m in filteredQuery do
+          take num }
+  |> Array.ofSeq
+</code>
+
+However, at runtime, we get this cryptic exception (using a LINQ to Entities context; the message will probably be different if you use LINQ to SQL):
+
+<code>
+This method supports the LINQ to Entities infrastructure
+and is not intended to be used directly from your code.
+</code>
+
+What is going on here? Well, the problem here is that the <c>query</c> builder actually performs the translation to LINQ. So <c>baseQuery</c> is actually an <c>IQueryable<Message></c> representing the output of the query. It is therefore too late to combine into a more complex query!
+
+<h2>Query Expressions: The Solution</h2>
+
+In order to progress further, we need to understand how query expressions work internally. Like any F# computation expression, a query expression is mostly syntactic sugar on top of method calls on the builder object used to create the expression, in this case the <c>query</c> object. For example, <c>baseQuery</c> above corresponds to the following expression:
+
+<code lang=fsharp>
+  query.Select(
+    query.SortBy(
+      query.Source(db.Messages),
+      fun m -> m.PostedDate),
+    fun m -> m)
+</code>
+
+(I am actually omitting a couple extra method calls that would make this less readable, but the principle stays the same.)
+
+But actually... Not quite. If this was all there was to it, then it would be trivially composable, just like normal <c>seq { ... }</c> expressions are composable. But in order to be able to compile such an expression to LINQ, it needs to be able to inspect it; and to do so, without telling you, it uses... <i>(drumrolls...)</i> quotations.
+
+In fact, the query expression syntax does more than put sugar on top of some method calls; when some conditions are met (ie. when the builder object has certain specific methods), it also implicitly puts the whole body in a quotation, and calls the <c>Run</c> method on it. The translation of <c>baseQuery</c> is therefore closer to this:
+
+<code lang=fsharp>
+query.Run <@
+  query.Select(
+    query.SortBy(
+      query.Source(db.Messages),
+      fun m -> m.PostedDate),
+    fun m -> m)
+@>
+</code>
+
+<c>query.Run : Expr<Linq.QuerySource<'T, _>> -> IQueryable<'T></c> is responsible for taking this quotation and turning it into the final LINQ expression that maps directly to SQL.
+
+Now if only we could have direct access to the quotation, we would be golden. Well, it turns out we can do exactly that. We are going to play around with quoting and unquoting pieces of queries, which is something I've first seen done by Tomas Petricek <a href="http://stackoverflow.com/questions/13826749/how-do-you-compose-query-expressions-in-f">here</a>. In fact, this SO response is the original inspiration for this whole post.
+
+All we have to do here is to create a subclass of <c>Linq.QueryBuilder</c> (the class of <c>query</c>) that implements <c>Run</c> differently.
+
+<code lang=fsharp>
+type PartialQueryBuilder() =
+  inherit Linq.QueryBuilder()
+
+  member this.Run(e: Expr<Linq.QuerySource<'T, IQueryable>>) = e
+
+let pquery = PartialQueryBuilder()
+</code>
+
+We now have a query expression constructor, <c>pquery</c>, that we can invoke exactly like <c>query</c>, except that it returns the unevaluated query quotation.
+
+<code lang=fsharp>
+let baseQuery =
+  pquery{ for m in db.Messages do
+          sortBy m.PostedDate
+          select m }
+
+// val baseQuery : Expr<Linq.QuerySource<'T, _>>
+</code>
+
+What we want to do next is to be able to pass this unevaluated query to <c>for</c> in another query. As I've shown above, the sequence given to <c>for</c> is passed by the desugaring to a method <c>query.Source : IQueryable<'T> -> Linq.QuerySource<'T, _></c>. But here, pquery directly gives us a <c>Linq.QuerySource<'T, _></c>. No problem, we can use a trick similar to the above <c>Run</c> trick, except using an extension method on <c>query</c> itself:
+
+<code lang=fsharp>
+type Linq.QueryBuilder with
+  [<ReflectedDefinition>]
+  member this.Source(qs: Linq.QuerySource<'T, _>) = qs
+</code>
+
+Okay, now all we have to do is pass our partial query to <c>for</c>. But wait, isn't it an <c>Expr<Linq.QuerySource<'T, _>></c>, ie. a quoted version of what the <c>Source</c> we just wrote expects? Well, remember when I said that the body of query expressions gets wrapped in a quotation? This is not just a figure, it really is exactly what happens. So you can even use the <c>%</c> splicing operator in query expressions! For our example, the following code is valid:
+
+<code lang=fsharp>
+query { for m in %baseQuery do
+        join u in db.Users on (m.UserId = u.Id)
+        where (u.Username = username)
+        select m }
+</code>
+
+And there we go! We just wrote a partial query and composed it into a final query, and readability-wise all it takes is an extra <c>p</c> in the former and a <c>%</c> in the latter. Not bad!
+
+Here is the whole code for reference:
+
+<code lang=fsharp>
+// Utility code, write it once
+
+type PartialQueryBuilder() =
+  inherit Linq.QueryBuilder()
+
+  member this.Run(e: Expr<Linq.QuerySource<'T, IQueryable>>) = e
+
+let pquery = PartialQueryBuilder()
+
+type Linq.QueryBuilder with
+  [<ReflectedDefinition>]
+  member this.Source(qs: Linq.QuerySource<'T, _>) = qs
+
+
+// Example usage
+
+let GetLatestMessages num usernameOpt =
+  use db = (* retrieve LINQ-to-SQL context *)
+  let baseQuery =
+    pquery{ for m in ctx.Messages do
+            sortBy m.PostedDate
+            select m }
+  let filteredQuery =
+    match usernameOpt with
+    | None -> baseQuery
+    | Some username ->
+      pquery{ for m in %baseQuery do
+              join u in db.Users on (m.UserId = u.Id)
+              where (u.Username = username)
+              select m }
+  query { for m in %filteredQuery do
+          take num }
+  |> Array.ofSeq
+</code>
+
+Note how we can just as easily compose a partial query into another partial query. And finally, if you need to directly run a partial query (as opposed to splicing it into a normal query), you can just pass it to the standard <c>query.Run</c>.

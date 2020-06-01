@@ -1,0 +1,26 @@
+---
+title: "CloudSharper Local alpha 0.9.10.2"
+categories: "ide,cloudsharper,cloud,f#,websharper"
+abstract: "This minor release of CloudSharper alpha focuses on a few long-standing bug fixes, as well as the addition of the \"Search and replace\" functionality in the editor."
+---
+This minor release of CloudSharper alpha focuses on a few long-standing bug fixes, as well as the addition of the "Search and replace" functionality in the editor.
+
+The communication protocol has been altered slightly, so don't forget to update your local component by downloading it <a href="http://localhost:10101/home">here</a>!
+
+Here is the full change log:
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/366/changing-webserverport-in">#366</a>: Correctly propagate webserverport from CloudSharper.Console.exe.config.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/372/newly-created-workspaces-dont-show-up-in">#372</a>: Refresh workspace list after creating a workspace.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/373/no-ui-feedback-about-whether-projects-are">#373</a>: Show messages in build window when projects are first loaded. This should hopefully dissipate confusion when trying to build immediately after opening a workspace and the message "Error: project file invalid" showed up.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/375/editor-add-ctrl-f-search">#375</a>: Add CodeMirror search. When the editor is focused, you can now search and/or replace text inside it. Here is the list of keyboard shortcuts:
+<ul>
+<li><c>Ctrl+F</c> (<c>Cmd+F</c> on mac): start a search.</li>
+<li><c>Ctrl+G</c> (<c>Cmd+G</c> on mac): find the next match for the current search.</li>
+<li><c>Shift+Ctrl+G</c> (<c>Shift+Cmd+G</c> on mac): find the previous match for the current search.</li>
+<li><c>Shift+Ctrl+F</c> (<c>Cmd+Option+F</c> on mac): replace interactively.</li>
+<li><c>Shift+Ctrl+R</c> (<c>Shift+Cmd+Option+F</c> on mac): replace all.</li>
+</Ul></li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/377/add-forgot-your-password-form">#377</a>: Add "Forgot your password?" form.</li>
+</ul>
+
+Happy coding!

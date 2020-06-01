@@ -1,0 +1,90 @@
+---
+title: "WebGL and glMatrix Extensions for WebSharper Released"
+categories: "webgl,f#,websharper"
+abstract: "Today we are happy to announce the release of not one, but two new WebSharper extensions: WebGL and glMatrix. Together, they bring the power of hardware-accelerated 3D into WebSharper."
+---
+Today we are happy to announce the release of not one, but two new WebSharper extensions: <a href=http://www.websharper.com/extension/358-webgl/None>WebGL</a> and <a href=http://www.websharper.com/extension/358-glmat/None>glMatrix</a>. Together, they bring the power of hardware-accelerated 3D into WebSharper.
+
+<h1>WebGL</h1>
+<a href=http://www.khronos.org/webgl/>WebGL</a> is a standard by the Khronos Consortium which allows to render hardware-accelerated, plugin-free 3D scenes directly inside web pages. It is gaining strong momentum, with impressive demos like <a href=http://media.tojicode.com/q3bsp/>Quake 3 maps</a> or the recent <a href=https://mozillademos.org/demos/nocomply/demo.html>No Comply</a> by Mozilla.
+
+WebGL is an adaptation for JavaScript of the OpenGL ES 2.0 standard. It is supported by the latest versions of Mozilla Firefox and Google Chrome, with more upcoming as Apple (Safari) and Opera are also members of the WebGL Working Group and support it in their beta builds.
+
+The following is a sample program which displays the classic OpenGL hello world, a rotating triangle.
+
+<code lang=fsharp>
+[<JavaScript>]
+let RotatingTriangle() =
+    let CreateContext (element : Element) =
+        let canvas = As<CanvasElement> element.Dom
+        canvas.Width <- 300
+        canvas.Height <- 300
+        ["webgl"; "experimental-webgl"]
+        |> List.tryPick (fun s ->
+            let gl = As<WebGLRenderingContext> (canvas.GetContext s)
+            if gl = null then None else Some gl)
+
+    let vertexSource = "precision highp float;
+        attribute vec3 position;
+        uniform mat4 perspectiveMatrix;
+        uniform mat4 modelViewMatrix;
+        void main(void)
+        { gl_Position = perspectiveMatrix * modelViewMatrix
+                        * vec4(position, 1.0); }"
+
+    let fragmentSource = "precision highp float;
+        void main(void) { gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); }"
+
+    let canvas = HTML5.Tags.Canvas []
+    match CreateContext canvas with
+    | None -> JavaScript.Alert "Your browser seems incompatible with WebGL."
+    | Some gl ->
+        // Create and bind the shader program
+        let vertexShader = gl.CreateShader(gl.VERTEX_SHADER)
+        gl.ShaderSource(vertexShader, vertexSource)
+        gl.CompileShader(vertexShader)
+        let fragmentShader = gl.CreateShader(gl.FRAGMENT_SHADER)
+        gl.ShaderSource(fragmentShader, fragmentSource)
+        gl.CompileShader(fragmentShader)
+        let program = gl.CreateProgram()
+        gl.AttachShader(program, vertexShader)
+        gl.AttachShader(program, fragmentShader)
+        gl.LinkProgram(program)
+        gl.UseProgram(program)
+        // Create and bind the vertex buffer
+        let vertexPosition = gl.GetAttribLocation(program, "position")
+        gl.EnableVertexAttribArray(vertexPosition)
+        let vertexBuffer = gl.CreateBuffer()
+        let vertices = Float32Array([| 0.0;  1.0; 0.0;
+                                      -1.0; -1.0; 0.0;
+                                       1.0; -1.0; 0.0; |])
+        gl.BindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+        gl.BufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
+        gl.VertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0)
+        // Setup the view matrices
+        let perspectiveMatrix = Mat4.Perspective(45., 1., 1., 10000.)
+        let uPerspectiveMatrix = gl.GetUniformLocation(program, "perspectiveMatrix")
+        gl.UniformMatrix4fv(uPerspectiveMatrix, false, perspectiveMatrix)
+        let uModelViewMatrix = gl.GetUniformLocation(program, "modelViewMatrix")
+        // Finally, the main loop.
+        gl.ClearColor(0., 0., 0., 0.)
+        let rec RunFrame (i : int) () =
+            let angle = 2. * float i * System.Math.PI / 1000.
+            let modelViewMatrix = Mat4.Identity(Mat4.Create())
+            Mat4.Translate(modelViewMatrix, [|0.; 0.; -4.|]) |> ignore
+            Mat4.RotateY(modelViewMatrix, angle) |> ignore
+            gl.UniformMatrix4fv(uModelViewMatrix, false, modelViewMatrix)
+            gl.Clear(gl.COLOR_BUFFER_BIT ||| gl.DEPTH_BUFFER_BIT)
+            gl.BindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+            gl.DrawArrays(gl.TRIANGLES, 0, 3)
+            gl.Flush()
+            JavaScript.SetTimeout (RunFrame ((i + 20) % 1000)) 20 |> ignore
+        RunFrame 0 ()
+    canvas
+</code>
+If you cannot run this example, make sure your browser and your system are compatible and your graphics drivers are up to date. In particular, we found that Firefox blacklists certain system/driver combinations, and Chrome excludes hardware acceleration on Windows XP altogether (this can be overridden by adding the command-line flag "--ignore-gpu-blacklist").
+
+<h1>glMatrix</h1>
+As an adaptation of the embedded version of OpenGL, WebGL doesn't provide matrix operations like translation and rotation, which can make the positioning of 3D objects cumbersome. This is why we also provide an extension for glMatrix. <a href=http://code.google.com/p/glmatrix/>glMatrix</a> is a highly optimized library which provides operations on matrices, vectors and quaternions, greatly facilitating the manipulation of 3D objects. You can see the Mat4 class from glMatrix in use in the above code.
+
+You can retrieve these extensions at the following addresses: <a href=http://www.websharper.com/extension/358-webgl/None>WebGL</a> and <a href=http://www.websharper.com/extension/358-glmat/None>glMatrix</a>.

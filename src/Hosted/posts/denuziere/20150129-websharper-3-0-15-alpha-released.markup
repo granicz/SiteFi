@@ -1,0 +1,38 @@
+---
+title: "WebSharper 3.0.15-alpha released"
+categories: "javascript,web,f#,websharper"
+abstract: ""
+---
+Here comes another release of WebSharper 3.0 alpha! This release focuses on small fixes and improvements, as well as a couple new proxies for useful classes such as <c>System.Random</c> and <c>System.Guid</c>.
+
+<h1>Changes</h1>
+
+<h2>Improvements:</h2>
+<ul>
+<li>WIG: The <c>(?)</c> operator for naming a method argument now properly overrides the JavaScript field access operator. This means that you can now <c>open IntelliFactory.WebSharper.JavaScript</c> in a WIG project, provided that you do it <b>before</b> <c>open IntelliFactory.WebSharper.InterfaceGenerator</c>.</li>
+<li>Added xml documentation for attributes and sitelets.</li>
+<li>Added <c>Sitelets.UserSession.LoginPersistent</c> to create login sessions that persist beyond the current browser session.</li>
+<li>Added client-side <c>Remoting.UseHttps()</c> which forces all RPC calls to use HTTPS.</li>
+</ul>
+
+<h2>New proxies:</h2>
+The following classes and methods can now be used from the client side.
+<ul>
+<li><c>System.Random</c></li>
+<li><c>System.Guid</c></li>
+<li><c>System.String.TrimStart/End</c></li>
+</ul>
+
+<h2>Fixes:</h2>
+<ul>
+<li>Fix <a href="https://github.com/intellifactory/websharper/issues/315">#315</a>: <c>Sitelet.Protect</c> login redirect now uses <c>RedirectTemporary</c> instead of <c>Redirect</c>.</li>
+<li>Fix <a href="https://github.com/intellifactory/websharper/issues/322">#322</a>: Compile-time error when a project's <c>Name</c> and <c>AssemblyName</c> are different.</li>
+<li>Fix <a href="https://github.com/intellifactory/websharper/issues/323">#323</a>: Fields for primary constructor arguments shadow inherited ones</li>
+<li>Fix <a href="https://github.com/intellifactory/websharper/issues/325">#325</a>: Add <c>Console.Log</c> overload with a single argument</li>
+</ul>
+
+<h1>Future plans</h1>
+
+We have two final major changes to push for WebSharper 3.0, which affect the typing conventions for tupled and multiple argument functions (<a href="https://github.com/intellifactory/websharper/commits/no-rt-tuple">see the work in progress</a>) and the interface generator API. Our current plan is to have another alpha release for this (and other, smaller changes), and ideally to release the first stable version of WebSharper 3.0 before the end of February.
+
+Happy coding!
