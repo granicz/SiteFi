@@ -1,0 +1,19 @@
+---
+title: "New WebSharper extensions available"
+categories: "f#,websharper"
+abstract: "Today we are happy to announce that we released the first batch of WebSharper extensions to match WebSharper 2.1 Beta 5 - you can download them from the WebSharper downloads page. These are bringing the following libraries to F#: Google Maps, Google Visualization, jQuery UI, jQuery Mobile, Bing Maps, Modernizr, InfoVis, Protovis."
+---
+Today we are happy to announce that we released the first batch of WebSharper extensions to match WebSharper 2.1 Beta 5 - you can download them from the <a href="http://www.websharper.com/Downloads.aspx">WebSharper downloads</a> page. These are bringing the following libraries to F#:
+<ul>
+<li><a href="http://code.google.com/apis/maps/index.html">Google Maps</a></li>
+<li><a href="http://code.google.com/apis/charttools/index.html">Google Visualization</a></li>
+<li><a href="http://jqueryui.com/">jQuery UI</a></li>
+<li><a href="http://jquerymobile.com/">jQuery Mobile</a></li>
+<li><a href="http://www.microsoft.com/maps/developers/web.aspx">Bing Maps</a></li>
+<li><a href="http://raphaeljs.com/">Raphaël</a></li>
+<li><a href="http://www.modernizr.com/">Modernizr</a></li>
+<li><a href="http://thejit.org/">InfoVis</a> - needs a trial or developer license, get it via WebSharper Manager</li>
+<li><a href="http://vis.stanford.edu/protovis/">Protovis</a> - needs a trial or developer license, get it via WebSharper Manager</li>
+</ul>
+
+You can find examples on how to use these extensions on the <a href="http://www.websharper.com/Samples/Index">WebSharper samples</a> page. Happy coding!

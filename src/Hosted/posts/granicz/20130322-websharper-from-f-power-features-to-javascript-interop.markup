@@ -1,0 +1,10 @@
+---
+title: "WebSharper: From F# power features to JavaScript interop"
+categories: "mlocjs,f#,websharper"
+abstract: ""
+---
+I recently gave a talk at <a href="http://mloc-js.com/">MLOC-JS</a> about binding JavaScript libraries for use in <a href="http://websharper.com">WebSharper</a>.  Several people reported that the video posted was hard to navigate, clicking on the timeline caused the audio and the video go out of sync.  Thanks to the helpful folks at <a href="http://ustream.tv">Ustream</a>, this problem was quickly fixed and the updated video from the talk is available at (same place as before):
+
+<a href="http://www.ustream.tv/recorded/29331558">WebSharper: From F# power features to JavaScript interop</a> (includes a sneak preview of CloudSharper!)
+
+Enjoy!

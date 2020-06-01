@@ -1,0 +1,20 @@
+---
+title: "Update: Showing compiler errors"
+categories: "cloudsharper,f#"
+abstract: "As of 0.9.5, you need to do a build (Ctrl+B) before type checking is initialized properly. Without such explicit build, you may face a whole host of errors while you edit your source files."
+---
+As of 0.9.5, you need to do a build (Ctrl+B) before type checking is initialized properly. Without such explicit build, you may face a whole host of errors while you edit your source files. For instance, here is what you get when you open <c>Client.fs</c> in a newly created WebSharper Bundle project:
+
+<img src="http://i.imgur.com/l6pu1cP.png">
+
+Once you build (Ctrl+B), however, things look the same, and you must close and reopen <c>Client.fs</c> to make type checking kick in properly:
+
+<img src="http://i.imgur.com/4kbhWVW.png">
+
+<b>Where we are heading</b>
+
+Currently, we are working on making type checking work much more smoothly. This has several parts to it. One key part is enabling <c>msbuild</c>-based builds inside CloudSharper, in addition to using <a href="http://bitbucket.org/IntelliFactory/build">IntelliFactory.Build</a> (the build system currently invoked from the available CloudSharper project templates). This means we can quickly determine the files and references within a project simply by consulting the appropriate <c>.fsproj</c> file, and thus we can avoid a relatively slow start-up of a dedicated <c>fsi.exe</c> process to interpret the matching IntelliFactory.Build build file (<c>build.fsx</c>). Having this information quickly and without an explicit initial build is promising to make all the difference, and should result in a much more ideal coding experience.
+
+There are a few loose ends to tie together for this to work properly, but our initial work today is very promising. By the end of the day we managed to recover file and reference information without requiring an explicit build, and experimented with the template changes required to make the same project build with <c>msbuild</c> and IntelliFactory.Build.
+
+All in all, we hope to roll out a much more responsive type checking facility shortly, and will keep you posted here on the progress we make.

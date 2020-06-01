@@ -1,0 +1,40 @@
+---
+title: "WebSharper 2.4 Q2 available"
+categories: "release,f#,websharper"
+abstract: "A few days ago, I blogged about WebSharper 2.4 Q2 Beta, announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of WebSharper 2.4 Q2, available from the WebSharper downloads page."
+---
+A few days ago, <a href="http://fpish.net/blog/adam.granicz/id/2509/2012415-websharper-2-4-q2-beta-out">I blogged about WebSharper 2.4 Q2 Beta</a>, announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of <b>WebSharper 2.4 Q2</b>, available from the <a href="http://websharper.com/downloads">WebSharper downloads page</a>.
+
+The main changes, as described in the <a href="https://bitbucket.org/IntelliFactory/websharper/wiki/Home">WebSharper wiki</a>:
+
+<h4>Better HTML templates</h4>
+All sitelets projects are now equipped with a new HTML template system. The major improvement over the previous system is the ability to edit the HTML and see changes take effect without recompiling the WebSharper project. Templates also make use of HTML5 <c>data-*</c> attributes in a way that makes it possible to develop, test and validate template files as HTML5 documents, for example:
+
+<code lang="xml">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>${title}</title>
+  </head>
+  <body>
+    <div id="main" data-hole="main">
+      Sample content here that will be replaced during expansion.
+    </div>
+  </body>
+</html>
+</code>
+The former template system is now deprecated.
+
+<h4>Revamped mobile application support</h4>
+We have reviewed and improved our experimental support for packaging WebSharper code into native Android and Windows Phone applications. One big change is that Android and Windows Phone project templates are now separate. You can still reuse code across these applications by putting it in a WebSharper library and referencing from both projects. Separating the project templates has allowed to specialize them. For example, you can now use Eclipse/ADT to customize and debug the generated Android application. On the Windows Phone platform, you can likewise now attach the Visual Studio debugger or customize the XAML. Please refer to the latest documentation for full details.
+
+In addition, we are now releasing experimental support for writing Bluetooth clients and servers on the Android platform. Note that the experimental status means the API is unstable.
+
+<h4>extra.files</h4>
+As a convenience for build automation, we now include a special file called <c>extra.files</c> with every mobile and HTML project. This file allows to easily copy extra files from the project to be deployed under the generated HTML application root. See <a href="https://bitbucket.org/IntelliFactory/websharper/issue/31/extra-files-in-mobile-applications">#31</a> for details.
+
+<h4>Bug fixes</h4>
+The bug fixes in this release primarily concern the fixes necessary to run WebSharper on the latest Microsoft platform tools, including Windows 8, .NET 4.5, F# 3.0 and VisualStudio 2011, in various combinations.
+
+<h4>Summary</h4>
+<a href="https://bitbucket.org/IntelliFactory/websharper/issues?status=resolved&version=2.4.38">Issues resolved in 2.4.62</a>

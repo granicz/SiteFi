@@ -1,0 +1,54 @@
+---
+title: "WebSharper 2010 Standard is available"
+categories: "f#,websharper"
+abstract: "This is an exciting time for the F# world. Monday, April 12, witnessed the launch of VisualStudio 2010 and the release of the official F#, 2.0. Great job, F# team!On our part, today we are pleased to announce the availability of WebSharper™ Platform 1.0."
+---
+These are exciting times for the F# world! Monday, April 12, witnessed the launch of Visual Studio 2010 and the <a href="http://blogs.msdn.com/dsyme/archive/2010/04/12/f-2-0-released-as-part-of-visual-studio-2010.aspx">release of the official F# 2.0</a>. Great job, F# team!
+
+On our part, today we are pleased to announce the availability of WebSharper™ Platform 2010, version 1.0.
+
+WebSharper™ is a platform for developing web applications in F# which includes:
+<ul>
+<li>A compiler from F# assemblies to JavaScript. WebSharper™ applications implement all client-side and server-side logic in F#, and run the client-side logic in JavaScript.</li>
+<li>Support for nearly the entire F# language, many core F# libraries, and some .NET standard libraries in the JavaScript environment.</li>
+<li>A custom RPC protocol for seamlessly communicating between the client and the server.</li>
+<li>ASP.NET integration, with a way to package and deploy mixed client/server components, and manage their resource dependencies.</li>
+<li>Visual Studio 2008 and 2010 integration with a WebSharper project template, build enhancements, and error location reporting.</li>
+</ul>
+The main highlights of this release are below.
+
+<h1>Licensing</h1>
+WebSharper™ 2010 Standard is available free of charge for both commercial and non-commercial purposes. We offer various support packages for individuals to large workgroups, and even entire enterprises, and premium extensions on our <a href="http://www.intellifactory.com/products/wsp/Buy.aspx">Purchase page</a>. We also have a full range of <a href="http://www.intellifactory.com/Trainings.aspx">training courses</a>, consultation and expert services available. For more details, please send an email to sales@, or use our <a href="http://www.intellifactory.com/ContactUs.aspx">contact form</a>.
+
+<h1>The compiler</h1>
+<ul>
+<li>The error reporting has been much improved since the beta release. The compiler reports errors and warnings in bulk. Most messages carry source locations, allowing to click on them in Visual Studio.</li>
+<li>The compilation of assemblies has been separated to avoid unnecessary recompilation, improving compilation time.</li>
+<li>There are numerous improvements in the output code, to make it more compact, readable and efficient.</li>
+</ul>
+
+<h1>The standard library support</h1>
+<ul>
+<li>Support for <c>Set<'T></c> and <c>Map<'T1,'T2></c> with a backend based on AVL trees.</li>
+<li>Support for <c>System.DateTime</c> and <c>System.TimeSpan</c>. Support for passing System.DateTime objects over RPC calls.</li>
+</ul>
+
+<h1>The language support</h1>
+<ul>
+<li>Thanks to the improvements in the recent F# compiler, constructors are no longer special-cased. Just like ordinary methods, they can now be marked with JavaScriptAttribute and implemented in F#.</li>
+<li>More native JavaScript functionality is exposed for F# consumption, including such classes as JConsole, JDate, JObject (for JavaScript Console, Date and Object respectively).</li>
+<li>Dom and jQuery bindings are likewise exposed for F#.</li>
+</ul>
+
+<h1>ASP.NET integration</h1>
+<ul>
+<li>WebSharper™ now integrates via an <c>IHttpModule</c>, detecting RPC call requests by a special header. This solution is robust to deploying WebSharper™ applications in arbitrary virtual folders.</li>
+</ul>
+
+<h1>The installer</h1>
+<ul>
+<li>Installation of templates for both Visual Studio 2008 and 2010, on 64 and 32-bit platforms.</li>
+<li>Support for in-place upgrades and hotfix releases - the new versions of WebSharper™ 1.0 will be distributed as installers that will not require you to make any changes to your WebSharper™ projects in order to benefit from the latest versions' improvements.</li>
+</ul>
+
+We would love to hear from you! You can access a ton of information about WebSharper™, or its growing collection of extensions on the <a href="http://www.intellifactory.com/products/wsp/Home.aspx">WebSharper™ home page</a>.

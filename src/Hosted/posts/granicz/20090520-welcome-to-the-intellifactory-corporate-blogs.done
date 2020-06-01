@@ -1,0 +1,21 @@
+---
+title: "Welcome to the IntelliFactory corporate blogs!"
+categories: "corporate,f#"
+abstract: "Welcome to the IntelliFactory corporate blogs!"
+---
+The time has finally come to unravel our own corporate blogging engine! You may ask - why write a new blog engine when there are many good ones out there? Well, the answer may be quite surprising: we used this web project to try out a couple things we had been working on for developing web applications in a more rapid and functional way. You will surely see me blog more about what we came up with, for now here are the main highlights of this current blog engine.
+<ul>
+<li>Written almost entirely in F# (with some C# UI code)</li>
+<li>Supports an extensible component-based markup language implemented using F# computation expressions</li>
+<li>Basic markup primitives include formatted code (F#), figures with captions, nested lists, images with thumbnails, and free-flow HTML text.</li>
+<li>A web-based editor to construct articles using configurable components or via typing markup text directly.</li>
+<li>Preview and various rendering functionality in the editor.</li>
+<li>Tagging articles - just drag&drop your tags to mark your articles.</li>
+<li>Category support to divide articles into categories - we support blog entries and larger, separate online articles.</li>
+<li>Multiple publishing levels - save your work for internal use, publish to authorized users, or make available to the rest of the world.</li>
+<li>Manage comments - review comments by article or by person, remove spam comments, check for malicious activity</li>
+<li>A digital asset manager - upload your images, videos, presentations, set preview options in a uniform manner</li>
+<li>Administer authors and published content with a few clicks</li>
+<li>And a lot more!</li>
+</ul>
+We will be blogging more about some of the more exotic features and posting screenshots of how things work. So beware world - our blog is now open! If you have a comment be sure to leave it here - we would love to hear from you.

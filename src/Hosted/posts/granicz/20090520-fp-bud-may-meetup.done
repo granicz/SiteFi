@@ -1,0 +1,27 @@
+---
+title: "FP-BUD May Meetup"
+categories: "meetup,functional"
+abstract: "FP-BUD is the primary place for discussing functional programming in an easy-going, social setting."
+---
+You may have seen our slogan for <a href="http://www.meetup.com/fp-bud">FP-BUD</a> on meetup.com already - "FP-BUD is the primary place for discussing functional programming in an easy-going, social setting." Indeed, we founded this meetup group for attracting the FP crowd in and around Budapest - but of course that doesn't keep "outsiders" out and we do have a number of foreign visitors each time (mostly from IntelliFactory :)) - and that is adding quite a bit of fun to the mix. The first meetup about a month ago was excellent and we had a great time discussing different ideas around FP and its applications - and from this first time our aim quite simply was and continues to be staying on the forefront of the FP "revolution" in Budapest and Hungary.
+
+Since the first meetup we started having weekly FP-BUD beer nights also. Let me tell you, these are so much fun... The attendance has been small so far (a handful), but that makes discussion even more vivid and of course this won't stop us from sampling all the beer that the well-known Raday street has for us. But more on that later, perhaps.
+
+Anyhow, I just wanted to post a short description of the kind of things we are discussing - any feedback is welcome from other groups across the globe.
+
+So without any further due here are the abstracts for the upcoming May meetup:
+<ul>
+<li><b>Permissive operators as a mechanism for language extensibility</b> by Diego Echeverri (IntelliFactory)
+Abstract: We explore an extensibility mechanism for programming languages based on a subset of distfix(mixfix) operators. This mechanism gives tools to the programmer to increase conciseness by allowing him to build more complex operators via composition. We also show that some common features that are usually "built-in's" can be constructed as "libraries" using these operators.</li>
+<li><b>Reverse Execution</b> by Ersoy Bayramoglu (IntelliFactory)
+Abstract: Undo operation, mostly popularized by text editors, goes back to the ENIAC times. It has important uses in areas like debugging and error recovery. Since the pioneering Interlisp environment, different kinds of undos have been studied with different implementation methodologies. In this talk I will briefly summarize the previous work, and discuss various issues related to reverse excution of programs.</li>
+<li><b>EDSLs in Haskell</b> by Joel Bjornson (IntelliFactory)
+Abstract: In this talk I will show how Haskell can be used as a platform for implementing Embedded Domain Specific Languages (EDSLs), utilising
+<ul>
+<li>Generalized Algebraic Data Types (GADTs) for representing typed expressions</li>
+<li>Type Classes for overloading operators</li>
+<li>Monads for mimicing imperative constructs and adding syntactic sugar</li>
+</ul></li>
+<li><b>Encoding Prolog in .NET Generics</b> by Anton Tayanovskyy (IntelliFactory)
+Abstract: .NET generic types can serve as an encoding for FOL terms, and generic methods - for Horn clauses. In the talk I explain this correspondence and describe the design of an F# library implementing a Prolog (SLD resolution) engine that makes a practical use of it. The engine answers queries such as "Produce an object inhabiting the given type," facilitating a programming style inspired by Haskell type classes, which is useful in such applications as generic pickling and random testing.</li>
+</ul>
