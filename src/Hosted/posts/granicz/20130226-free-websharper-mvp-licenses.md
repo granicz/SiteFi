@@ -2,6 +2,7 @@
 title: "Free WebSharper MVP licenses"
 categories: "free,license,f#,websharper"
 abstract: "We are happy to announce that we offering free WebSharper developer licenses to all language and web MVPs... [more]"
+identity: "3047,76204"
 ---
 As F# is making its headway into becoming a true mainstream language, we are more committed than ever to facilitate this journey and bring F# to ALL web and mobile developers.
 

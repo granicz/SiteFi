@@ -2,6 +2,7 @@
 title: "Self-hosted WebSharper application template available"
 categories: "websharper"
 abstract: "A new Visual Studio template has been added to the latest Visual Studio installer called \"Self-Hosted Client-Server Application,\" and you can use this template to build OWIN-based self-hosted applications that can be deployed via an .exe file and without requiring an installed web container (IIS, etc.) on the serving machine."
+identity: "4098,77529"
 ---
 A new Visual Studio template has been added to the latest [Visual Studio installer](http://websharper.com/WebSharper.vsix) called "Self-Hosted Client-Server Application," and you can use this template to build OWIN-based self-hosted applications that can be deployed via an `.exe` file and without requiring an installed web container (IIS, etc.) on the serving machine.
 

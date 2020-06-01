@@ -2,6 +2,7 @@
 title: "CloudSharper Local alpha available"
 categories: "cloudsharper,f#,websharper"
 abstract: "We are excited to announce the first release of CloudSharper Local, a spin-off of CloudSharper that uses your local machine to serve the main CloudSharper front-end.  CloudSharper is an awesome new way to work with F# on the web. It enables you to use F# to easily connect to various data sources and visualize data from those data sources in rich HTML5 charts and diagrams. You can also develop HTML5 games, web and mobile applications in pure F# code, and you will feel more productive than ever. CloudSharper comes with a set of project templates to easily get you started and gives you full-fledged interactive web programming capabilities to test on the fly and in small before you deploy your larger applications."
+identity: "3728,77054"
 ---
 We are excited to announce the first release of CloudSharper Local, a spin-off of CloudSharper that uses your local machine to serve the main CloudSharper front-end.  CloudSharper is an awesome new way to work with F# on the web. It enables you to use F# to easily connect to various data sources and visualize data from those data sources in rich HTML5 charts and diagrams. You can also develop HTML5 games, web and mobile applications in pure F# code, and you will feel more productive than ever. CloudSharper comes with a set of project templates to easily get you started and gives you full-fledged interactive web programming capabilities to test on the fly and in small before you deploy your larger applications.
 
@@ -11,14 +12,14 @@ You can get started by registering your new CloudSharper account on [the Home pa
 
 Here is a screenshot of a new workspace with the jQuery Mobile project template compiled and running, literally one minute after registering a new CloudSharper account:
 
-<a href="http://imgur.com/MUBWbGx"><img src="http://i.imgur.com/MUBWbGxl.png"></a>
+[![CS1](http://i.imgur.com/MUBWbGxl.png)](http://imgur.com/MUBWbGx)
 
 And F# type checking and code completion in action within the same project:
 
-<a href="http://imgur.com/uRocnEn"><img src="http://i.imgur.com/uRocnEnl.png"></a>
+[![CS2](http://i.imgur.com/uRocnEnl.png)](http://imgur.com/uRocnEn)
 
 You can add new files easily and extend your project in any direction:
 
-<a href="http://imgur.com/2mSkX6Z"><img src="http://i.imgur.com/2mSkX6Zl.png"></a>
+[![CS3](http://i.imgur.com/2mSkX6Zl.png)](http://imgur.com/2mSkX6Z)
 
 Happy coding and stay tuned for more awesome enhancements!

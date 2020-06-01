@@ -2,6 +2,7 @@
 title: "WebSharper 3 alpha now under Apache 2"
 categories: "release,websharper"
 abstract: "We are super excited to announce that as of the very latest 3.0-alpha commit, WebSharper is now available under the Apache 2.0 license, free of charge to anyone, for both closed and open source applications!"
+identity: "4124,77569"
 ---
 We are super excited to announce that as of the very latest 3.0-alpha commit, WebSharper is now available under the Apache 2.0 license, free of charge to anyone, for both closed and open source applications!
 

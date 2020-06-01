@@ -2,8 +2,9 @@
 title: "CUFP 2012 - Call for Presentations"
 categories: "commercial,clojure,conference,cufp,haskell,erlang,ocaml,scala,functional,f#"
 abstract: "The annual CUFP workshop is a place where people can see how othersare using functional programming to solve real world problems; wherepractitioners meet and collaborate; where language designers and userscan share ideas about the future of their favorite language; and whereone can learn practical techniques and approaches for puttingfunctional programming to work."
+identity: "2606,75558"
 ---
-```fsharp
+```
           COMMERCIAL USERS OF FUNCTIONAL PROGRAMMING 2012
                              CUFP 2012
                       http://cufp.org/conference

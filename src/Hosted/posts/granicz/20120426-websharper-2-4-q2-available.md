@@ -4,10 +4,9 @@ categories: "release,f#,websharper"
 abstract: "A few days ago, I blogged about WebSharper 2.4 Q2 Beta, announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of WebSharper 2.4 Q2, available from the WebSharper downloads page."
 identity: "2525,75345"
 ---
-A few days ago, [I blogged about WebSharper 2.4 Q2 Beta](//intellifactory/com/user/granicz/20120416-websharper-2-4-q2-beta-out), announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of **WebSharper 2.4 Q2**, available from the [WebSharper downloads page](http://websharper.com/downloads).
+A few days ago, [I blogged about WebSharper 2.4 Q2 Beta](//intellifactory.com/user/granicz/20120416-websharper-2-4-q2-beta-out), announcing a handful of important changes to WebSharper.  Today, we are happy to announce the general availability of **WebSharper 2.4 Q2**, available from the [WebSharper downloads page](http://websharper.com/downloads).
 
 ### Better HTML templates
-
 All sitelets projects are now equipped with a new HTML template system. The major improvement over the previous system is the ability to edit the HTML and see changes take effect without recompiling the WebSharper project. Templates also make use of HTML5 `data-*` attributes in a way that makes it possible to develop, test and validate template files as HTML5 documents, for example:
 
 ```xml
