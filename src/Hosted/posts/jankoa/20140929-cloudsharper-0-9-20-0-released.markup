@@ -1,0 +1,18 @@
+---
+title: "CloudSharper 0.9.20.0 released"
+categories: "cloudsharper,f#,websharper"
+abstract: "The highlight of this release is tooltips for F# code."
+---
+The highlight of this release is tooltips for F# code. Be patient when loading a larger projects, tooltips appear when the FSharp Compiler Services has loaded all the code files.
+
+<img src="https://i.imgur.com/l9t30Nt.png">
+
+Full change log:
+
+<ul>
+<li>Adding tooltips for F# in code editor.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/548/">#548</a>: Style fixes with browse panel, toolbar and workspace treeviews.</li>
+<li>Updating to WebSharper 2.5.127.64. <c>Map<_,_></c> and <c>Set<_></c> types are now usable in RPC arguments and results.</li>
+</ul>
+
+Happy coding!

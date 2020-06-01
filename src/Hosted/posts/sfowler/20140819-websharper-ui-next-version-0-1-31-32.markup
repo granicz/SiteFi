@@ -1,0 +1,38 @@
+---
+title: "WebSharper UI.Next Version 0.1.31.32"
+categories: "ui.next,f#,websharper"
+abstract: "Websharper UI.Next Version 0.1.31.32 has been released, with bugfixes, and new event & animation functionality."
+---
+WebSharper UI.Next Version 0.1.31.32 has been released on NuGet for your experimentation.
+
+This version begins our push toward better handling of input. In particular, the latest version provides views of mouse and keyboard inputs, and combinators to allow snapshots of views and predicated view updates. 
+
+<h2>View Combinators</h2>
+
+<code lang="fsharp">
+    static member SnapshotOn : 'B -> View<'A> -> View<'B> -> View<'B>
+    static member UpdateWhile : 'A -> View<bool> -> View<'A> -> View<'A>
+</code>
+
+The new <c>SnapshotOn</c> combinator allows snapshots to be taken of a view whenever a 'trigger' view updates. This makes it useful for reacting to events, and has helped with our ongoing work to implement Piglets using UI.Next. 
+
+The <c>UpdateWhile</c> combinator provides a view which only updates whenever the value of a given predicate view is true.
+
+While we don't provide first-class discrete event streams just yet, such combinators make it possible to emulate them.
+
+You can find more information in the <a href="https://github.com/intellifactory/websharper.ui.next/blob/master/docs/View.md">Documentation</a>.
+
+<h2>Input Views</h2>
+The <a href="https://github.com/intellifactory/websharper.ui.next/blob/master/docs/Input.md">Input</a> module provides views of the mouse and keyboard, such as keys and buttons pressed, and the mouse position. This will be expanded in the near future.
+
+<h2>And the rest!</h2>
+
+Additionally, there's now support for delayed animation, which is useful when developing visualisations with staggered transitions, and some bugfixes.
+
+You can find samples of the <a href="http://intellifactory.github.io/websharper.ui.next/#samples/samples/MouseInfo">Mouse</a> and <a href="http://intellifactory.github.io/websharper.ui.next/#samples/samples/KeyboardInfo">Keyboard</a> views, as well as the snapshotting and predicated update functions on the <a href="http://intellifactory.github.io/websharper.ui.next/">UI.Next website</a>. As ever, if you've been using UI.Next and have any comments, we'd love to hear them.
+
+<h2>Bugfixes</h2>
+<ul>
+<li> Animation.Concat sometimes caused "undefined is not a function" errors within JavaScript </li>
+<li> Computation Expression syntax for Views did not compile with WebSharper </li>
+</ul>

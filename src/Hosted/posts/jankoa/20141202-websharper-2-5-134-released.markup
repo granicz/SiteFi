@@ -1,0 +1,47 @@
+---
+title: "WebSharper 2.5.134 released"
+categories: "f#,websharper"
+abstract: "Introducing proxies for Async cancellation, MailboxProcessor, Printf."
+---
+A lot of useful functions of FSharp.Core are now translatable by WebSharper.
+
+<h2>Async cancellation</h2>
+<ul>
+<li>Proxies for <c>CancellationTokenSource</c>, <c>CancellationToken</c>, <c>CancellationTokenRegistration</c>.</li>
+<li>Proxies for <c>Async</c> class members: <c>DefaultCancellationToken</c>, <c>CancelDefaultToken</c>, <c>CancellationToken</c>, <c>OnCancel</c>, <c>TryCancelled</c></li>
+<li>Async RPC calls are cancellable, the cancel continuation runs ASAP and the response are discarded.</li>
+</ul>
+
+<h2>MailboxProcessor</h2>
+<ul>
+<li>Proxy handles timeout arguments and cancellation</li>
+<li><c>PostAndReply</c>/<c>TryPostAndReply</c> methods are not supported as JS is single-threaded.</li>
+</ul>
+
+<h2>Printf</h2>
+<ul>
+<li>Proxies for <c>sprintf, printfn, failwithf, Printf.kbprintf</c></li>
+<li><c>%O</c> uses JavaScript <c>String(x)</c> function</li>
+<li><c>%A</c> generates a recursive pretty-printer for F# types if type information is available. Currently supports lists, unions, tuples, records, 1 and 2 dimensional arrays. Other types are sent to a dynamic pretty-printer.</li>
+<li><c>printfn</c> prints to JavaScript console</li>
+<li><c>Printf.sprintf</c> is not supported, use <c>ExtraTopLevelOperators.sprintf</c> instead.</li>
+<li>Printing as unsigned is not supported.</li>
+</ul>
+
+<h2>Fixes</h2>
+<ul>
+<li>Fix <a href="https://bitbucket.org/IntelliFactory/websharper/issue/300">#300</a>: Server-side runtime error in some regional settings (for example Turkish)</li>
+<li>Fix <a href="https://bitbucket.org/IntelliFactory/websharper/issue/304">#304</a>: Converting string to char checks string length now</li>
+<li><c>Async.FromContinuations</c> ensures that continuation is called only once, throws an error otherwise.</li>
+</ul>
+
+<h2>Breaking changes</h2>
+<ul>
+<li><c>System.Web.HttpPostedFile</c> type in Sitelets API <a href="https://bitbucket.org/IntelliFactory/websharper/issue/298/">have been changed</a> to <c>System.Web.HttpPostedFileBase</c> to enable non-ASP.NET hosting (OWIN). </li>
+<li>Indexed properties in WIG: <a href="http://fpish.net/blog/JankoA/id/4015/201494-websharper-2-5-124-61-released">Previously</a> if a property was defined with name <c>"item"</c>, it translated to a an indexer on the object. This is changed so that the empty string is usable for this (still will get .NET property name Item, the default indexer for the class).</li>
+</ul>
+
+<code lang="fsharp">
+// generates default .NET indexer
+"" =@ T<obj> |> Indexed T<int> // has JavaScript inline "$this[$index]"
+</code>

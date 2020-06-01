@@ -1,0 +1,20 @@
+---
+title: "CloudSharper 0.9.20.1 released"
+categories: "cloudsharper,f#,websharper"
+abstract: "This release makes tooltips better, adds Go To Definition."
+---
+This release makes tooltips better, adds Go To Definition, close button on docked floating panes (Console/Interactive and Browser).
+
+The previous local component is compatible with the current site, however Go To Definition needs the latest.
+
+<img src="https://i.imgur.com/mS8oOkf.png">
+
+Full change log:
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/538/">#538</a>: Add editor context menu with Go To Definition.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/539/">#539</a>: Hide code tooltips when mousing over them.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/554/">#554</a>: X icon for both FloatingPane and corresponding docked panel.</li>
+</ul>
+
+Happy coding!

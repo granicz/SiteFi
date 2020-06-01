@@ -1,0 +1,25 @@
+---
+title: "CloudSharper 0.9.28 released"
+categories: "cloudsharper,f#,websharper"
+abstract: "This is a bugfix release for the editor."
+---
+This release fixes some issues introduced in last release, and improves tooltips and autocomplete.
+
+<h2>Fixes</h2>
+
+<ul>
+<li>
+<a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/588/">#588</a>: Pressing <c>Tab</c>/<c>Shift-Tab</c> with a single cursor works now as in Visual Studio.
+</li>
+<li>
+<a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/589/">#589</a>: Pressing <c>.</c> for autocomplete fixed, also works for <c>(</c>.
+</li>
+<li>
+<a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/587/">#587</a>: Autocomplete works for <c>.fsx</c> files.
+</li>
+<li>
+<a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/591/">#591</a>: <c>Save</c> in <c>File</c> menu and <c>Ctrl+S</c> fixed.
+</li>
+</ul>
+
+<h3>Happy coding!</h3>

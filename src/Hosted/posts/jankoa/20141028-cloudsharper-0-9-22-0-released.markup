@@ -1,0 +1,31 @@
+---
+title: "CloudSharper 0.9.22.0 released"
+categories: "cloudsharper,f#,websharper"
+abstract: "This release adds cloud workspace management and bug fixes."
+---
+The dashboard is now showing your cloud-synced workspaces as well as your local ones. Separate icons show the availability of your workspaces in local working directory and the cloud storage. You can access the sync up/down commands on the context menu of the workspaces grid or by the More menu above. If both cloud and local copy exists, sync up or down will overwrite the other copy or if newer files exist at the destination, you will have the choice of keeping the newer version of all files.
+
+<img src="https://i.imgur.com/BeaLDKY.png">
+
+Opening a workspace clone link will now warn if a local clone already exists and ask for opening the last version or create a new clone. However, cloning information is only stored starting from this release so older cloned workspaces won't get notified about.
+
+<h2>Full change log:</h2>
+
+<ul>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/561/">#561</a>: Add cloud workspaces management on the dashboard.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/564/">#564</a>: Detect when user is trying to open an online-only workspace.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/560/">#560</a>: Users should be able to log in with their email addresses as well.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/561/">#561</a>: Add cloud workspaces management on the dashboard.</li>
+
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/424/">#424</a>: Fix for using IF.Build.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/447/">#447</a>: Notify user when the number of synced up workspaces reached the quota of his or her account.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/553/">#553</a>: Deleting a file removes its compiler errors in Notification.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/565/">#565</a>:  Opening a clone URL with existing local workspace.</li>
+</ul>
+
+<h2>Known issues:</h2>
+
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/566/">#566</a>: Fix uploading a previously deleted cloud workspace.</li>
+<li><a href="https://bitbucket.org/IntelliFactory/cloudsharper/issue/561/">#568</a>: List workspaces sometimes get called twice if Retry button on dashboard was used .</li>
+
+<h2>Happy coding!</h2>

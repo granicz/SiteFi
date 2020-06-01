@@ -1,0 +1,39 @@
+---
+title: "WebSharper 2.5.124.61 released"
+categories: "f#,websharper"
+abstract: "This new version brings bugfixes and WIG improvements"
+---
+<h2>Bugfixes</h2>
+
+<ul>
+<li>Fixes to <c>Math.atan2</c>, <c>String.Replace</c>, <c>Observable.pairwise</c> and <c>Observable.scan</c> proxies.</li>
+<li>Observable functions propagate exceptions originating in mapping/folding functions properly.</li>
+<li>ParamArray in a constructor by WIG translates correctly.</li>
+<li>WIG now correctly sets the full names of generic types so that the same type name with different number of type arguments can be used.</li>
+</ul>
+
+<h2>Possible breaking changes</h2>
+
+Bounds checks are introduced on Array functions to match .NET behavior so they no longer return undefined values which could lead to hard to find bugs. This breaks previous code which uses the Array type as a sparse array. For using JavaScript operations on Arrays, casting to <c>EcmaScript.Array</c> or using the <c>.ToEcma()</c> extension method is recommended.
+
+<h2>Additions to WebSharper Interface Generator</h2>
+
+<ul>
+<li>Support for indexed properties. Examples:
+
+<code lang="fsharp">
+"item" =@ T<obj> |> Indexed T<int> // has inline "$this[$index]"
+"prop" =@ T<obj> |> Indexed T<int> // has inline "$this.prop[$index]"
+</code>
+
+A property named "item" is handled specially for creating the default inline, the object itself gets indexed.
+</li>
+<li>Support for type constraints. Example:
+
+<code lang="fsharp">
+Generic - fun b -> "test" => (b |> WithConstraint [ T<System.Collections.IEnumerable> ]) ^-> T<unit>
+</code>
+
+The <c>WithConstraint</c> function destructively sets the constraints on the type parameter. Use it anywhere but only once inside the function passed to the Generic helper.
+</li>
+</ul>

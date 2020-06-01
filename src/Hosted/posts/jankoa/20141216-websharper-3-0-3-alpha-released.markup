@@ -1,0 +1,44 @@
+---
+title: "WebSharper 3.0.3-alpha released"
+categories: "javascript,f#,websharper"
+abstract: "This is our first release of WebSharper 3.0-alpha with a new feature: source mapping."
+---
+This is our first release of WebSharper 3.0-alpha with a new feature: source mapping. If you enable it on your project, you can see the F# sources in your browser and set breakpoints in it.
+
+<img src="https://i.imgur.com/IvLimDc.png">
+
+<h2>Source maps</h2>
+<ul>
+<li>You can enable including source maps and the required source files in a WebSharper assembly, by adding the
+<code lang="xml">
+    <WebSharperSourceMap>True</WebSharperSourceMap>
+</code>
+property to your project file.</li>
+<li>To unpack the source maps in your web project, add this same property to the project file, and
+<code lang="xml">
+    <staticContent>
+      <mimeMap fileExtension=".fs" mimeType="text/plain" />
+    </staticContent>
+</code>
+inside the <c>web.config</c> file's <c><system.webServer></c> element.</li>
+<li>It is also recommended to set
+<code lang="xml">
+    <OtherFlags>--quotations-debug</OtherFlags>
+</code>
+to have source position information inside reflected definitions available for WebSharper. Otherwise only the starting lines of functions can be mapped.</li>
+<li>Single-Page Application projects are currently not supported.</li>
+<li>In Google Chrome, you need to check the "Enable JavaScript source maps" setting in Developer Tools Settings.</li>
+<li>For Internet Explorer, you need to have Windows 8.1 Update 1.</li>
+<li><c>websharper.exe</c> also has new flag <c>-sm</c> for source map embedding/unpacking.</li>
+</ul>
+
+<h2>Sitelets improvements</h2>
+<ul>
+<li>We added combinators to simplify writing Sitelets for sub-actions and embedding them into Sitelets for wider actions. See <a href="https://github.com/intellifactory/websharper/issues/307">issue #307</a> for more details about these combinators.
+</li>
+</ul>
+
+<h2>WIG improvements</h2>
+<ul>
+<li>Added <c>ObsoleteWithMessage</c> function, with it you can specify a message for the obsolete warning.</li>
+</ul>

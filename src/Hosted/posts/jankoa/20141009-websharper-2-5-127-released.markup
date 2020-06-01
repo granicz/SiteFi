@@ -1,0 +1,19 @@
+---
+title: "WebSharper 2.5.127 released"
+categories: "f#,websharper"
+abstract: "This version brings small fixes and RPC improvements"
+---
+<h2>Additions to RPC functionality</h2>
+
+<c>Map</c> and <c>Set</c> types are now usable in <c>RPC</c> functions.
+
+If you are returning these to client side, be sure that the type of the set elements or map keys have the same comparison logic the server and client side, or else it can lead to unexpected behavior as the returned collection is not re-sorted. However, you don't have to worry about this if you don't explicitly overload the CompareTo method with a JavaSript `Inline` working differently than the method body running in .NET.
+
+<h2>Bugfixes</h2>
+
+<ul>
+<li>A compile error is given if a non JSON-encodable type is used in an RPC signature.</li>
+<li><c>Date.now</c> and the <c>Async</c> scheduler now works on IE8.</li>
+<li>No more deprecated warning about using <c>nodeValue</c>.</li>
+<li>In WIG, <c>T<SomeGenericType<_>>.[YourTypeDefinition]</c></li> now translates properly to indicate the type <c>SomeGenericType<YourType></c>.
+</ul>
