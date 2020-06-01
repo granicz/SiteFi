@@ -1,8 +1,8 @@
 serverUrl: http://mywebsite.com
-shortTitle: IntelliFactory Blog
-title: IntelliFactory
+shortTitle: IntelliFactory
+title: IntelliFactory Blog
 description: Building business applications with F# since 2004
 masterUserDisplayName: IntelliFactory
 masterLanguage: en
 languages: "en->English,es->Spanish,hu->Hungarian"
-users: "granicz->Adam Granicz"
+users: "granicz->Adam Granicz,denuziere->Loic Denuziere,jankoa->Andras Janko,gansperger->Istvan Gansperger,maciejlopatka->Maciej Lopatka,sfowler->Simon Fowler"

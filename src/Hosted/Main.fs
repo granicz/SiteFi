@@ -294,7 +294,10 @@ module Site =
             |> List.truncate 5
             |> Map.ofList
         [
-            "Home", "/", Map.empty
+            "Blog Home", "/", Map.empty
+            "Bolero", "/category/bolero", Map.empty
+            "WebSharper", "/category/websharper", Map.empty
+            "CloudSharper", "/category/cloudsharper", Map.empty
             "Latest", "#", latest
         ]
 

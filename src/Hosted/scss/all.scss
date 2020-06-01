@@ -60,3 +60,7 @@ pre, code {
 .card{
   height: max-content;
 }
+
+nav.navbar-start .navbar-item:first-child {
+    border-right: 2px solid #777;
+}
