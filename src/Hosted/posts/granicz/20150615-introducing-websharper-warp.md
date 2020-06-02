@@ -6,7 +6,7 @@ identity: "4409,79675"
 ---
 [WebSharper Warp](https://github.com/intellifactory/websharper.warp) is a friction-less web development library for building scripted and standalone **full-stack** F# client-server applications. Warp is built on top of WebSharper and is designed to help you become more productive and benefit from the rich WebSharper features more quickly and more directly.  While Warp shorthands target the most typical applications (text, SPAs, multi-page) and easy exploration, you can extend your Warp applications with the full WebSharper capabilities at any time.
 
-# Installing
+### Installing
 
 To get started with Warp is super-easy, all you need is to open a new F# Console Application (or any other F# project type if you want to script applications), and add `WebSharper.Warp` to it:
 
@@ -21,7 +21,7 @@ paket init
 paket add nuget WebSharper.Warp
 ```
 
-# Hello world!
+### Hello world!
 
 The simplest Warp site just serves text and consist of a single endpoint (`/`), by default listening on `http://localhost:9000`.
 
@@ -36,7 +36,7 @@ do Warp.RunAndWaitForInput(MyApp) |> ignore
 
 ![](http://i.imgur.com/fZgqeKjl.png)
 
-# Single Page Applications
+### Single Page Applications
 
 While serving text is fun and often useful, going beyond isn't any complicated. Warp also helps constructing HTML.  In the most basic form, you can create single page applications (SPAs) using `Warp.CreateSPA` and WebSharper's server-side HTML combinators:
 
@@ -53,7 +53,7 @@ do Warp.RunAndWaitForInput(MySite) |> ignore
 
 ![](http://i.imgur.com/xYITvCql.png)
 
-# Multi-page applications
+### Multi-page applications
 
 Using multiple `EndPoints` and `Warp.CreateApplication`, you can define multi-page Warp applications.  When constructing the actual pages, `Warp.Page` comes handy - allowing you to fill the `Title`, `Head`, and the `Body` parts on demand.  `Warp.Page` pages are fully autonomous and will **automatically contain the dependencies of any client-side code used on the page**.
 
@@ -90,7 +90,7 @@ do Warp.RunAndWaitForInput(MySite) |> ignore
 
 ![](http://i.imgur.com/WMnmzIPl.png)
 
-# Adding client-side functionality
+### Adding client-side functionality
 
 Warp applications can easily incorporate client-side content and functionality, giving an absolute edge over any web development library. The example below is reimplemented from [Deploying WebSharper apps to Azure via GitHub](http://websharper.com/blog-entry/4368), and although it omits the more advanced templating in that approach (which is straightforward to add to this implementation), it greatly simplifies constructing and running the application.
 
@@ -138,7 +138,7 @@ do Warp.RunAndWaitForInput(MySite) |> ignore
 
 ![](http://i.imgur.com/9sPa4lzl.png)
 
-# Taking things further
+### Taking things further
 
 Creating RESTful applications, using client-side visualizations is just as easy. For a quick example, here is a Chart.js-based visualization using the `WebSharper.ChartJs` WebSharper extension:
 
@@ -191,7 +191,7 @@ do Warp.RunAndWaitForInput(MySite) |> ignore
 
 ![](http://i.imgur.com/9o7x2b1l.png)
 
-# Scripting with Warp
+### Scripting with Warp
 
 When you add the `WebSharper.Warp` NuGet package to your project in Visual Studio, a new document tab will open giving the necessary boilerplate for using Warp in scripted applications.
 
@@ -242,7 +242,7 @@ You can then test this application as before:
 
 ![](http://i.imgur.com/xYITvCql.png)
 
-# Getting help
+### Getting help
 
 Warp now has a chat room where you can ask questions, feel free to drop by:
 

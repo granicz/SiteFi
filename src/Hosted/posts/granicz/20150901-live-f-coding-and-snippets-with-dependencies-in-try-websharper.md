@@ -12,12 +12,12 @@ Here is what it looks like:
 
 You don't have to do anything fancy, just start typing and the type checker will guide you, including code completion with `Ctrl+Space` as you would expect.  When you are ready to run your snippet, hit Run and you will see your snippet run in the Result panel.
 
-## Snippets with dependencies
+### Snippets with dependencies
 
 You may also notice the little gear icon in the F# source tab, with that, now you can set up dependencies for your snippet.  Currently, we support a wide range of WebSharper extensions, with more coming soon:
 
-|:--------|:-------|
 |Type     | Packages     |
+|:--------|:-------|
 |**Charting**|`WebSharper.Charting`, `WebSharper.ChartJs`|
 |**Visualization**|`WebSharper.D3`, `WebSharper.Google.Visualization`|
 |**3D graphics**|`WebSharper.GlMatrix`, `WebSharper.O3D`|

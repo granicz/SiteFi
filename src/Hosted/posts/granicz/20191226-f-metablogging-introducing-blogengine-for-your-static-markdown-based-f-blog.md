@@ -12,7 +12,7 @@ Back in 2015, I was super happy to [announce FsBlogger](https://twitter.com/gran
 
 To this day, this platform runs our [IntelliFactory](http://intellifactory.com/blogs/1), [WebSharper](https://forums.websharper.com/blogs), and [CloudSharper](http://cloudsharper.com/blog) blogs, and is directly tied into [FPish](https://fpish.net) and the F# RSS feed on the [fsharp.org](https://fsharp.org) website. However, while a fully managed blogging platform such as FsBlogger.com or Blogger.com frees you from having to deal with storing, running, and managing your blog articles, it can also leave you feeling out of control and dependent on these platform's longevity. One complaint in particular is that these managed options don't have transparent change tracking and self-hosting is not available. To address this, and to a fuller extent managing full static web sites as well, a whole host of static site generators (SSGs) popped up on the horizon. [Jekyll](https://jekyllrb.com/), [Next.js](https://nextjs.org/), [Hugo](https://gohugo.io/) are prime examples.
 
-## With and beyond SSGs in F#
+### With and beyond SSGs in F#
 
 Instead of looking at various SSGs, I am going to pick Jekyll as an example. A quick googling for "Jekyll and F#" reveals a staggering number of attempts to arrive at an elegant, static blog generator for F# developers. This stems from the fact that while Jekyll is pretty straightforward to use and easy to learn, we F# developers ~~like to do things our way~~ have extra needs. Here are some (totally random) examples of the ingenuity produced as a result.
 
@@ -28,7 +28,7 @@ Instead of looking at various SSGs, I am going to pick Jekyll as an example. A q
 
  * Jeremie Chassaing [implements a full blog engine](https://thinkbeforecoding.com/post/2018/12/07/full-fsharp-blog) by using F# Formatting to render markdown to HTML and Fable HTML combinators to output the resulting content into simple layout pages. In subsequent articles ([Part 2](https://thinkbeforecoding.com/post/2018/12/09/full-fsharp-blog-2) and [Part 3](https://thinkbeforecoding.com/post/2019/12/13/full-fsharp-blog-3)) he sets up Azure Functions to push and retrieve blog articles to Azure blob storage and shows how to set up free SSL certs to secure the resulting blog. 
 
-## Combining SSGs and F#
+### Combining SSGs and F#
 
 It's hard to argue that you should switch your entire static site generation to F# (such as to Fornax or Fable in some of the above approaches) - especially if your tool doesn't support templating. A reasonable choice would be to keep full compatibility with a given SSG such as Jekyll in terms of input and templating, but remove the need to install a full Ruby/etc. development environment just to run these tools that generate the output markup. So Tomas nailed it with fsharp.org: if we already have an F# development environment installed, we should use that.
 
@@ -36,11 +36,11 @@ In this article, I want to show you another way of keeping your SSG in F#: using
 
 So, how we do start?
 
-## Getting your templates under control
+### Getting your templates under control
 
 A long while back I started working on a WebSharper+Jekyll implementation that enabled dropping in a full Jekyll theme on top of a set of markdown article files to generate a static blog. However, I quickly got annoyed with the mess these themes came with: templates composed from smaller layout files that collectively were nearly impossible to author/enhance, configuration allowed HTML fragments without checking consistency or well-formedness, etc. So although there are a lot of Jekyll themes out there ready to be used, considering the very real possibility that most users will end up wanting customizing these, this was a no go for me at the end. Instead, I decided to use WebSharper's HTML templating type provider and plain HTML files decorated with a few basic placeholders, and filling these site templates with content in an all-F# solution.
 
-## Your blog as a WebSharper (offline) sitelet
+### Your blog as a WebSharper (offline) sitelet
 
 A [sitelet](http://developers.websharper.com/docs/v4.x/fs/sitelets) is a WebSharper server-side abstraction that describes how incoming requests are routed to the content we return. A typical sitelet will use a discriminated union (DU) endpoint type and provide a mapping from those endpoints to responses with a simple pattern match (most often using `Application.MultiPage` as a helper).
 
@@ -90,7 +90,7 @@ This code assumes you have an `index.html` file with an inner template called `A
 
 It also uses a type (`Article`) to store data about a given blog article. And because it's often the case that a given article needs references to other articles, we just pass the entire collection (as an `articles: Map<string, Article>` argument) as well.
 
-## Offline vs online/regular sitelets
+### Offline vs online/regular sitelets
 
 Now, back to `IWebsite` I mentioned earlier. A sitelet is most typically served in a live web app by exposing it as a module-bound value with the `[<Website>]` attribute, something like:
 
@@ -101,7 +101,7 @@ module App =
     [<Website>]
     let App = Site.Main articles
 ```
-Here, you need to use the WebSharper [client-server project template]([http://developers.websharper.com/docs/v4.x/fs/templates](http://developers.websharper.com/docs/v4.x/fs/templates)) (available for `dotnet` CLI use and as a Visual Studio extension installer from the WebSharper [download page](https://websharper.com/downloads)) to get the correct build configuration to compile and run your sitelet-based app, and you should not need anything else to get a working app.
+Here, you need to use the WebSharper [client-server project template](http://developers.websharper.com/docs/v4.x/fs/templates) (available for `dotnet` CLI use and as a Visual Studio extension installer from the WebSharper [download page](https://websharper.com/downloads)) to get the correct build configuration to compile and run your sitelet-based app, and you should not need anything else to get a working app.
 
 However, for your static site you don't want to run a server, all you want are the HTML files for each of your pages/articles. To set this up, you need to add a few extra lines to your app:
 
@@ -127,7 +127,7 @@ Note the use of the `[<Website>]` attribute once again, this time on the entire 
 
 This use of the `[<Website>]`  attribute marks what we call an **offline sitelet** - a sitelet statically generated on the server into an HTML application. The only additional change you need for this to work is to ensure that the `project` type in your `wsconfig.json` is set to `"html"`, naturally, or simply use the WebSharper HTML application project template to start from.
 
-# BlogEngine:  Getting your new shiny F# blog and adding your articles
+### BlogEngine:  Getting your new shiny F# blog and adding your articles
 
 [![](https://i.imgur.com/RVJs5IXl.png)](https://i.imgur.com/RVJs5IX.png)
 
@@ -164,7 +164,7 @@ You may also notice that BlogEngine has a list of all blog articles on the home 
             | Article slug -> ...
 ```
 
-## Getting the HTML content of markdown source files
+#### Getting the HTML content of markdown source files
 
 Recall how we instantiated the `.Content` placeholder of an article by simply passing the HTML representation verbatim. Here is the actual code from the BlogEngine repo:
 
@@ -204,7 +204,7 @@ Here, `PLAIN` is just a helper for creating verbatim HTML output, the essence li
 
 Note, that each article HTML page is generated at compilation time. This means that if you change or add a new article, you need to recompile the `src\Website` project.
 
-## Modifying the existing blog template or adding your own
+### Modifying the existing blog template or adding your own
 
 Recall I made a statement about Jekyll and its templates being a PITA to edit/customize, because you end up writing unchecked HTML code in configuration files or in nested templates, both of which are impossible to preview until you regenerate your site. If you study the `index.html` we use in the BlogEngine repo, you will see that we did away with Jekyll-style configuration files and incorporated all templates (nested or not) into this one master file. Clearly, if you open this file in a browser, you won't find it easy to "edit and see the results," either. But you can do a few things to alleviate the situation:
 
@@ -220,7 +220,7 @@ Recall I made a statement about Jekyll and its templates being a PITA to edit/cu
 	```
 	With these changes, you can fire up your blog, make changes to `index.html` (including changes to your inner templates) and see those changes immediately when you hit Ctrl+F5 on a rendered page (clearly, you need to run the webserver to serve these files.) This should give you a pretty comfortable workflow to author new templates or enhance the built-in one.
 
-## Adding client-side functionality to your blog pages
+### Adding client-side functionality to your blog pages
 
 As I pointed out earlier, one of the most significant advantages of using the approach I outlined above is being able to write client-side functionality in F# (or C#) instead of JavaScript/TypeScript.
 
@@ -257,7 +257,7 @@ do ()
 
 In a similar vein, you could also create your own custom client-side functionality for *selected* blog articles, such as visualizations/charts/etc for a given article. This, however, doesn't yet blend into the simplified "process all input files in the same way" we presented. One way to deal with this would be via a custom YAML header field and differentiate based on its value when rendering each article page. I will leave this suprisingly straightforward solution to another blog article.
 
-## Where to go next?
+### Where to go next?
 
 Apart from the custom client-side content above (which is more of a blog-specific path, as opposed to a general wireframe solution I intend to give with BlogEngine), I plan to add support for multi-user articles and RSS feeds, and follow up with another article about setting up automatic deployment to GitHub Pages. We will most definitely use these new features in our own various company-wide blogs, and migrate away from the current self-hosted solutions.
 

@@ -48,7 +48,7 @@ If you want to show a thumbnail for your snippet, you need to first save it and 
 
 Here, you can zoom and pan around to get the right parts into the white box, which will be your new thumbnail. You can also set a timer for when the snapshot should be taken (for instance, 1000 ms after the page load, in the example above), and this comes handy when you have a snippet whose output evolves over time.
 
-## Managing your snippets
+### Managing your snippets
 
 You can get a list of your own snippets by navigating to My Snippets from either the left charms menu (the hamburger icon) or via your avatar on the top-right.
 
@@ -62,7 +62,7 @@ For instance, you can Tweet it, get a URL to its embedded and direct versions, m
 
 ![Operations on a snippet](http://i.imgur.com/jdsZqtNm.png)
 
-# Have fun using it!
+### Have fun using it!
 
 Try WebSharper makes it easy to create and share WebSharper snippets with others. You can use any one of the available WebSharper extensions in your snippets, including those that are premium otherwise, making Try WebSharper an excellent testbed if you are considering [subscribing to premium WebSharper tools](http://websharper.com/subscriptions), which include a variety of client-side data access, visualization and charting libraries, and advanced libraries of UI controls.
 

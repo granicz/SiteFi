@@ -4,13 +4,11 @@ categories: "templating,ui,routing,f#,websharper"
 abstract: "Consider a very typical scenario: you have a web application that serves an SPA. The SPA itself has several \"pages,\" each with its own client-side routed URLs (think of Gmail, for instance.) Then people copy some of these URLs from their \"session\" and send them to others, who in turn expect to find exactly what the sender saw. Except with most SPAs, the server-side knows nothing about the URLs generated on the client and usually throws you back to some initial SPA page. Implementing this properly requires you to share all or a subset of the URLs both on the server and on the client. With WebSharper, this is easy."
 identity: "5488,84145"
 ---
-# Serving SPAs
-
 (This article is part of [F# Advent 2017](https://sergeytihon.com/2017/10/22/f-advent-calendar-in-english-2017/) - thanks to [Sergey Tihon](https://sergeytihon.com/) for organizing!)
 
 Consider a very typical scenario: you have a web application that serves an SPA. The SPA itself has several "pages," each with its own client-side routed URLs (think of Gmail, for instance.) Then people copy some of these URLs from their "session" and send them to others, who in turn expect to find exactly what the sender saw. Except with most SPAs, the server-side knows nothing about the URLs generated on the client and usually throws you back to some initial SPA page. Implementing this properly requires you to share all or a subset of the URLs both on the server and on the client. With WebSharper, this is easy.
 
-## Routing
+### Routing
 
 One fundamental difference between WebSharper and other server-side capable F# frameworks such as Giraffe or Suave, is that WebSharper supports **safe URLs**, i.e. URLs computed from the serving context (as opposed to encoding them as ordinary strings) that are guaranteed to be correct.
 
@@ -65,7 +63,7 @@ Now, clearly, there is a lot you would/could want to do with URLs/endpoints. Mak
 
 One such benefit is exactly what we need: sharing the URL space between the server and the client side. In pure SPAs, this means sharing the full endpoint type, but more often than that you would want your client-side URL space as a proper subset of the full endpoint set.
 
-## A barebones approach
+### A barebones approach
 
 [![](https://i.imgur.com/Dk73D2jm.png)](https://i.imgur.com/Dk73D2j.png)
 [![](https://i.imgur.com/K2PnK5Im.png)](https://i.imgur.com/K2PnK5I.png)
@@ -196,7 +194,7 @@ module Site =
 
 This app, which can be hosted in any ASP.NET- or OWIN-compatible container, including Suave, or self-hosted) guarantees that we can serve any one of the three types of URLs we specified earlier, and it correctly routes the SPA (`/spa/*`) accordingly as well. (Note: you can also accomplish this also by combining Suave or Giraffe for the server-side and Fable.Elmish on the client-side, but **you won't get any integration or safe URL representation between the two tiers**.)
 
-## Adding templating
+### Adding templating
 
 [![](https://i.imgur.com/uBAdweUm.png)](https://i.imgur.com/uBAdweU.png)
 [![](https://i.imgur.com/mOuYbuLm.png)](https://i.imgur.com/mOuYbuL.png)
@@ -295,7 +293,7 @@ module Client =
 
 Not a single in-code HTML combinator in sight - so we are good to go. The final F# code is 110 LOC, and it serves our SPA and all of its links when visited directly as well, all dressed up in a nice Bulma-based master template. Hurray!
 
-## Summing up
+### Summing up
 
 In this article, we looked at two fundamental problems you are likely to encounter in any serious web development: serving SPAs with their URLs understood both on the server and the client, and externalizing your entire presentation layer so it can be modified at runtime.
 
@@ -303,15 +301,15 @@ If you want to try the gists, start with a Client-Server Application template af
 
 Guess what? You can do all this in C# as well, but I'll save that for another article! So stay tuned and don't hesitate to ask about WebSharper on the [forums](https://forums.websharper.com), and be sure to check out the [documentation](https://developers.websharper.com) - both 100% WebSharper SPAs in case you wondered ;)
 
-### Forums
+#### Forums
 
 [![](https://i.imgur.com/2DkBX2ol.png)](https://forums.websharper.com)
 
-### Documentation
+#### Documentation
 
 [![](https://i.imgur.com/ANg1Fual.png)](https://developers.websharper.com)
 
-### Quick links:
+#### Quick links:
 
  * documentation on [routing requests](http://developers.websharper.com/docs/v4.1/fs/sitelets)
  * documentation on [WebSharper UI and templating](http://developers.websharper.com/docs/v4.1/fs/ui)

@@ -14,7 +14,7 @@ The main motivations of this project are pretty straightforward and incredibly u
  * Basic **type provider support**, so you can quickly demo all the F# goodness to your peers
  * Switching among multiple "built-in" snippets to facilitate easier experimentation
 
-## Current status
+### Current status
 
 You can see the current status below and you can also [try it live](https://fsbolero.github.io/TryFSharpOnWasm/) (Firefox recommended for enhanced performance): 
 
@@ -24,7 +24,7 @@ One of the snippets that are available demonstrates the use of the JSON type pro
 
 [![](https://i.imgur.com/jqPFM5Rl.png)](https://i.imgur.com/jqPFM5R.png)
 
-## Limitations and things to improve on
+### Limitations and things to improve on
 
 There is a **significant download size** to download initialize the application. This involves downloading all the assembly references to get FCS running (~28 MBs, which should cache in the browser for future page loads/refreshes), loading them into the runtime and initializing the code service (around 8-10 seconds, depending on your machine).
 
@@ -32,7 +32,7 @@ Currently, the code service is invoked in the main thread, causing **noticable f
 
 Furthermore, in this first version, only basic type providers are supported. This includes the JSON and the XML type providers from FSharp.Data for the time being.
 
-## Get involved
+### Get involved
 
 Check out [the source code for the project](https://github.com/fsbolero/TryFSharpOnWasm) and get involved, your suggestions/contributions/PRs are welcome!
 

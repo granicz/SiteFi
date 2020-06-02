@@ -31,42 +31,42 @@ open WebSharper.UI.Next.Notation
 [<JavaScript>]
 module SimpleInput =
 
-	let Main =
-	    let v = Var.Create ""
-	    div [
-	        Doc.Input [] v
-	    ]
-	    |> Doc.RunById "main"
+    let Main =
+        let v = Var.Create ""
+        div [
+            Doc.Input [] v
+        ]
+        |> Doc.RunById "main"
 ```
 
 You can now update the input box easily by writing to `v`. Consider the addition of a simple Clear button:
 
 ```fsharp
-	    ...
-		div [
-	        buttonAttr [on.click (fun _ _ -> v := "")] [text "Clear"]
-	        Doc.Input [] v
-	    ]
+    ...
+    div [
+        buttonAttr [on.click (fun _ _ -> v := "")] [text "Clear"]
+        Doc.Input [] v
+    ]
 ```
 
 The fun starts when there is dependent markup in your page computed from the value of the input box. Say, you wanted to echo what's typed into the input box, using all caps:
 
 ```fsharp
-	    ...
-        div [
-            buttonAttr [on.click (fun _ _ -> v := "")] [text "Clear"]
-            Doc.Input [] v
-            p [textView (v.View.Map (fun s -> s.ToUpper()))]
-        ]
+    ...
+    div [
+        buttonAttr [on.click (fun _ _ -> v := "")] [text "Clear"]
+        Doc.Input [] v
+        p [textView (v.View.Map (fun s -> s.ToUpper()))]
+    ]
 ```
 
 Here, `v.View` returns the current value of `v`, and `textView` converts it to an HTML text node. You can also react to keyboard and mouse input ([API](https://github.com/intellifactory/websharper.ui.next/blob/master/docs/Input.md)) equally easily:
 
 ```fsharp
-        div [
-            ...
-            p [textView (Input.Mouse.Position.Map (fun (x,y) -> sprintf "%d:%d" y x))]
-        ]
+    div [
+        ...
+        p [textView (Input.Mouse.Position.Map (fun (x,y) -> sprintf "%d:%d" y x))]
+    ]
 ```
 
 To sum up the basics a somewhat more elaborate [live snippet](http://try.websharper.com/snippet/adam.granicz/00001u) is below:

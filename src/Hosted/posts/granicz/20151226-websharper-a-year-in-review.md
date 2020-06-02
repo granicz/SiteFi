@@ -52,21 +52,21 @@ Our WebSharper team has been cooking up some awesome things that are not yet ava
 
  * **WebSharper 4** - we are finalizing the last bits of moving WebSharper to the F# Compiler Services (FCS) and merging the F#+WebSharper compilation steps into a single sweep, giving a significant boost to compilation speed, better F# language coverage, and fixing a number of corner cases in earlier releases. The first alphas are out in early January under a new WebSharper codename “Zafir”.
  
- * ** WebSharper 4 for C# ** - we are finally able to bring WebSharper to C# developers, covering the most common C# scenarios (asyncs, LINQ, etc.), most of the language, and calls to any one of the existing extensions in the WebSharper ecosystem. A lot more on this in upcoming blogs.
+ * **WebSharper 4 for C#** - we are finally able to bring WebSharper to C# developers, covering the most common C# scenarios (asyncs, LINQ, etc.), most of the language, and calls to any one of the existing extensions in the WebSharper ecosystem. A lot more on this in upcoming blogs.
  
  * **WebSharper.React** - bringing [React](https://facebook.github.io/react) to WebSharper applications. Here is a live example:
  
- <div style="width:100%;min-height:300px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/sandorr/00005G"></iframe><div>
+   <div style="width:100%;min-height:300px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/sandorr/00005G"></iframe></div>
 
- * **WebSharper.LiveData** - automatic syncronization of reactive data models between a server and its participating clients.  You can read a draft of [our first, upcoming tutorial](http://websharper.com/tutorials/livedata).
+ * **WebSharper.LiveData** - automatic syncronization of reactive data models between a server and its participating clients.  You can read a draft of [our first, upcoming tutorial](https://github.com/Tarmil/websharper.docs/blob/master/tutorials/LiveData.md).
 
  * **WebSharper.Forms** and **WebSharper.Forms.Bootstrap** - reactive web forms (aka. reactive Piglets) with custom rendering. Here is a live example that uses Bootstrap-based rendering for a login form:
  
- <div style="width:100%;min-height:400px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/adam.granicz/00004x"></iframe><div>
+   <div style="width:100%;min-height:400px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/adam.granicz/00004x"></iframe></div>
  
  * New extensions, in particular **WebSharper.JointJs** and **WebSharper.Rappid** - bringing awesome diagramming solutions to WebSharper:
  
- <div style="width:100%;min-height:400px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/qwe2/00005D"></iframe><div>
+   <div style="width:100%;min-height:400px;position:relative"><iframe style="position:absolute;border:none;width:100%;height:100%" src="http://try.websharper.com/embed/qwe2/00005D"></iframe></div>
  
  * Updating [CloudSharper](http://cloudsharper.com) with the latest WebSharper - this has been left on the backburner for several releases, now it's time to sync the two again.  Once this work is finished, CloudSharper will be your one-stop shop for online web and mobile development with C# and F#; quick data access, analytics and visualization, and a host of other interactive capabilities.
  

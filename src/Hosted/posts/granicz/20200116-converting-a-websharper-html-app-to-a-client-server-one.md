@@ -4,7 +4,7 @@ categories: "blogging,f#,websharper"
 abstract: "In my previous article about \"F# metablogging: introducing BlogEngine for your static markdown-based F# blog\", I briefly outlined a quick strategy to switch a WebSharper HTML project to a hosted, client-server app, and vice versa. In this article, I will walk through some suprises that came along the way and what I did to resolve them."
 identity: "5863,87652"
 ---
-In my previous article about [F# metablogging: introducing BlogEngine for your static markdown-based F# blog](https://forums.websharper.com/blog/87610), I briefly outlined a quick strategy to switch a WebSharper HTML project to a hosted, client-server app, and vice versa. The steps mentioned there involved:
+In my previous article about [F# metablogging: introducing BlogEngine for your static markdown-based F# blog](//intellifactory.com/user/granicz/20191226-f-metablogging-introducing-blogengine-for-your-static-markdown-based-f-blog), I briefly outlined a quick strategy to switch a WebSharper HTML project to a hosted, client-server app, and vice versa. The steps mentioned there involved:
 
  1) changing the project type from `"bundle"` to `"site"`, or vice versa, in `wsconfig.json`, and
  

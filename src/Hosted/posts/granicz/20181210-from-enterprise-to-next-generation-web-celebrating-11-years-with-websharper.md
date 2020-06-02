@@ -4,13 +4,11 @@ categories: "f#,websharper"
 abstract: "A brief outline of the historical circumstances around WebSharper (just some notes in no particular order) that **position it for a bright future outlook**, and a quick glimple of what we are working on with it to advance the current state of F# web programming."
 identity: "5679,86183"
 ---
-# From enterprise to next-generation web: celebrating 11 years with WebSharper
-
 (This article is my contribution to [F# Advent](https://sergeytihon.com/2018/10/22/f-advent-calendar-in-english-2018/) - a huge thanks to Sergey Tihon for organizing and running this initiative! - and it is the first part of a string of **F# + WebAssembly** articles lined up for you in coming days and weeks.)
 
 F# web development is teeming with ideas and OSS projects, and it's often hard to figure out what to pay attention to with all the social media noise. With **[WebSharper](http://websharper.com) being 11 years old soon**, I wanted to take this opportunity to briefly outline the historical circumstances around WebSharper (just some notes in no particular order) that **position it for a bright future outlook**, and give a quick glimple of what we are working on with it to advance the current state of F# web programming. If you'd rather just skip the history part, feel free to skip to the whats-coming part and **see a full WebSharper application run on WebAssembly**.
 
-## Not your typical community project - a historical perspective
+### Not your typical community project - a historical perspective
 
 We started WebSharper in 2007 at [IntelliFactory](http://intellifactory.com), a small Budapest-based startup, to enable ourselves to develop ASP.NET applications entirely in F#. We were not only interested in writing code behind files in F# (see the work of Tomas Petricek to implement an [F# CodeDOM provider for ASP.NET](http://tomasp.net/blog/aspnet-fsharp-intro.aspx/)) , but also client-side code that interacts with the server, transpiled into JavaScript. Unlike in Tomas's [F# Web Tools project](http://tomasp.net/blog/fswebtools-intro.aspx/) that came up around the same time, calls crossing tiers were marked by .NET attributes (`[<Remote>]` vs `[<JavaScript>]`) and nearly the entire F# language and its standard libraries were supported in the translation.  This effort culminated in the **first public WebSharper release in 2007**, with support for remote and service calls, and the ability to write client-server apps in F# to facilitate full-stack development.
 
@@ -36,7 +34,7 @@ All in all, WebSharper sits in a slightly unusal corner of open source community
 
 While I urge everyone to always explore all options to formulate an educated opinion (after all, anything that raises awareness to **any** F# web development tool helps WebSharper become more visible as well), do consider that **popular topics nowadays with other F# web tech (Giraffe, Fable, SAFE, Saturn, etc.)**, such as creating microservices, calling remote functions, server and client-side debugging, source maps, composable and reactive UI forms, IDE integration and various project templates (just have a look at the last few editions of F# Weekly) **have been available for years in the WebSharper ecosystem**. Instead, you will find us most active with multi-server RPCs; reactive, native and highly performant UI abstractions; advanced templating for client-server apps and SPAs; client-server reactive models; enhanced performance with web workers; shared, type-safe routing on the client and the server; and other not-so-obvious themes.  But all in all, **WebAssembly sits very high on our list and we are fully committed to it**.
 
-## What about JavaScript?
+### What about JavaScript?
 
 WebSharper has always taken a low-ceremony stance with respect to generating JavaScript: it's done in a "translate-it-and-forget-about-it" fashion. The main objective here is to provide a **semantically correct translation**, and not pretty, F#-looking code that you will spend time hand-editing. In most cases, developers will never have to look at the generated code and can simply assume things work as expected, and for the demanding cases (that involve a heavy use of external JS libraries, etc.) employ source maps to help with debugging.
 
@@ -48,7 +46,7 @@ You can therefore safely conclude that working with **WebSharper will drasticall
 
 That said, we made a conscious effort to **avoid external dependencies for the core WebSharper libraries**. jQuery was one such dependency initially, used for dynamic DOM manipulation, but it was later removed in the 4.x releases. The main reactive [UI core library](https://developers.websharper.com/docs/v4.x/fs/ui) ([sources on GitHub](https://github.com/dotnet-websharper/ui)), for instance, that powers most of the reactive WebSharper applications, implements the foundation for reactive web applications **entirely in F#** without any JavaScript dependencies (no React.js, etc.), and is then bootstrapped into all generated client-side code in consuming applications. This has the benefit of the potential for further dead-code elimination, fewer external dependencies, and above all, a **fully .NET-based reactive UI machinery/application backbone**.
 
-## Teaser: Bolero - taking WebSharper and F# to WebAssembly
+### Teaser: Bolero - taking WebSharper and F# to WebAssembly
 
 Armed with the above, one of the upcoming things we have been working on is to enable **adapting WebSharper applications to run on [WebAssembly](https://webassembly.org/) via [Blazor](https://blazor.net/)**. This is a project we codenamed Bolero that we will be announcing next.
 
@@ -66,13 +64,13 @@ There are several WebSharper (F# to JavaScript) implementations for this app. Th
 
 The matching [Bolero implementation](https://github.com/intellifactory/Bolero.TodoMVC/tree/master/src/Bolero.TodoMVC.Client) (F# to Blazor/WASM) is **almost identical**, except that the `render` function here uses model values as in Elmish, exactly like in the Fable+React version mentioned above. Minor changes were also applied in the app's HTML template to accommodate the change in attributes that the Bolero templating type provider works with, to be more in line with Blazor's data binding notation.
 
-**You can see [the app running in WASM](https://intellifactory.github.io/Bolero.TodoMVC/) live.** Note the short delay initially as you load the page: this is the time it takes to initialize the Blazor runtime in WASM and download the required .NET framework assemblies.
+**You can see [the app running in WASM](https://fsbolero.io/TodoMVC/) live.** Note the short delay initially as you load the page: this is the time it takes to initialize the Blazor runtime in WASM and download the required .NET framework assemblies.
 
 We are very excited about moving **more** WebSharper features under the Bolero umbrella, providing an a solid framework to adapt WebSharper applications to run fully in WASM. But even in its current form, **the key basic WebSharper features and Elmish/MVU integration are available, and you can develop Blazor SPAs and client-server applications entirely in F# in much of the same way as you are used to with WebSharper**.
 
 And one last bit: you may have also noticed in the commits in the past 12 months to the core WebSharper repo, that we have been working on enabling WebSharper to **produce TypeScript output as well**. Here, we considered tailoring this output to play well with technologies that can translate a subset of TypeScript to WASM. But overall, this approach would be **inferior to what Bolero already offers**.
 
-## Final words
+### Final words
 
 11 years is a very long time for any project. WebSharper might just be the oldest F# tech around with a **tremendeous track record and impact** (at the time of writing, there are [147 NuGet packages for WebSharper](https://www.nuget.org/packages?q=websharper)) . This would not have been possible without a great deal of perseverance, hard work, and overcoming a great number of challenges.
 

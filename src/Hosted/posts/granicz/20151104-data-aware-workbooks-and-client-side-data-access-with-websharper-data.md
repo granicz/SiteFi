@@ -8,7 +8,7 @@ F# has always excelled at accessing heterogeneous data sources in server-side co
 
 For instance, [FSharp.Data](http://fsharp.github.io/FSharp.Data) provides access to various forms of structured data (XML, CSV, etc.) and the WorldBank database via its web API. You can now access some of this data, from client-side code in your WebSharper applications with [WebSharper.Data](http://github.com/IntelliFactory/websharper.data).
 
-## WebSharper.Data
+### WebSharper.Data
 
 WebSharper.Data provides various proxies for FSharp.Data, currently supporting the `JsonProvider` and the `WorldBankProvider` runtimes in client-side use with WebSharper.
 

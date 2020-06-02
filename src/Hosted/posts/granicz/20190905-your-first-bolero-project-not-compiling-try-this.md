@@ -108,13 +108,12 @@ Time Elapsed 00:00:02.07
 The build failed. Please fix the build errors and run again.
 ```
 
-## Installing the right .NET Core SDK
+### Installing the right .NET Core SDK
 
 Tucked away in the [source repository][bolero-gh], in the main README file, there is a short section that details what you need to compile and run Bolero itself:
 
-```
- - .NET Core SDK 3.0-preview7 or newer. Download it  [here](https://dotnet.microsoft.com/download/dotnet-core/3.0).
-```
+> .NET Core SDK 3.0-preview7 or newer. Download it  [here](https://dotnet.microsoft.com/download/dotnet-core/3.0).
+
 Not surprisingly, this same dependency applies to your Bolero applications as well. The normal build output we saw above already listed my installed frameworks, but if I need to, I can also quickly check separately:
 
 ```
@@ -152,7 +151,7 @@ Host (useful for support):
   Microsoft.AspNetCore.All 2.1.2 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.All]
   ...
   ...
-  ```
+```
 
 Heading over to the [Microsoft .NET Core download page][dnc-download] and installing `preview7` resolves the issue, and the vanilla Bolero template app now works as expected.
 
