@@ -118,6 +118,10 @@ module Helpers =
         else
             None
 
+    let (|NUMBER|_|) (s: string) =
+        let out = ref 0
+        if Int32.TryParse(s, out) then Some !out else None
+
 module Site =
     open System.IO
     open WebSharper.UI.Html
@@ -158,6 +162,7 @@ module Site =
             date: string
             categories: string
             language: string
+            identity: string
         }
 
     type Article =
@@ -170,6 +175,7 @@ module Site =
             Date: DateTime
             Categories: string list
             Language: string
+            Identity: int * int
         }
 
     // The article store, mapping (user*slug) pairs to articles.
@@ -262,6 +268,14 @@ module Site =
                         else
                             []
                     let language = Helpers.NULL_TO_EMPTY article.language
+                    let identity =
+                        let raw = Helpers.NULL_TO_EMPTY article.identity
+                        let entries = raw.Split([| ',' |])
+                        match entries with
+                        | [| Helpers.NUMBER id1; Helpers.NUMBER id2 |] ->
+                            id1, id2
+                        | _ ->
+                            failwithf "Invalid identity found (%A)" entries
                     eprintfn "DEBUG-ADD: (%s, %s)\n-------------------" user fname
                     Map.add (user, fname)
                         {
@@ -273,6 +287,7 @@ module Site =
                             Date = date
                             Categories = categories
                             Language = language
+                            Identity = identity
                         } map
                 ) store
             else
