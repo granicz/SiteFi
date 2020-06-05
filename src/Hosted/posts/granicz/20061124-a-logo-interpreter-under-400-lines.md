@@ -6,11 +6,11 @@ identity: "-1,56781"
 ---
 This first time I picked something that F# is particularly good at: implementing other programming languages. The target is Logo, your favorite turtle graphics language from grade school - mostly because it has something for everyone: it has some peculiarities from the language design angle that are worth looking at, but foremost the implementation once again shows you how easy it is to get things done with F#. So I sat down yesterday night and wrote a small Logo interpreter.
 
-Our application has two parts: the core language module (logo.fs) that defines all types, the lexer, the parser and the evaluator; and the UI client (main.fs) that constructs the main application form and adds all interaction within.
+Our application has two parts: the core language module (`logo.fs`) that defines all types, the lexer, the parser and the evaluator; and the UI client (`main.fs`) that constructs the main application form and adds all interaction within.
 
 Here is what our final application will look like (after you ran some Logo code ;)):
 
-![LogoInterpreter01](#)
+![LogoInterpreter01](/assets/logo01.jpeg)
 
 Logo is an interesting language because it is strikingly simple yet quite powerful and it is an excellent medium to teach kids how to program. There are a lot of implementations out there and here you will see mine without any desire to adhere to often used or even standard features - my objective is simply to be able to write short Logo programs that create nice drawings.
 
