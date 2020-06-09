@@ -64,3 +64,10 @@ pre, code {
 nav.navbar-start .navbar-item:first-child {
     border-right: 2px solid #777;
 }
+
+.navbar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background: transparent;
+}
