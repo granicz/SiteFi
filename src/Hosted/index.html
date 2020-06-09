@@ -6,6 +6,7 @@
   <title>${Title}My F# blog</title>
   <meta ws-replace="meta" />
   <link rel="stylesheet" href="/css/all${ReleaseMin}.css" />
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
   <script ws-replace="Head"></script>
 </head>
 <body>
@@ -78,30 +79,30 @@
       <section ws-replace="Banner"></section>
       <section class="section has-background-white">
         <div class="container">
-          <div ws-hole="ArticleList" class="columns is-gapless is-multiline is-mobile">
-            <div ws-template="ArticleCard" class="column is-one-quarter">
-              <div class="card">
-                <div class="card-content">
-                  <div class="media">
-                    <div class="media-content">
-                      <a href="${Url}"><p class="title is-4">${Title}</p></a>
-                      <p class="subtitle is-6" ws-hole="Author"></p>
+            <div ws-hole="ArticleList" class="masonry columns is-gapless is-multiline is-mobile" data-masonry='{ "itemSelector": ".masonry-item", "horizontalOrder": true, "precentPosition": true}'>
+                <div ws-template="ArticleCard" class="masonry-item column">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <a href="${Url}"><p class="title is-4">${Title}</p></a>
+                                    <p class="subtitle is-6" ws-hole="Author"></p>
+                                </div>
+                            </div>
+                            <div class="content">
+                                ${Abstract}
+                                <div ws-replace="ArticleCategories">
+                                    <div ws-children-template="ArticleCategory">
+                                        <a href="${Url}">#${Title}</a>&nbsp;
+                                    </div>
+                                </div>
+                                <br>
+                                <time datetime="2016-1-1">${Date}</time>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="content">
-                    ${Abstract}
-                    <div ws-replace="ArticleCategories">
-                      <div ws-children-template="ArticleCategory">
-                        <a href="${Url}">#${Title}</a>&nbsp;
-                      </div>
-                    </div>
-                    <br>
-                    <time datetime="2016-1-1">${Date}</time>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
       </section>
     </div>
