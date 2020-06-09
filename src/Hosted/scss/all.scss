@@ -71,3 +71,22 @@ nav.navbar-start .navbar-item:first-child {
     top: 0;
     background: transparent;
 }
+
+$break-column-1: 510px;
+$break-column-2: 810px;
+$break-column-3: 1010px;
+
+.masonry-item {
+    width: 100%;
+
+    @media screen and (min-width: $break-column-1) {
+        width: 50%;
+    }
+
+    @media screen and (min-width: $break-column-2) {
+        width: 33%;
+    }
+
+    @media screen and (min-width: $break-column-3) {
+        width: 25%;
+    }
