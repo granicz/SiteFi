@@ -73,11 +73,11 @@ One such benefit is exactly what we need: sharing the URL space between the serv
 
 Say you want an app (shown above, grab it via a gist [here](https://gist.github.com/granicz/eeaf2140a3f1fbccc9ebb4af9deadaa1)) to report things on various cities using the following URLs:
 
-| URL | .....| |
-|:-------|---|:--------|
-| `/`  | | The root/home page     |
-| `/spa/cities` | | The page listing our cities, the main SPA |
-| `/spa/cities/XYZ` | | A page for showing info for a given city |
+| URL | .....|
+|:----------|:--------|
+| `/`  | The root/home page     |
+| `/spa/cities` | The page listing our cities, the main SPA |
+| `/spa/cities/XYZ` | A page for showing info for a given city |
 
 You can define your endpoint type as follows:
 
