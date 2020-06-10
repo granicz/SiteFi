@@ -65,13 +65,6 @@ nav.navbar-start .navbar-item:first-child {
     border-right: 2px solid #777;
 }
 
-.navbar {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    background: transparent;
-}
-
 $break-column-1: 510px;
 $break-column-2: 810px;
 $break-column-3: 1010px;
@@ -90,3 +83,11 @@ $break-column-3: 1010px;
     @media screen and (min-width: $break-column-3) {
         width: 25%;
     }
+}
+
+.navbar.transparent-navbar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background: transparent;
+}

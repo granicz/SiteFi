@@ -321,7 +321,7 @@ module Site =
         |> File.ReadAllText
         |> Doc.Verbatim
 
-    let Page langopt (config: Config) (pageTitle: option<string>) hasBanner articles (body: Doc) =
+    let Page langopt (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
         // Compute the language keys used in all articles
         let languages =
             articles
@@ -352,6 +352,7 @@ module Site =
 #if !DEBUG
             .ReleaseMin(".min")
 #endif
+            .IsTransparentHeader(if transparentHeader then "transparent-navbar" else "")
             .NavbarOverlay(if hasBanner then "overlay-bar" else "")
             .Head(head)
             .ShortTitle(config.ShortTitle)
@@ -481,7 +482,7 @@ module Site =
             // Sidebar
             .Sidebar(BlogSidebar config articles article)
             .Doc()
-        |> Page langopt config (Some article.Title) false articles
+        |> Page langopt config (Some article.Title) false false articles
 
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
@@ -547,7 +548,7 @@ module Site =
                     |> ARTICLES
                 )
                 .Doc()
-            |> Page langopt config.Value None false articles.Value
+            |> Page langopt config.Value None false true articles.Value
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home langopt ->
                 HOME langopt
