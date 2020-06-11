@@ -257,11 +257,13 @@ module Site =
                     let date = DateTime(year, month, day)
                     let categories =
                         Helpers.NULL_TO_EMPTY article.categories
+                    // Clean up article tags/categories:
                     let categories =
                         if not <| String.IsNullOrEmpty categories then
                             categories.Split [| ',' |]
                             // Note: categories are case-sensitive.
-                            |> Array.map (fun cat -> cat.Trim())
+                            // Trim each and convert the "#" character - so "c/f#" becomes "c/fsharp" 
+                            |> Array.map (fun cat -> cat.Trim().Replace("#", "sharp"))
                             |> Array.filter (not << String.IsNullOrEmpty)
                             |> Set.ofArray
                             |> Set.toList
