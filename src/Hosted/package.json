@@ -9,6 +9,7 @@
   "author": "IntelliFactory",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@creativebulma/bulma-collapsible": "^1.0.4",
     "bulma": "^0.9.0"
   }
 }

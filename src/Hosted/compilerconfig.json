@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "outputFile": "css/all.css",
     "inputFile": "scss/all.scss",
@@ -7,5 +7,15 @@
       "sourceMap": true,
       "sourceMapRoot": ".."
     }
+  },
+  {
+  	"outputFile": "js/bulma-collapsible.js",
+    "inputFile": "node_modules/@creativebulma/bulma-collapsible/dist/js/bulma-collapsible.min.js",
+    "minify": {
+		"enabled": true
+	},
+	"options": {
+		"sourceMap": false
+	}
   }
 ]
