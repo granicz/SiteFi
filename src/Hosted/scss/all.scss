@@ -10,6 +10,7 @@ $card-shadow: none;
 @import "bulma/sass/base/_all.sass";
 @import "bulma/sass/components/navbar.sass";
 @import "bulma/sass/components/level.sass";
+@import "bulma/sass/components/media.sass";
 @import "bulma/sass/components/menu.sass";
 @import "bulma/sass/components/card.sass";
 @import "bulma/sass/components/panel.sass";
@@ -25,6 +26,9 @@ $card-shadow: none;
 @import "bulma/sass/layout/section.sass";
 @import "bulma/sass/layout/footer.sass";
 @import "bulma/sass/grid/columns.sass";
+@import "bulma/sass/helpers/spacing.sass";
+@import "bulma/sass/helpers/typography.sass";
+@import "bulma/sass/helpers/other.sass";
 
 // Fonts
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
@@ -51,13 +55,22 @@ pre, code {
   font-family: $family-monospace;
 }
 
-.card-container{
+.panel-heading {
+  font-weight: normal;
+  padding: 0.5em 0.75em;
+}
+
+.panel-block {
+  border-left: 1px solid white;
+}
+
+.card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px,1fr));
   grid-gap: 0.5em;
 }
 
-.card{
+.card {
   height: max-content;
 }
 

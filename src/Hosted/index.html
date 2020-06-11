@@ -120,7 +120,7 @@
               <section class="section" ws-hole="Content"></section>
             </div>
             <div ws-children-template="Sidebar" ws-hole="Sidebar" class="column is-one-quarter-tablet is-one-fifth-desktop sidebar-column">
-              <nav ws-template="Categories" ws-replace="Categories" class="panel" style="padding-top: 1em;">
+              <nav ws-template="Categories" ws-replace="Categories" class="panel is-shadowless" style="padding-top: 1em;">
                 <p class="panel-heading" style="border:0;background-color:white;">
                   Categories
                 </p>
@@ -132,13 +132,13 @@
                   </div>
                 </div>
               </nav>
-              <nav class="panel" style="padding-top:10px;">
+              <nav class="panel is-shadowless" style="padding-top:10px;">
                 <p class="panel-heading" style="border:0;">
                   All posts
                   <a style="color:red;float:right;" target="_blank" title="RSS" href="/feed.rss" class="is-hoverable"><i class="fas fa-rss-square"></i></a>
                 </p>
                 <div ws-replace="ArticleItems">
-                  <a ws-template="ArticleItem" class="panel-block ${ExtraCSS}" href="${Url}" style="border-right:0;border-top:0;border-bottom:0;">
+                  <a ws-template="ArticleItem" class="panel-block ${ExtraCSS}" href="${Url}" style="border-bottom:0;">
                     ${Title}
                   </a>
                 </div>
