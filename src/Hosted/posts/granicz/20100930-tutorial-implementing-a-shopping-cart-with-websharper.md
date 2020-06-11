@@ -1,7 +1,7 @@
 ---
 title: "Tutorial: Implementing a shopping cart with WebSharper"
 categories: "tutorial,f#,websharper"
-abstract: "Last week I had <a href=\"http://www.communityforfsharp.net/september-2010-live-meeting\">a Community for F#</a> talk on WebSharper where I presented a small WebSharper application to implement a client-based, persistent shopping cart, and I received numerous emails asking for the source code for that talk.  So in this post I am going to show you the full source code and walk you through what I did to implement the shopping cart functionality. The code provided here should work on any existing 1.0.X installation, preferably on the latest 1.0.28 release."
+abstract: "Last week I had a Community for F# talk on WebSharper where I presented a small WebSharper application to implement a client-based, persistent shopping cart, and I received numerous emails asking for the source code for that talk.  So in this post I am going to show you the full source code and walk you through what I did to implement the shopping cart functionality. The code provided here should work on any existing 1.0.X installation, preferably on the latest 1.0.28 release."
 identity: "1010,74591"
 ---
 Last week I had a [Community for F#](http://www.communityforfsharp.net/september-2010-live-meeting) talk on WebSharper where I presented a small WebSharper application to implement a client-based, persistent shopping cart, and I received numerous emails asking for the source code for that talk. So in this post I am going to show you the full source code and walk you through what I did to implement the shopping cart functionality. The code provided here should work on any existing 1.0.X installation, preferably on the latest 1.0.28 release.
