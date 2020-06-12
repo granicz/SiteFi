@@ -11,6 +11,7 @@
     <Compile Include="Main.fs" />
     <Compile Include="Startup.fs" />
     <Content Include="index.html" CopyToPublishDirectory="Always" />
+    <Content Include="redirect.html" />
     <None Include="config.yml" />
     <None Include="wsconfig.json" />
   </ItemGroup>

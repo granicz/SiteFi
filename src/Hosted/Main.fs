@@ -9,9 +9,10 @@ open WebSharper.UI.Server
 
 type EndPoint =
     | [<EndPoint "GET /">] Home of lang:string
-    | [<EndPoint "GET /blog">] Article of slug:string
+    | [<EndPoint "GET /article">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
+    | [<EndPoint "GET /blog">] Redirect1 of id1:int * slug:string
     | [<EndPoint "GET /category">] Category of string * lang:string
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
@@ -83,6 +84,8 @@ module Urls =
             sprintf "/blog/%s.html" slug
         else
             sprintf "/user/%s/%s" user slug
+    let OLD_TO_POST_URL (user: string, datestring: string, oldslug: string) =
+        POST_URL (user, sprintf "%s-%s" datestring oldslug)
     let USER_URL user =
         if String.IsNullOrEmpty user then
             sprintf "/user"
@@ -105,16 +108,16 @@ module Helpers =
         let I s = Int32.Parse s
         let filename = Path.GetFileName(fullpath)
         let filenameWithoutExt = Path.GetFileNameWithoutExtension(fullpath)
-        let r = new Regex("^([0-9]+)-([0-9]+)-([0-9]+)-(.+)\.(md)")
-        let r2 = new Regex("^([1-2][0-9][0-9][0-9])([0-1][0-9])([0-3][0-9])-(.+)\.(md)")
+        let r = new Regex("^(([0-9]+)-([0-9]+)-([0-9]+))-(.+)\.(md)")
+        let r2 = new Regex("^(([1-2][0-9][0-9][0-9])([0-1][0-9])([0-3][0-9]))-(.+)\.(md)")
         if r.IsMatch(filename) then
             let a = r.Match(filename)
             let V (i: int) = a.Groups.[i].Value
-            Some (fullpath, filenameWithoutExt, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
+            Some (fullpath, filenameWithoutExt, V 1, (I (V 2), I (V 3), I (V 4)), V 5, V 6)
         elif r2.IsMatch(filename) then
             let a = r2.Match(filename)
             let V (i: int) = a.Groups.[i].Value
-            Some (fullpath, filenameWithoutExt, (I (V 1), I (V 2), I (V 3)), V 4, V 5)
+            Some (fullpath, filenameWithoutExt, V 1, (I (V 2), I (V 3), I (V 4)), V 5, V 6)
         else
             None
 
@@ -127,6 +130,7 @@ module Site =
     open WebSharper.UI.Html
 
     type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type RedirectTemplate = Templating.Template<"..\\hosted\\redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] RawConfig =
         {
@@ -172,6 +176,8 @@ module Site =
             Abstract: string
             Url: string
             Content: string
+            DateString: string
+            SlugWithoutDate: string
             Date: DateTime
             Categories: string list
             Language: string
@@ -180,6 +186,9 @@ module Site =
 
     // The article store, mapping (user*slug) pairs to articles.
     type Articles = Map<string*string, Article>
+
+    // Mapping Id1 -> (username, datestring)
+    type Identities1 = Map<int, string*string>
 
     /// Zero out if article has the master language
     let URL_LANG (config: Config) lang =
@@ -237,7 +246,7 @@ module Site =
                 Directory.EnumerateFiles(folder, "*.md", SearchOption.TopDirectoryOnly)
                 |> Seq.toList
                 |> List.choose (Helpers.(|ArticleFile|_|))
-                |> List.fold (fun map (fullpath, fname, (year, month, day), slug, extension) ->
+                |> List.fold (fun map (fullpath, fname, datestring, (year, month, day), slug, extension) ->
                     eprintfn "Found file: %s" fname
                     let header, content =
                         File.ReadAllText fullpath
@@ -286,6 +295,8 @@ module Site =
                             Abstract = ``abstract``
                             Url = url
                             Content = content
+                            DateString = datestring
+                            SlugWithoutDate = slug
                             Date = date
                             Categories = categories
                             Language = language
@@ -302,6 +313,13 @@ module Site =
             ReadFolder (Path.GetFileName(folder)) store) Map.empty
         // Read main articles
         |> ReadFolder ""
+
+    // Here we map the Id1 -> (user, datestring).
+    let ComputeIdentities1 (articles: Articles) : Identities1 =
+        articles
+        |> Map.fold (fun map (user, _) article ->
+            Map.add (fst article.Identity) (user, article.DateString) map
+        ) Map.empty
 
     let Menu articles =
         let latest =
@@ -490,9 +508,10 @@ module Site =
     // initialized in their own special way, without having access
     // to top-level values.
     let articles : Articles ref = ref Map.empty
+    let identities1 : Identities1 ref = ref Map.empty
     let config : Config ref = ref <| ReadConfig()
 
-    let Main (config: Config ref) (articles: Articles ref) =
+    let Main (config: Config ref) (identities1: Identities1 ref) (articles: Articles ref) =
         let ARTICLES (articles: Articles) =
             let articles =
                 articles
@@ -551,6 +570,11 @@ module Site =
                 )
                 .Doc()
             |> Page langopt config.Value None false true articles.Value
+        let REDIRECT_TO (url: string) =
+            RedirectTemplate()
+                .Url(url)
+                .Doc()
+            |> Content.Page
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Home langopt ->
                 HOME langopt
@@ -568,6 +592,13 @@ module Site =
                     <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
                 ARTICLE (user, p)
+            | Redirect1 (id1, oldslug) ->
+                let user, datestring =
+                    if identities1.Value.ContainsKey id1 then
+                        identities1.Value.[id1]
+                    else
+                        failwithf "Unable to find user for id1=%d, with map=%A" id1 identities1.Value
+                REDIRECT_TO (Urls.OLD_TO_POST_URL (user, datestring, oldslug))
             | Category (cat, langopt) ->
                 HOME langopt
                     <| MainTemplate.CategoryBanner()
@@ -637,6 +668,7 @@ module Site =
             | Refresh ->
                 // Reload the article cache and the master configs
                 articles := ReadArticles()
+                identities1 := ComputeIdentities1 articles.Value
                 config := ReadConfig()
                 Content.Text "Articles/configs reloaded."
         )
@@ -646,10 +678,11 @@ open System.IO
 [<Sealed>]
 type Website() =
     let articles = ref <| Site.ReadArticles()
+    let identities1 = ref <| Site.ComputeIdentities1 articles.Value
     let config = ref <| Site.ReadConfig()
 
     interface IWebsite<EndPoint> with
-        member this.Sitelet = Site.Main config articles
+        member this.Sitelet = Site.Main config identities1 articles
         member this.Actions =
             let articles = Map.toList articles.Value
             let categories =
@@ -674,6 +707,9 @@ type Website() =
                 // Generate the home page
                 for language in languages do
                     Home language
+                // Generate redirection pages for the old article pages
+                for (_, article) in articles do
+                    Redirect1 (fst article.Identity, article.SlugWithoutDate)
                 // Generate articles
                 for ((user, slug), _) in articles do
                     if String.IsNullOrEmpty user then
