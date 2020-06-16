@@ -1,0 +1,36 @@
+Budapest, Hungary, 47.476339, 19.065277
+Prague, Checz Republic, 50.059927, 14.503994
+London, United Kingdom, 51.430921, -0.093650
+Warsaw, Poland, 52.273884, 20.693828
+Edinburgh, United Kingdom, 55.915065, -3.260496
+Vienna, Austria, 48.208235, 16.373814
+Athens, Greece, 37.983782, 23.727582
+Belfast, United Kingdom, 54.617037, -5.953186
+Cambridge, UK, 52.201776, 0.132432
+Cluj Napoca, Romania, 46.771210, 23.623635
+Paris, France, 48.876334, 2.346121
+San Francisco, USA, 37.774907, -122.419388
+Copenhagen, Denmark, 56.263920, 9.501785
+Tokyo, Japan, 36.204824, 138.252924
+Sophia, Bulgaria, 42.733883, 25.485830
+Gothenburg, Sweden, 57.708870, 11.974560
+Tallinn, Estonia, 59.436961, 24.753575
+Portland, USA, 45.523062, -122.676482
+Osijek, Croatia, 45.554962, 18.695514
+Stockholm, Sweden, 59.329324, 18.068581
+Rome, Italy, 41.902784, 12.496366
+Chicago, USA, 41.878114, -87.629798
+Seattle, USA, 47.606210, -122.332071
+Boston, USA, 42.360083, -71.058880
+Nijmegen, The Netherlands, 51.812563, 5.837226
+Dunaujvaros, Hungary, 46.961906, 18.935523
+Kijev, Ukraine, 50.450100, 30.523400
+Belgrade, Serbia, 44.786568, 20.448922
+Alphen aan den Rijn, The Netherlands, 52.127658, 4.668851
+Komarno, Slovakia, 47.762579, 18.129413
+Sydney, Australia, -33.867487, 151.206990
+New York, USA, 40.712784, -74.005941
+Koblenz, Germany, 50.356943, 7.588996
+Montreal, Canada, 45.501689, -73.567256
+Cambridge, United Kingdom, 52.205337, 0.121817
+Prague, Czech Republic, 50.075538, 14.437801

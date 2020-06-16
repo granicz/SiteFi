@@ -8,10 +8,13 @@ open WebSharper.UI
 open WebSharper.UI.Server
 
 type EndPoint =
-    | [<EndPoint "GET /">] Home of lang:string
+    | [<EndPoint "GET /trainings">] Trainings
+    | [<EndPoint "GET /blogs">] Blogs of lang:string
+    // User-less blog articles
     | [<EndPoint "GET /article">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
+    // Old URL format for blog articles
     | [<EndPoint "GET /blog">] Redirect1 of id1:int * slug:string
     | [<EndPoint "GET /category">] Category of string * lang:string
     | [<EndPoint "GET /feed.atom">] AtomFeed
@@ -124,6 +127,98 @@ module Helpers =
     let (|NUMBER|_|) (s: string) =
         let out = ref 0
         if Int32.TryParse(s, out) then Some !out else None
+
+[<JavaScript>]
+module ClientSideCode =
+
+    module TalksAndPresentations =
+        open WebSharper.JavaScript
+        open WebSharper.UI.Html
+        open WebSharper.Google.Maps
+        open WebSharper.JQuery
+
+        [<Inline "($options).styles=$styleJson">]
+        let FixMapStyles (options: MapOptions) (styleJson: string) = failwith "N/A"
+
+        [<Inline "eval($styleJson)">]
+        let WireMapStyles (styleJson: string) : MapTypeStyle[] = failwith "N/A"
+
+        type City =
+            {
+                City: string
+                Country: string
+                Latitude: float
+                Longitude: float
+            }
+
+        let Ajax<'T> (url: string) : Async<'T> =
+            Async.FromContinuations <| fun (ok, ko, _) ->
+                let s = JQuery.AjaxSettings()
+                JQuery.Ajax(
+                    JQuery.AjaxSettings(
+                        Url = url,
+                        Type = RequestType.GET,
+                        ContentType = Union<bool, string>.Union2Of2 "application/json",
+                        DataType = JQuery.DataType.Text,
+                        Success = (fun result _ _ -> ok (result :?> 'T)),
+                        Error = (fun jqXHR _ _ -> ko (System.Exception(jqXHR.ResponseText)))): AjaxSettings)
+                |> ignore
+
+        let GetCities () =
+            async {
+                let! raw = Ajax<string> @"\assets\cities.txt"
+                let lines = raw.Split([| "\r\n"; "\n" |], StringSplitOptions.RemoveEmptyEntries)
+                let res =
+                    lines
+                    |> Seq.map (fun line ->
+                        let parts = line.Split([| ',' |])
+                        try
+                            {
+                                City = parts.[0]
+                                Country = parts.[1]
+                                Latitude = float parts.[2]
+                                Longitude = float parts.[3]
+                            }
+                        with
+                        | exn ->
+                            Console.Log exn.Message
+                            Console.Log exn.StackTrace
+                            raise exn
+                    )
+                    |> Seq.toList
+                return res
+            }
+    
+        [<JavaScript>]
+        let GMap (styleJson: string) =
+            div [
+                attr.``class`` "inner-map"
+                on.afterRender (fun el ->
+                    let point = new LatLng(34.0, 10.0)
+                    let options = 
+                        MapOptions(
+         //                  MapTypeId = MapTypeId.TERRAIN,
+                            Center = point,
+                            Zoom = 3,
+                            Styles = WireMapStyles styleJson,
+                            Scrollwheel = false,
+                            DisableDefaultUI = true
+                        )
+        //            let options = FixMapStyles options styleJson
+                    let map = new Map(el, options)
+
+                    async {
+                        let! data = GetCities()
+                        data
+                        |> Seq.iter (fun m ->
+                            let point = new LatLng(m.Latitude, m.Longitude)
+                            let icon = Icon(Url = "/img/map-marker.png", Anchor = Point(8.0, 8.0))
+                            new Marker(MarkerOptions(point, Map = map, Title = sprintf "%s, %s" m.City m.Country, Icon = icon)) |> ignore   
+                        )
+                    }
+                    |> Async.Start
+                )
+            ] []
 
 module Site =
     open System.IO
@@ -340,8 +435,72 @@ module Site =
         __SOURCE_DIRECTORY__ + "/../Hosted/js/Client.head.html"
         |> File.ReadAllText
         |> Doc.Verbatim
+    let private mapStyles() =
+        __SOURCE_DIRECTORY__ + "/../Hosted/assets/home-map-styles.json"
+        |> File.ReadAllText
 
-    let Page langopt (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
+    let Page (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
+        let head = head()
+        MainTemplate()
+#if !DEBUG
+            .ReleaseMin(".min")
+#endif
+            .IsTransparentHeader(if transparentHeader then "transparent-navbar" else "")
+            .NavbarOverlay(if hasBanner then "overlay-bar" else "")
+            .Head(head)
+            .ShortTitle(config.ShortTitle)
+            .Title(
+                match pageTitle with
+                | None -> ""
+                | Some t -> t + " | "
+            )
+            .TopMenu(Menu articles |> List.map (function
+                | text, url, map when Map.isEmpty map ->
+                    MainTemplate.TopMenuItem()
+                        .Text(text)
+                        .Url(url)
+                        .Doc()
+                | text, _, children ->
+                    let items =
+                        children
+                        |> Map.toList
+                        |> List.sortByDescending (fun (key, item) -> item.Date)
+                        |> List.map (fun (key, item) ->
+                            MainTemplate.TopMenuDropdownItem()
+                                .Text(item.Title)
+                                .Url(item.Url)
+                                .Doc())
+                    MainTemplate.TopMenuItemWithDropdown()
+                        .Text(text)
+                        .DropdownItems(items)
+                        .Doc()
+            ))
+            .DrawerMenu(Menu articles |> List.map (fun (text, url, children) ->
+                MainTemplate.DrawerMenuItem()
+                    .Text(text)
+                    .Url(url)
+                    .Children(
+                        match url with
+                        | "/blog" ->
+                            ul []
+                                (children
+                                |> Map.toList
+                                |> List.sortByDescending (fun (_, item) -> item.Date)
+                                |> List.map (fun (_, item) ->
+                                    MainTemplate.DrawerMenuItem()
+                                        .Text(item.Title)
+                                        .Url(item.Url)
+                                        .Doc()
+                                ))
+                        | _ -> Doc.Empty
+                    )
+                    .Doc()
+            ))
+            .Body(body)
+            .Doc()
+        |> Content.Page
+
+    let ArticleBasePage langopt (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
         // Compute the language keys used in all articles
         let languages =
             articles
@@ -502,7 +661,7 @@ module Site =
             // Sidebar
             .Sidebar(BlogSidebar config articles article)
             .Doc()
-        |> Page langopt config (Some article.Title) false false articles
+        |> ArticleBasePage langopt config (Some article.Title) false false articles
 
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
@@ -561,6 +720,10 @@ module Site =
                 |> List.map fst
                 |> sprintf "Trying to find page \"%s\" (with key=\"%s\"), but it's not in %A" p page
                 |> Content.Text
+        let TRAININGS () =
+            let mapStyles = mapStyles()
+            div[attr.``class`` "trainings-map"] [client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>]
+            |> Page config.Value None false true Map.empty
         let HOME langopt (banner: Doc) f =
             MainTemplate.HomeBody()
                 .Banner(banner)
@@ -569,14 +732,16 @@ module Site =
                     |> ARTICLES
                 )
                 .Doc()
-            |> Page langopt config.Value None false true articles.Value
+            |> ArticleBasePage langopt config.Value None false true articles.Value
         let REDIRECT_TO (url: string) =
             RedirectTemplate()
                 .Url(url)
                 .Doc()
             |> Content.Page
         Application.MultiPage (fun (ctx: Context<_>) -> function
-            | Home langopt ->
+            | Trainings ->
+                TRAININGS ()
+            | Blogs langopt ->
                 HOME langopt
                     <| MainTemplate.HomeBanner()
                         .Title(config.Value.Title)
@@ -704,9 +869,11 @@ type Website() =
                 |> Set.toList
             eprintfn "DEBUG-users: %A" users
             [
-                // Generate the home page
+                // Generate the learning page
+                Trainings
+                // Generate the blog home page(s), one per language
                 for language in languages do
-                    Home language
+                    Blogs language
                 // Generate redirection pages for the old article pages
                 for (_, article) in articles do
                     Redirect1 (fst article.Identity, article.SlugWithoutDate)

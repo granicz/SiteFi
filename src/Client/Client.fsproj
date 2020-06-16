@@ -14,10 +14,15 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="WebSharper" Version="4.6.0.361" />    
-    <PackageReference Include="WebSharper.FSharp" Version="4.6.0.361" />    
-    <PackageReference Include="WebSharper.HighlightJS" Version="4.6.0.175" />
-    <PackageReference Include="WebSharper.UI" Version="4.6.0.190" />
+    <PackageReference Include="WebSharper" Version="4.6.6.407" />    
+    <PackageReference Include="WebSharper.FSharp" Version="4.6.6.407" />    
+    <PackageReference Include="WebSharper.Google.Maps" Version="4.6.0.164" />    
+    <PackageReference Include="WebSharper.HighlightJS" Version="4.6.0.188" />
+    <PackageReference Include="WebSharper.UI" Version="4.6.3.219" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 
 </Project>
