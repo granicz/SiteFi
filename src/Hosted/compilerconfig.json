@@ -6,7 +6,8 @@
       "includePath": "node_modules",
       "sourceMap": true,
       "sourceMapRoot": ".."
-    }
+    },
+    "minify": { "enabled":  true }
   },
   {
   	"outputFile": "js/bulma-collapsible.js",

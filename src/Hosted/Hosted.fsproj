@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <Target Name="CleanGeneratedFiles" AfterTargets="Clean">
-    <RemoveDir Directories="$(MSBuildProjectDirectory)/css" />
+    <Delete Files="$(MSBuildProjectDirectory)/css/all*.css" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)/Content" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)/Scripts" />
   </Target>

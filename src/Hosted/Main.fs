@@ -131,6 +131,47 @@ module Helpers =
 [<JavaScript>]
 module ClientSideCode =
 
+    module Swiper =
+        open System.Web
+        open WebSharper.UI.Html
+        open WebSharper.JQuery
+        open WebSharper.JavaScript
+
+        [<assembly:WebResource("/assets/swiper.js", "text/javascript")>]
+        [<assembly:WebResource("/assets/swiper.css", "style/css")>]
+        do ()
+
+        type private CssResource() =
+            inherit Resources.BaseResource("/assets/swiper.css")
+
+        type private JsResource() =
+            inherit Resources.BaseResource("/assets/swiper.js")
+
+        [<Require(typeof<CssResource>)>]
+        [<Require(typeof<JsResource>)>]
+        type Swiper private () =
+
+            [<Inline "$this.params.slidesPerView = $slides">]
+            member x.SetSlidesPerView (slides : obj) = ()
+
+            [<Inline "$this.init()">]
+            member x.Init () = ()
+
+        [<Inline "new Swiper($selector, {scrollbar: $scrollbar, scrollbarHide: $scrollbarHide, slidesPerView: \"auto\", ceteredSlides: true, grabCursor: true, freeMode: $freeMode, preloadImages: false, lazyLoading: true, watchSlidesVisibility: true})">]
+        let SwiperWithScrollLazy (selector : string) (scrollbar : string) (scrollbarHide: bool) (freeMode : bool) = X<Swiper>
+
+        [<Require(typeof<CssResource>)>]
+        [<Require(typeof<JsResource>)>]
+        let InitImageSwiper () =
+            JQuery.Of(fun () -> 
+                SwiperWithScrollLazy 
+                    ".image-swiper-container" ".image-swiper-scrollbar" false true
+                |> ignore).Ignore
+
+        let Init () =
+            InitImageSwiper ()
+            text ""
+
     module TalksAndPresentations =
         open WebSharper.JavaScript
         open WebSharper.UI.Html
@@ -194,7 +235,7 @@ module ClientSideCode =
             div [
                 attr.``class`` "inner-map"
                 on.afterRender (fun el ->
-                    let point = new LatLng(34.0, 10.0)
+                    let point = new LatLng(50.0, -20.0)
                     let options = 
                         MapOptions(
          //                  MapTypeId = MapTypeId.TERRAIN,
@@ -424,11 +465,14 @@ module Site =
             |> List.truncate 5
             |> Map.ofList
         [
-            "Blog Home", "/", Map.empty
-            "Bolero", "/category/bolero", Map.empty
-            "WebSharper", "/category/websharper", Map.empty
-            "CloudSharper", "/category/cloudsharper", Map.empty
-            "Latest", "#", latest
+            "Home", "/", Map.empty
+            "Bolero", "https://fsbolero.io", Map.empty
+            "WebSharper", "https://websharper.com", Map.empty
+            "CloudSharper", "https://cloudsharper.com", Map.empty
+            "Trainings", "/trainings", Map.empty
+            "Jobs", "/jobs", Map.empty
+            "Blogs", "/blogs", Map.empty
+            "Contact", "/contact", Map.empty
         ]
 
     let private head() =
@@ -722,7 +766,10 @@ module Site =
                 |> Content.Text
         let TRAININGS () =
             let mapStyles = mapStyles()
-            div[attr.``class`` "trainings-map"] [client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>]
+            MainTemplate.TrainingBody()
+                .Map(client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>)
+                .ImageSliderInit(client <@ ClientSideCode.Swiper.Init() @>)
+                .Doc()
             |> Page config.Value None false true Map.empty
         let HOME langopt (banner: Doc) f =
             MainTemplate.HomeBody()

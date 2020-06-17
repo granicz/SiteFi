@@ -83,6 +83,32 @@ nav.navbar-start .navbar-item:first-child {
     width: 100%;
 }
 
+#image-slider {
+    margin: 0;
+    padding: 0;
+    background-color: #ccc;
+    height: 250px;
+}
+
+#image-slider .swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+#image-slider .swiper-wrapper {
+    margin-bottom: 0;
+}
+
+#image-slider .swiper-slide {
+    text-align: center;
+    width: auto;
+}
+
+#image-slider .swiper-slide img {
+    width: auto;
+    height: 250px;
+}
+
 $break-column-1: 510px;
 $break-column-2: 810px;
 $break-column-3: 1010px;
