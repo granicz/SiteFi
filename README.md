@@ -44,6 +44,13 @@ users: "extra1->My Friend's Name"
 
 # 2. Building and running your blog
 
+## Dependencies
+
+- [Node](https://nodejs.org/en/)
+- [Dotnet SDK 3.1](https://dotnet.microsoft.com/download)
+
+## Building the repository
+
 1) Run `.\install.ps` - do this the first time you start working with this repository. This script installs the required JS/CSS resources (only Bulma at the moment) and a convenient HTML server, `dotnet-serve` to serve the output.
 
 2) In the root folder, run `"dotnet build"` - this builds the entire solution, and among others generates your HTML files in the top-level `build` folder, ready to deploy elsewhere. That folder will look something like the following, ready to deploy to your web server:
@@ -52,7 +59,10 @@ users: "extra1->My Friend's Name"
 
    Alternatively, you can also "run" your site without static file generation by running the `src\Hosted` project with `"dotnet run -p src\Hosted\Hosted.fsproj"`. This starts your website on `http://localhost:5000`, by default.
 
+Alternatively, instead of running Step 1 and Step 2 separately, you can invoke `build.cmd` or `build.sh` to install dependencies and build the solution
+
 3) (Optional) Run `.\serve.cmd` to preview your generated HTML files - this invokes `dotnet-serve` on the `build` folder so you can view your blog articles in the browser (by default at `http://localhost:56001`). You can change the port, if needed in the script.
+
 
 ## Cleaning your generated files
 
