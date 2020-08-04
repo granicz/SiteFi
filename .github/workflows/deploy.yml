@@ -17,7 +17,7 @@ jobs:
         with:
           dotnet-version: '3.1.x'
       - run: |
-          ./build.sh
+          bash ./build.sh
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
