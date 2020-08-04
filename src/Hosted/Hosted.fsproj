@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <Target Name="Webcompile" BeforeTargets="BeforeBuild">
-    <Exec Command="npx grunt" WorkingDirectory="$(SolutionDir)/src/hosted" />
+    <Exec Command="npx grunt" WorkingDirectory="$(SolutionDir)src/hosted" />
   </Target>
 
   <ItemGroup>
