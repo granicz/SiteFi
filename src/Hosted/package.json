@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "My F# Blog",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "IntelliFactory",
   "license": "Apache-2.0",
   "devDependencies": {
     "@creativebulma/bulma-collapsible": "^1.0.4",
-    "bulma": "^0.9.0"
-  }
+    "bulma": "^0.9.0",
+    "grunt": "^1.2.1",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-sass": "^3.1.0",
+    "node-sass": "^4.14.1",
+    "uglify-js": "^3.10.0"
+  },
+  "dependencies": {}
 }

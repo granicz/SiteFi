@@ -7,7 +7,6 @@
   <ItemGroup>
     <Content Include="posts/**/*.*" />
     <Content Include="scss/**/*.*" />
-    <Content Include="Properties/launchSettings.json" />
     <Compile Include="Main.fs" />
     <Compile Include="Startup.fs" />
     <Content Include="index.html" CopyToPublishDirectory="Always" />
@@ -23,14 +22,17 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
     <PackageReference Include="Markdig" Version="0.18.0" />
-    <PackageReference Include="WebSharper" Version="4.6.6.407" />    
-    <PackageReference Include="WebSharper.FSharp" Version="4.6.6.407" />
+    <PackageReference Include="WebSharper" Version="4.6.7.408" />
+    <PackageReference Include="WebSharper.FSharp" Version="4.6.7.408" />
     <PackageReference Include="WebSharper.UI" Version="4.6.3.219" />
     <PackageReference Include="WebSharper.AspNetCore" Version="4.6.2.136" />
     <PackageReference Include="YamlDotNet" Version="8.0.0" />
   </ItemGroup>
+
+  <Target Name="Webcompile" BeforeTargets="BeforeBuild">
+    <Exec Command="npx grunt" WorkingDirectory="$(SolutionDir)/src/hosted" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\Client\Client.fsproj" />

@@ -265,9 +265,8 @@ module Site =
     open System.IO
     open WebSharper.UI.Html
 
-    type MainTemplate = Templating.Template<"..\\hosted\\index.html", serverLoad=Templating.ServerLoad.WhenChanged>
-    type RedirectTemplate = Templating.Template<"..\\hosted\\redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
-
+    type MainTemplate = Templating.Template<"../hosted/index.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type RedirectTemplate = Templating.Template<"../hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
@@ -347,7 +346,7 @@ module Site =
             |> Set.ofArray
             |> Set.toList
             |> Map.ofList
-        let config = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\config.yml")
+        let config = Path.Combine (__SOURCE_DIRECTORY__, @"../hosted/config.yml")
         if File.Exists config then
             let config = Yaml.OfYaml<RawConfig> (File.ReadAllText config)
             let languages = KEY_VALUE_LIST "languages" config.languages
@@ -375,7 +374,7 @@ module Site =
             }
 
     let ReadArticles() : Articles =
-        let root = Path.Combine (__SOURCE_DIRECTORY__, @"..\hosted\posts")
+        let root = Path.Combine (__SOURCE_DIRECTORY__, @"../hosted/posts")
         let ReadFolder user store =
             let folder = Path.Combine (root, user)
             if Directory.Exists folder then
