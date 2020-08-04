@@ -26,13 +26,13 @@
   </Target>
 
   <Target Name="RenameAtom" AfterTargets="Build" Outputs="$(OutputDirectory)/feed.atom">
-    <Message Text="Renaming feed.atom.html to feed.atom" />  
+    <Message Text="Renaming feed.atom.html to feed.atom." />  
     <Error Condition="!Exists('$(OutputDirectory)/feed.atom.html') And !Exists('$(OutputDirectory)/feed.atom')" Text="Can't find feed.atom.html"/>
     <Move Condition="Exists('$(OutputDirectory)/feed.atom.html')" SourceFiles="$(OutputDirectory)/feed.atom.html" DestinationFiles="$(OutputDirectory)/feed.atom" />
   </Target>
 
   <Target Name="RenameRSS" AfterTargets="Build" Outputs="$(OutputDirectory)/feed.rss">
-    <Message Text="Renaming feed.rss.html to feed.rss" />
+    <Message Text="Renaming feed.rss.html to feed.rss." />
     <Error Condition="!Exists('$(OutputDirectory)/feed.rss.html') And !Exists('$(OutputDirectory)/feed.rss')" Text="Can't find feed.rss.html"/>
     <Move Condition="Exists('$(OutputDirectory)/feed.rss.html')" SourceFiles="$(OutputDirectory)/feed.rss.html" DestinationFiles="$(OutputDirectory)/feed.rss" />
   </Target>
