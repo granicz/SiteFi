@@ -8,6 +8,9 @@ EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Hosted", "src\Hosted\Hosted.fsproj", "{C4BC7A61-3EB6-48D3-92DF-28CAF4997B92}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Website", "src\Website\Website.fsproj", "{30CC8824-A610-4C33-962F-ED88339B25B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C4BC7A61-3EB6-48D3-92DF-28CAF4997B92} = {C4BC7A61-3EB6-48D3-92DF-28CAF4997B92}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
