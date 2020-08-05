@@ -1,0 +1,95 @@
+/*
+
+===================================================================
+PRETTIFY - PRETTIFY.CSS
+===================================================================
+
+*/
+
+.btn-clipboard {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: block;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #767676;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 0 4px 0 4px;
+}
+.btn-clipboard:hover {
+        background-color: #337AB7;
+    color: #FFF;
+}
+.prettyprint-clipboard {
+        position: relative;
+}
+.prettyprint.well {
+    background-color: #F5F5F5;
+}
+pre {
+	padding: 0 3px 2px;
+	color: #333;
+	display: block;
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: pre;
+	white-space: pre-wrap;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+pre.prettyprint {
+}
+.pre-scrollable {
+	max-height: 340px;
+	overflow-y: scroll;
+}
+.com {
+	color: #999;
+	margin-top: 10px;
+	display: inline-block;
+}
+.lit {
+	color: #195f91;
+}
+.pun, .opn, .clo {
+	color: #93a1a1;
+}
+.fun {
+	color: #dc322f;
+}
+.str, .atv {
+	color: #D44950;
+}
+.kwd, .prettyprint .tag {
+	color: #2F6F9F;
+}
+.typ, .atn, .dec, .var {
+	/*color: teal;*/
+	color: #4F9FCF;
+}
+.pln {
+	color: #333;
+}
+.prettyprint {
+background-color: rgba(0, 0, 0, 0); */;}
+.prettyprint.linenums {
+	-webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+	        box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+}
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+	margin: 0 0 0 -12px;
+}
+ol.linenums li {
+	padding-left: 12px;
+	color: #bebec5;
+	line-height: 20px;
+	list-style: decimal;
+}

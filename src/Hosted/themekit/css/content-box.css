@@ -1,0 +1,702 @@
+/*
+
+===================================================================
+CONTENT BOX - CONTENT-BOX.CSS
+===================================================================
+Table of contents
+
+ - Global
+ - Side image
+ - Top icon
+ - Side icon
+ - Top icon
+ - Badge
+ - Info
+ - Blog side and top
+ - Testimonials
+ - Team
+ - Pricing table
+ - Call to action
+
+-------------------------------------------------------------------
+
+# GLOBAL
+===================================================================
+
+*/
+
+.cnt-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.cnt-box:hover .img-box img {
+    opacity: .8;
+}
+
+.cnt-box:hover .img-box:before {
+    opacity: 1;
+    transition: all 0s;
+}
+
+.cnt-box .caption h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.cnt-box .caption h3 {
+    font-size: 15px;
+}
+
+.cnt-box .caption p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.cnt-box .caption .btn, .cnt-box .caption .btn-text {
+    margin-top: 15px;
+}
+
+.cnt-box.boxed {
+    border-radius: 3px;
+}
+
+.cnt-box.boxed .caption {
+    padding: 30px;
+}
+
+.cnt-box.align-center .caption {
+    text-align: center;
+}
+
+.cnt-box.align-right .caption {
+    text-align: right;
+}
+
+.cnt-box.align-left .caption {
+    text-align: left;
+}
+
+.extra-field {
+    display: inline-block;
+}
+
+.cnt-box .extra-field + p {
+    margin-top: 15px;
+}
+
+.section-color .cnt-box.boxed .caption, .section-color .cnt-box-top-icon.boxed > i {
+    background-color: #FFF;
+}
+
+/*
+
+# SIDE IMAGE
+===================================================================
+
+*/
+.cnt-box-side {
+    display: flex;
+}
+
+.cnt-box-side > .img-box {
+    width: 30%;
+}
+
+.cnt-box-side > .caption {
+    width: 70%;
+    padding-left: 30px;
+}
+
+.cnt-box-side.boxed > .img-box, .cnt-box-side.boxed > .img-box > img {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.cnt-box-side.align-right {
+    flex-direction: row-reverse;
+}
+
+.cnt-box-side.align-right > .caption {
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+/*
+
+# TOP IMAGE
+===================================================================
+
+*/
+
+.cnt-box-top .caption {
+    padding-top: 30px;
+}
+
+.cnt-box-top.boxed > .img-box, .cnt-box-top.boxed > .img-box > img {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/*
+
+# SIDE ICON
+===================================================================
+
+*/
+
+.cnt-box-side-icon {
+    display: flex;
+}
+
+.cnt-box-side-icon > i {
+    width: 50px;
+    font-size: 50px;
+    line-height: 50px;
+    text-align: left;
+    margin: 1px 0 0 1px;
+}
+
+.cnt-box-side-icon > .caption {
+    width: 100%;
+    padding-left: 30px;
+}
+
+.cnt-box-side-icon.boxed > i {
+    padding: 30px;
+    width: 80px;
+    margin: 0;
+}
+
+.cnt-box-side-icon.align-right {
+    flex-direction: row-reverse;
+}
+
+.cnt-box-side-icon.align-right > .caption {
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+/*
+
+# TOP ICON
+===================================================================
+
+*/
+
+.cnt-box-top-icon > i {
+    font-size: 50px;
+    line-height: 50px;
+    text-align: left;
+    margin: 0 0 30px 1px;
+    display: block;
+}
+
+.cnt-box-top-icon.boxed > i {
+    margin: 0;
+    padding: 30px 30px 0 30px;
+}
+
+.cnt-box-top-icon.align-center > i {
+    text-align: center;
+}
+
+.cnt-box-top-icon.align-right > i {
+    text-align: right;
+}
+
+/*
+
+# BADGE
+===================================================================
+
+*/
+
+.cnt-box-badge .caption {
+    padding-top: 30px;
+    position: relative;
+}
+
+.cnt-box-badge .badge {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+    top: -35px;
+    right: 15px;
+}
+
+.cnt-box-badge.boxed .badge {
+    right: 30px;
+}
+
+.cnt-box-badge.align-center .badge {
+    left: 50%;
+    margin-left: -25px;
+}
+
+.cnt-box-badge.align-right .badge {
+    left: 15px;
+    right: auto;
+}
+
+/*
+
+# INFO
+===================================================================
+
+*/
+
+.cnt-box-info {
+    position: relative;
+}
+
+.cnt-box-info .cnt-info {
+    padding: 15px 0;
+}
+
+.cnt-box-info .cnt-info > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cnt-box-info .caption {
+    padding-top: 30px;
+}
+
+.cnt-box-info .bottom-info {
+    padding: 15px 0 0 0;
+}
+
+.cnt-box-info .bottom-info .caption > *:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.cnt-box-info .extra-field {
+    position: absolute;
+    z-index: 1;
+    margin: 15px;
+}
+
+.cnt-box-info.boxed .extra-field {
+    margin: 30px;
+}
+
+/*
+
+# BLOG SIDE AND TOP
+===================================================================
+
+*/
+
+.cnt-box-blog-side {
+    display: flex;
+}
+
+.cnt-box-blog-side > .img-box {
+    width: 30%;
+}
+
+.cnt-box-blog-side > .caption {
+    width: 70%;
+    padding-left: 30px;
+}
+
+
+.cnt-box-blog-side .icon-list, .cnt-box-blog-top .icon-list {
+    font-size: 14px;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+.icon-list span.icon-links {
+    display: flex;
+}
+
+.cnt-box-blog-side .blog-date, .cnt-box-blog-top .blog-date {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    color: #FFF;
+    z-index: 5;
+    text-align: center;
+}
+
+.cnt-box-blog-side .blog-date span, .cnt-box-blog-top .blog-date span {
+    display: block;
+}
+
+.cnt-box-blog-side .blog-date span:first-child, .cnt-box-blog-top .blog-date span:first-child {
+    font-size: 25px;
+    padding: 15px 0 5px 0;
+}
+
+.cnt-box-blog-side .blog-date span:last-child, .cnt-box-blog-top .blog-date span:last-child {
+    font-size: 12px;
+}
+
+.cnt-box-blog-top .caption h2 {
+    margin-top: 30px;
+}
+
+.cnt-box-blog-side .icon-list i, .cnt-box-blog-top .icon-list i {
+    font-size: 115%;
+}
+
+.cnt-box-blog-side.align-center .icon-list, .cnt-box-blog-top.align-center .icon-list {
+    justify-content: center;
+}
+
+.cnt-box-blog-side.align-right .icon-list, .cnt-box-blog-top.align-right .icon-list {
+    justify-content: flex-end;
+}
+
+.align-right .icon-list span.icon-links {
+    margin-right: 0;
+}
+
+.cnt-box-blog-side.align-right {
+    flex-direction: row-reverse;
+}
+
+.cnt-box-blog-side.align-right > .caption {
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+.cnt-box-blog-side.align-right .blog-date, .cnt-box-blog-top.align-right .blog-date {
+    right: 0;
+}
+
+.cnt-box-blog-side.align-right .icon-list > span, .cnt-box-blog-top.align-right .icon-list > span {
+    margin-left: 25px;
+    margin-right: 0;
+}
+
+/*
+
+# TESTIMONIALS
+===================================================================
+
+*/
+
+.cnt-box-testimonials > img, .cnt-box-testimonials-bubble .thumb-bar img {
+    width: 50px !important;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.cnt-box-testimonials > img {
+    margin: 0 0 30px 0;
+}
+
+.cnt-box-testimonials > p:not(.testimonial-info) {
+    margin-top: 0;
+}
+
+.cnt-box-testimonials .testimonial-info span {
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.cnt-box-testimonials-bubble > p {
+    text-align: left;
+    border-radius: 3px;
+    padding: 25px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.cnt-box-testimonials-bubble > p:after {
+    position: absolute;
+    bottom: -18px;
+    left: 30px;
+    content: '';
+    display: block;
+    border-width: 20px;
+    border-style: solid;
+    border-top-width: 2px;
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+}
+
+.cnt-box-testimonials-bubble .thumb-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.cnt-box-testimonials-bubble .thumb-bar p {
+    margin: 0;
+}
+
+.cnt-box-testimonials-bubble .thumb-bar img {
+    margin-right: 15px;
+}
+
+.cnt-box-testimonials-bubble .thumb-bar span {
+    font-size: 14px;
+    display: block;
+}
+
+.cnt-box-testimonials-bubble .thumb-bar span:last-child {
+    font-size: 12px;
+}
+
+.cnt-box-testimonials.align-center {
+    text-align: center;
+}
+
+.cnt-box-testimonials.align-center > img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cnt-box-testimonials.align-right {
+    text-align: right;
+}
+
+.cnt-box-testimonials.align-right > img {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.cnt-box-testimonials.align-right .testimonial-info span {
+    margin-left: 10px;
+    margin-right: 0;
+}
+/*
+
+# TEAM
+===================================================================
+
+*/
+
+.cnt-box-team {
+    padding-bottom: 145px;
+    border-radius: 3px;
+}
+
+.cnt-box-team .caption h2 {
+    margin-bottom: 5px;
+}
+
+.cnt-box-team > span {
+    font-size: 14px;
+    display: block;
+}
+
+.cnt-box-team .caption {
+    position: absolute;
+    text-align: center;
+    padding: 25px 15px 0 15px;
+    height: 145px;
+    overflow: hidden;
+    background-color: #FFF;
+    margin: 0;
+    bottom: 0;
+    z-index: 9;
+    right: 0;
+    left: 0;
+    transition: all .5s;
+}
+
+.cnt-box-team:hover .caption {
+    height: 200px;
+}
+
+.cnt-box-team > img {
+    width: 100%;
+    display: block;
+    transition: all .3s;
+}
+
+.cnt-box-team:hover > img {
+    transform: translateY(10px) scale(1.1);
+}
+
+.cnt-box-team .icon-links {
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.cnt-box-team.align-right .icon-links {
+    justify-content: flex-end;
+}
+
+.cnt-box-team.align-left .icon-links {
+    justify-content: flex-start;
+}
+
+/*
+
+# PRICING TABLE
+===================================================================
+
+*/
+
+.cnt-pricing-table {
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    transition: all .5s;
+}
+
+.cnt-pricing-table:hover {
+    transform: translateY(15px);
+}
+
+.cnt-pricing-table .top-area, .cnt-pricing-table .bottom-area {
+    padding: 30px;
+}
+
+.cnt-pricing-table > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+.cnt-pricing-table > ul > li {
+    list-style: none;
+    padding: 5px 30px;
+    position: relative;
+}
+
+.cnt-pricing-table h2 {
+    font-size: 20px;
+}
+
+.cnt-pricing-table .price {
+    font-size: 30px;
+    font-weight: 300;
+    margin: 30px 0 20px 0;
+}
+
+.cnt-pricing-table .price span {
+    font-size: 50px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.cnt-pricing-table .price label {
+    display: inline;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.cnt-pricing-table .top-area p {
+    margin: 0;
+}
+
+.pricing-table-big {
+    padding: 20px 0;
+    margin-top: -20px;
+    height: 100%;
+}
+
+.pricing-table-big > ul {
+    margin: 20px 0 30px 0;
+}
+
+.cnt-pricing-table.align-right {
+    text-align: right;
+}
+
+.cnt-pricing-table.align-left {
+    text-align: left;
+}
+
+/*
+
+# CALL TO ACTION
+===================================================================
+
+*/
+
+.cnt-call {
+    padding: 30px 50px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.cnt-call > i {
+    display: inline-block;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.cnt-call.align-right {
+    text-align: right;
+}
+
+.cnt-call.align-right > i {
+    margin-right: 0;
+}
+
+.cnt-call.align-left {
+    text-align: left;
+}
+
+.cnt-call.align-left > i {
+    margin-left: 0;
+}
+
+/*
+
+# RESPONSIVE
+===================================================================
+
+*/
+
+@media (max-width: 991.98px) {
+    .pricing-table-big {
+        margin-top: 0;
+    }
+
+    .cnt-box-top-icon.align-center-md i {
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .cnt-box li.icon-links {
+        padding: 10px 0 0 0;
+        margin-left: -5px;
+    }
+
+    .cnt-box-top-icon.align-center-sm i {
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .cnt-box-side {
+        display: block;
+    }
+
+    .cnt-box-side > .img-box {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .cnt-box-side.boxed > .img-box {
+        margin-bottom: 0;
+    }
+
+    .cnt-box-side > .caption {
+        width: 100%;
+        padding-left: 0;
+    }
+}

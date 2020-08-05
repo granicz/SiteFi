@@ -1,0 +1,65 @@
+.tabs {
+	display: flex !important;
+	flex-wrap: wrap !important;
+}
+
+.tabs div {
+	margin-right: 1em;
+	border-bottom: 1px transparent solid;
+	transition: all .5s;
+}
+
+.tabs div a {
+	color: rgb(18, 48, 74);
+	height: 50px;
+	line-height: 50px;
+	display: block;
+	position: relative;
+	text-decoration: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: all .5s;
+}
+
+.tabs div a:hover {
+	color: rgb(71, 178, 228);
+}
+
+.tabs div:hover {
+	border-bottom: 1px rgb(71,178,228) solid;
+}
+
+.trainings-map .inner-map {
+    height: 500px;
+    width: 100%;
+}
+
+#image-slider {
+    margin: 0;
+    padding: 0;
+    background-color: #ccc;
+    height: 250px;
+}
+
+#image-slider .swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+#image-slider .swiper-wrapper {
+    margin-bottom: 0;
+}
+
+#image-slider .swiper-slide {
+    text-align: center;
+    width: auto;
+}
+
+#image-slider .swiper-slide img {
+    width: auto;
+    height: 250px;
+}
+
+nav:not(.scroll-menu) *:not(.mega-dropdown) a{
+	color: rgb(71, 178, 228) !important;
+}

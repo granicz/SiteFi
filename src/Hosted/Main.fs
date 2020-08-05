@@ -267,6 +267,7 @@ module Site =
 
     type MainTemplate = Templating.Template<"../Hosted/index.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type RedirectTemplate = Templating.Template<"../Hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type NonBlogTemplate = Templating.Template<"../Hosted/post.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
@@ -765,11 +766,19 @@ module Site =
                 |> Content.Text
         let TRAININGS () =
             let mapStyles = mapStyles()
-            MainTemplate.TrainingBody()
-                .Map(client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>)
-                .ImageSliderInit(client <@ ClientSideCode.Swiper.Init() @>)
+            let content =
+                NonBlogTemplate.Content().Doc()
+            let header =
+                NonBlogTemplate.TrainingBody()
+                    .Map(client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>)
+                    .ImageSliderInit(client <@ ClientSideCode.Swiper.Init() @>)
+                    .Doc()
+            NonBlogTemplate()
+                .HeaderContent(header)
+                .Body(content)
                 .Doc()
-            |> Page config.Value None false true Map.empty
+            |> Content.Page
+            //|> Page config.Value None false true Map.empty
         let HOME langopt (banner: Doc) f =
             MainTemplate.HomeBody()
                 .Banner(banner)

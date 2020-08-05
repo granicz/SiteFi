@@ -1,0 +1,156 @@
+/*
+
+===================================================================
+SOCIAL FEEDS - SOCIAL.CSS
+===================================================================
+Table of contents
+
+ - Facebook
+ - Twitter
+
+-------------------------------------------------------------------
+
+# GLOBAL
+===================================================================
+
+*/
+
+.social-feed a {
+    text-decoration: none;
+}
+
+.feeds-loading {
+    position: relative;
+}
+
+.feeds-loading:before {
+    content: url(../media/loader.svg);
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+}
+
+.slider .social-feed li {
+    margin-bottom: 0;
+}
+
+.social-feed-fb img, .social-feed-tw img {
+    max-width: 100% !important;
+    width: auto !important;
+}
+
+
+/*
+
+# FACEBOOK
+===================================================================
+
+*/
+
+.social-feed-fb li {
+    list-style: none;
+    padding-left: 70px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.social-feed-fb li .meta-header .avatar {
+    position: absolute;
+    left: 0;
+}
+
+.social-feed-fb li .meta-header img {
+    border-radius: 3px;
+}
+
+.social-feed-fb .meta-header a {
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 5px;
+    display: block;
+}
+
+.social-feed-fb .meta-header .date {
+    font-size: 12px;
+}
+
+.social-feed-fb li > .media img {
+    border-radius: 3px;
+    margin: 15px 0;
+}
+
+.media-meta {
+    display: none;
+}
+
+.meta-footer {
+    font-size: 12px;
+}
+
+.meta-footer > *, .meta-footer .actionlinks > span {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.comment-list {
+    font-size: 14px;
+    padding: 20px 0 0 0;
+    margin: 0;
+}
+
+.comment-list li {
+    padding: 15px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.comment-list time {
+    font-size: 12px;
+}
+
+.hide-comments .comment-list {
+    display: none;
+}
+
+/*
+
+# TWITTER
+===================================================================
+
+*/
+
+.social-feed-tw ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-feed-tw li {
+    list-style: none;
+    padding-left: 70px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.social-feed-tw .tweet-cnt > a:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.social-feed-tw .tweet-cnt > a img {
+    border-radius: 3px;
+}
+
+.tweets_txt {
+    white-space: pre-wrap;
+    margin-top: -8px;
+}
+
+.tweets_txt > span {
+    display: block;
+    font-size: 12px;
+}

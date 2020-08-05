@@ -1,0 +1,220 @@
+/*
+
+===================================================================
+MEDIA BOX - MEDIA-BOX.CSS
+===================================================================
+Table of contents
+
+ - Global
+ - Half
+ - Full
+ - Down
+ - Reveal
+ 
+-------------------------------------------------------------------
+
+# GLOBAL
+===================================================================
+
+*/
+
+.media-box {
+    display: block;
+    background: #000;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    transition: all .5s;
+}
+
+.media-box:hover {
+    background: #000;
+}
+
+.media-box .caption {
+    position: absolute;
+    overflow: hidden;
+    transition: all .5s;
+}
+
+.media-box img {
+    max-width: 100%;
+    border-radius: 3px;
+    display: block;
+}
+
+.media-box .caption h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.media-box .caption h3 {
+    font-size: 15px;
+}
+
+.media-box .caption p {
+    font-size: 15px;
+    margin-top: 15px;
+    margin: 0;
+}
+
+.media-box.align-center .caption {
+    text-align: center;
+}
+
+.media-box.align-right .caption {
+    text-align: right;
+}
+
+.media-box.align-left .caption {
+    text-align: left;
+}
+
+.media-box[data-anima] > img.anima {
+    transition: all .5s;
+}
+
+.extra-field {
+    display: inline-block;
+}
+
+.media-box .extra-field + p {
+    margin-top: 15px;
+}
+
+/*
+
+# HALF
+===================================================================
+
+*/
+
+.media-box-half img {
+    transition: all .5s;
+}
+
+.media-box-half:hover img {
+    opacity: .35;
+}
+
+.media-box-half .caption {
+    bottom: 0;
+    padding: 30px;
+    color: #FFF;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    width: 100%;
+}
+
+/*
+
+# FULL
+===================================================================
+
+*/
+
+.media-box-full .caption {
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    color: #FFF;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(0,0,0,0);
+}
+
+.media-box-full:hover .caption {
+    background: rgba(0,0,0,0.65);
+}
+
+/*
+
+# DOWN
+===================================================================
+
+*/
+.media-box-down {
+    margin-bottom: 90px;
+    background: none;
+    overflow: visible;
+}
+
+.media-box-down:before, .media-box-down:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0,0,0,0.65);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity .5s;
+    z-index: 5;
+}
+
+.media-box-down:after {
+    content: "+";
+    height: 30px;
+    top: 50%;
+    margin-top: -15px;
+    color: #FFF;
+    font-size: 30px;
+    background: none;
+    opacity: 0;
+    transition: opacity .5s;
+    z-index: 5;
+}
+
+.media-box-down:hover:after, .media-box-down:hover:before {
+    opacity: 1;
+}
+
+.media-box-down .caption {
+    text-align: center;
+    background: none;
+    right: 0;
+    left: 0;
+    margin: 0 30px;
+    overflow: hidden;
+}
+
+.media-box-down .caption h2 {
+    margin-top: 20px;
+    white-space: nowrap;
+}
+
+.media-box-down.align-left .caption, .media-box-down.align-right .caption {
+    margin: 0;
+}
+
+/*
+
+# REVEAL
+===================================================================
+
+*/
+
+.media-box-reveal .caption {
+    bottom: 0;
+    height: 130px;
+    width: calc(100% + 1px);
+    padding: 30px;
+    color: #FFF;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+}
+.media-box-reveal .caption p {
+    opacity: 0;
+    transition: all .5s;
+}
+.media-box-reveal:hover .caption {
+    height: 100%;
+}
+.media-box-reveal:hover p {
+   opacity: 1;
+}
