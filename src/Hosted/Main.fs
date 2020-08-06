@@ -20,6 +20,7 @@ type EndPoint =
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
+    | [<EndPoint "GET /404.html">] Error404
 
 // Utilities to make XML construction somewhat sane
 [<AutoOpen>]
@@ -891,6 +892,8 @@ module Site =
                 identities1 := ComputeIdentities1 articles.Value
                 config := ReadConfig()
                 Content.Text "Articles/configs reloaded."
+            | Error404 ->
+                Content.File("../Hosted/404.html", AllowOutsideRootFolder=true)
         )
 
 open System.IO
@@ -955,6 +958,8 @@ type Website() =
                 // Generate the RSS/Atom feeds
                 RSSFeed
                 AtomFeed
+                // Generate 404 page
+                Error404
             ]
 
 [<assembly: Website(typeof<Website>)>]

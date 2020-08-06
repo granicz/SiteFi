@@ -1,0 +1,257 @@
+/* ------------------------------------------------------------------
+
+[Master Stylesheet]
+
+Project: UkieWorld 404
+Version: 1.0
+Last change: 10/09/16
+Author:  UKIE WEB
+Theme: Animated Man
+
+
+[Table of contents]
+
+   1. - General setting
+   2. - Animation
+
+------------------------------------------------------------------ */
+@font-face {
+    font-family: 'Jost';
+    src: url('../../../media/fonts/Jost-Book.woff2') format('woff2'), url('media/fonts/Jost-Book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jost';
+    src: url('../../../media/fonts/Jost-Medium.woff2') format('woff2'), url('media/fonts/Jost-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* ------------------
+    General setting
+--------------------*/
+body {
+    font-family: 'Jost', 'Montserrat', sans-serif;
+    background-color: #f8f9fb;
+}
+
+a,
+a:hover,
+a:visited {
+    text-decoration: none;
+}
+
+.btn {
+    color: #fefefe;
+    background-color: #529fd2;
+    line-height: 38px;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 0;
+    margin-right: 10px;
+    text-transform: uppercase;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn:hover {
+    color: #fefefe;
+    background-color: #488bb8;
+}
+
+.btn i {
+    line-height: 24px;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.error-page {
+    padding-top: 25vh;
+    text-align: center;
+    display: block;
+    margin: 0 auto auto;
+}
+
+.no-found {
+    color: #313131;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.error-text {
+    color: #313131;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 50%;
+    margin: 30px auto;
+}
+
+.uf-copyright {
+    font-size: 10px;
+}
+
+.copyright {
+    color: #c7c7c7;
+    font-weight: 300;
+    line-height: 24px;
+    bottom: 0;
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+
+.error {
+    color: #eaebed;
+    font-size: 250px;
+    font-weight: 700;
+    line-height: 0;
+}
+
+/* ------------------
+    Animation
+--------------------*/
+
+.svg-error-man {
+    width: 326px;
+    height: 154px;
+}
+
+#leg-top {
+    z-index: 1;
+    animation: leg-top 0.5s infinite linear;
+    transform-origin: 0% 50%;
+    -moz-animation: leg-top 0.5s infinite linear;
+    -moz-transform-origin: 61% 50%;
+    -ms-transform-origin: 0% 100%;
+}
+
+@keyframes leg-top {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-moz-keyframes leg-top {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    50% {
+        -moz-transform: rotate(20deg);
+    }
+    100% {
+        -moz-transform: rotate(0deg);
+    }
+}
+
+#leg-bottom {
+    z-index: 1;
+    -webkit-animation: leg-bottom 0.5s infinite linear;
+    -webkit-transform-origin: 0 100%;
+    animation: leg-bottom 0.5s infinite linear;
+    transform-origin: 0% 50%;
+    -moz-animation: leg-bottom 0.5s infinite linear;
+    -moz-transform-origin: 54% 60% 0;
+}
+
+@keyframes leg-bottom {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-moz-keyframes leg-bottom {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    50% {
+        -moz-transform: rotate(-20deg);
+    }
+    100% {
+        -moz-transform: rotate(0deg);
+    }
+}
+
+/* ------------------
+    Media Query
+--------------------*/
+
+@media (max-width: 400px) {
+    #man-size {
+        transform: matrix(0.7, 0, 0, 0.7, 0, 0);
+    }
+
+    .svg-error-man {
+        width: 236px;
+        height: 104px;
+    }
+}
+
+@media (max-width: 992px) {
+    .copyright {
+        bottom: inherit;
+        padding: 0 15px 0 15px;
+        position: relative;
+        width: 80%;
+        display: block;
+        margin: 60px auto 0;
+    }
+
+    .error-text {
+        width: 100%;
+    }
+
+    .no-found {
+        line-height: 56px;
+    }
+}
+
+@media (max-width: 650px) {
+    .error {
+        font-size: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .no-found {
+        line-height: 50px;
+        font-size: 46px;
+        margin-top: 20px;
+    }
+
+    .error-text {
+        margin: 20px auto;
+    }
+
+    .error {
+        font-size: 100px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .error-page {
+        padding-top: 20vh;
+    }
+}
