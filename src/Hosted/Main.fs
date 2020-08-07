@@ -10,6 +10,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /trainings">] Trainings
     | [<EndPoint "GET /blogs">] Blogs of lang:string
+    | [<EndPoint "GET /blogstest">] BlogsTest of lang:string
     // User-less blog articles
     | [<EndPoint "GET /article">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
@@ -269,6 +270,7 @@ module Site =
     type MainTemplate = Templating.Template<"../Hosted/index.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type RedirectTemplate = Templating.Template<"../Hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type NonBlogTemplate = Templating.Template<"../Hosted/post.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type BlogsPageTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
@@ -779,6 +781,11 @@ module Site =
                 .Body(content)
                 .Doc()
             |> Content.Page
+        let BLOGTEMP () =
+            let mapStyles = mapStyles()
+            BlogsPageTemplate()
+                .Doc()
+            |> Content.Page
             //|> Page config.Value None false true Map.empty
         let HOME langopt (banner: Doc) f =
             MainTemplate.HomeBody()
@@ -797,6 +804,8 @@ module Site =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Trainings ->
                 TRAININGS ()
+            | BlogsTest langopt ->
+                BLOGTEMP ()
             | Blogs langopt ->
                 HOME langopt
                     <| MainTemplate.HomeBanner()

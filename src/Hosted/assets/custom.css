@@ -29,37 +29,112 @@
 	border-bottom: 1px rgb(71,178,228) solid;
 }
 
-.trainings-map .inner-map {
-    height: 500px;
-    width: 100%;
+.blog-tag {
+	text-transform: uppercase;
+	font-size: 0.75em;
+	text-align: center;
+	z-index: 1;
+	display: inline-block;
+	position: relative;
+	line-height: 1;
 }
 
-#image-slider {
-    margin: 0;
-    padding: 0;
-    background-color: #ccc;
-    height: 250px;
+.blog-tag:after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 8px;
+	background-color: lightblue;
+	z-index: -1;
+	transform: translateY(40%);
 }
 
-#image-slider .swiper-container {
-    width: 100%;
-    height: 100%;
+.flat-card {
+	width: 100%;
+	padding: 8px;
 }
 
-#image-slider .swiper-wrapper {
-    margin-bottom: 0;
+.blog-meta, .blog-title {
+	text-align: center;
 }
 
-#image-slider .swiper-slide {
-    text-align: center;
-    width: auto;
+.masonry-item {
+	width: 100%;
 }
 
-#image-slider .swiper-slide img {
-    width: auto;
-    height: 250px;
+.tag-holder {
+	text-align: center;
 }
 
-nav:not(.scroll-menu) *:not(.mega-dropdown) a{
-	color: rgb(71, 178, 228) !important;
+.blog-tag.orange:after {
+	background-color: orange;
+}
+
+.section-header {
+	display: flex;
+	align-items: center;
+}
+
+.section-header hr {
+	flex: 1;
+	margin-left: 1em;
+}
+
+.menu-inner-image li a span {
+	margin-top: 10px;
+	margin-bottom: unset;
+}
+
+@media (min-width: 576px) {
+    .masonry-item {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    .masonry-item {
+        width: 33%;
+    }
+}
+
+.pagination .prev, .pagination .next {
+	display: list-item !important;
+}
+
+.blog-title h3 {
+	cursor: pointer;
+}
+
+.blog-title h3 a:hover, .blog-title h3:hover a, .blog-title:hover h3 a {
+	color: rgb(71, 178, 228)
+}
+
+.blog-title h3 a {
+	color: black;
+	text-decoration: none;
+}
+
+.blog-title h3 a:hover {
+	text-decoration: none;
+}
+
+.popup-image {
+	overflow: hidden;
+	position: relative;
+	display: flex;
+}
+
+.popup-image img {
+	min-width: 100%;
+	min-height: 100%;
+	transform: translate(-50%, 0%);
+	position: relative;
+	left: 50%;
+	top: 50%;
+}
+
+.popup-image img:hover {
+	transform: translate(-50%, 0%) scale(1.1);
 }
