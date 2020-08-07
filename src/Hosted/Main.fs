@@ -12,7 +12,8 @@ type EndPoint =
     | [<EndPoint "GET /blogs">] Blogs of lang:string
     | [<EndPoint "GET /blogstest">] BlogsTest of lang:string
     // User-less blog articles
-    | [<EndPoint "GET /article">] Article of slug:string
+    | [<EndPoint "GET /blogsposttest">] BlogsPostTest of slug:string
+    | [<EndPoint "GET /blogspost">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
     // Old URL format for blog articles
@@ -271,6 +272,7 @@ module Site =
     type RedirectTemplate = Templating.Template<"../Hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type NonBlogTemplate = Templating.Template<"../Hosted/post.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type BlogsPageTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type BlogsPostPageTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
@@ -786,6 +788,12 @@ module Site =
             BlogsPageTemplate()
                 .Doc()
             |> Content.Page
+
+        let BLOGPOSTTEMP () =
+            let mapStyles = mapStyles()
+            BlogsPostPageTemplate()
+                .Doc()
+            |> Content.Page
             //|> Page config.Value None false true Map.empty
         let HOME langopt (banner: Doc) f =
             MainTemplate.HomeBody()
@@ -806,6 +814,8 @@ module Site =
                 TRAININGS ()
             | BlogsTest langopt ->
                 BLOGTEMP ()
+            | BlogsPostTest _ ->
+                BLOGPOSTTEMP ()
             | Blogs langopt ->
                 HOME langopt
                     <| MainTemplate.HomeBanner()

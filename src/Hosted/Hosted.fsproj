@@ -11,6 +11,7 @@
     <Compile Include="Startup.fs" />
     <Content Include="404.html" />
     <Content Include="post.html" />
+    <Content Include="blogpost.html" />
     <Content Include="bloglist.html" />
     <Content Include="index.html" CopyToPublishDirectory="Always" />
     <Content Include="redirect.html" />
