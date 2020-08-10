@@ -138,3 +138,38 @@
 .popup-image img:hover {
 	transform: translate(-50%, 0%) scale(1.1);
 }
+
+.trainings-map .inner-map {
+    height: 500px;
+    width: 100%;
+}
+
+#image-slider {
+    margin: 0;
+    padding: 0;
+    background-color: #ccc;
+    height: 250px;
+}
+
+#image-slider .swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+#image-slider .swiper-wrapper {
+    margin-bottom: 0;
+}
+
+#image-slider .swiper-slide {
+    text-align: center;
+    width: auto;
+}
+
+#image-slider .swiper-slide img {
+    width: auto;
+    height: 250px;
+}
+
+nav:not(.scroll-menu) *:not(.mega-dropdown) a {
+	color: rgb(71, 178, 228) !important;
+}
