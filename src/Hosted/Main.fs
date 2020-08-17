@@ -10,9 +10,7 @@ open WebSharper.UI.Server
 type EndPoint =
     | [<EndPoint "GET /trainings">] Trainings
     | [<EndPoint "GET /blogs">] Blogs of lang:string
-    | [<EndPoint "GET /blogstest">] BlogsTest of lang:string
     // User-less blog articles
-    | [<EndPoint "GET /blogsposttest">] BlogsPostTest of slug:string
     | [<EndPoint "GET /blogspost">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
@@ -270,9 +268,10 @@ module Site =
 
     type MainTemplate = Templating.Template<"../Hosted/index.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type RedirectTemplate = Templating.Template<"../Hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
-    type NonBlogTemplate = Templating.Template<"../Hosted/post.html", serverLoad=Templating.ServerLoad.WhenChanged>
-    type BlogsPageTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
-    type BlogsPostPageTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type TrainingsTemplate = Templating.Template<"../Hosted/trainings.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type BlogsTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
+//    type BlogPostTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
+
     type [<CLIMutable>] RawConfig =
         {
             serverUrl: string
@@ -462,24 +461,6 @@ module Site =
             Map.add (fst article.Identity) (user, article.DateString) map
         ) Map.empty
 
-    let Menu articles =
-        let latest =
-            articles
-            |> Map.toList
-            |> List.sortByDescending (fun (_, article: Article) -> article.Date.Ticks)
-            |> List.truncate 5
-            |> Map.ofList
-        [
-            "Home", "/", Map.empty
-            "Bolero", "https://fsbolero.io", Map.empty
-            "WebSharper", "https://websharper.com", Map.empty
-            "CloudSharper", "https://cloudsharper.com", Map.empty
-            "Trainings", "/trainings", Map.empty
-            "Jobs", "/jobs", Map.empty
-            "Blogs", "/blogs", Map.empty
-            "Contact", "/contact", Map.empty
-        ]
-
     let private head() =
         __SOURCE_DIRECTORY__ + "/../Hosted/js/Client.head.html"
         |> File.ReadAllText
@@ -488,14 +469,14 @@ module Site =
         __SOURCE_DIRECTORY__ + "/../Hosted/assets/home-map-styles.json"
         |> File.ReadAllText
 
-    let Page (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
+    let ArticleBasePage langopt (config: Config) (pageTitle: option<string>) hasBanner (transparentHeader: bool) articles (body: Doc) =
         let head = head()
         MainTemplate()
 #if !DEBUG
             .ReleaseMin(".min")
 #endif
-            .IsTransparentHeader(if transparentHeader then "transparent-navbar" else "")
-            .NavbarOverlay(if hasBanner then "overlay-bar" else "")
+            .IsTransparentHeader(if transparentHeader then "menu-transparent" else "")
+            // TODO: .NavbarOverlay(if hasBanner then "overlay-bar" else "")
             .Head(head)
             .ShortTitle(config.ShortTitle)
             .Title(
@@ -503,53 +484,51 @@ module Site =
                 | None -> ""
                 | Some t -> t + " | "
             )
-            .TopMenu(Menu articles |> List.map (function
-                | text, url, map when Map.isEmpty map ->
-                    MainTemplate.TopMenuItem()
-                        .Text(text)
-                        .Url(url)
-                        .Doc()
-                | text, _, children ->
-                    let items =
-                        children
-                        |> Map.toList
-                        |> List.sortByDescending (fun (key, item) -> item.Date)
-                        |> List.map (fun (key, item) ->
-                            MainTemplate.TopMenuDropdownItem()
-                                .Text(item.Title)
-                                .Url(item.Url)
-                                .Doc())
-                    MainTemplate.TopMenuItemWithDropdown()
-                        .Text(text)
-                        .DropdownItems(items)
-                        .Doc()
-            ))
-            .DrawerMenu(Menu articles |> List.map (fun (text, url, children) ->
-                MainTemplate.DrawerMenuItem()
-                    .Text(text)
-                    .Url(url)
-                    .Children(
-                        match url with
-                        | "/blog" ->
-                            ul []
-                                (children
-                                |> Map.toList
-                                |> List.sortByDescending (fun (_, item) -> item.Date)
-                                |> List.map (fun (_, item) ->
-                                    MainTemplate.DrawerMenuItem()
-                                        .Text(item.Title)
-                                        .Url(item.Url)
-                                        .Doc()
-                                ))
-                        | _ -> Doc.Empty
-                    )
-                    .Doc()
-            ))
             .Body(body)
             .Doc()
         |> Content.Page
 
-    let ArticleBasePage langopt (config: Config) (pageTitle: option<string>) hasBanner transparentHeader articles (body: Doc) =
+    let BlogSidebar config articles (article: Article) =
+        MainTemplate.Sidebar()
+            .Categories(
+                // Render the categories widget iff there are categories
+                if article.Categories.IsEmpty then
+                    Doc.Empty
+                else
+                        article.Categories
+                        |> List.map (fun category ->
+                            MainTemplate.Category()
+                                .Name(category)
+                                .Url(Urls.CATEGORY category (URL_LANG config article.Language))
+                                .Doc()
+                        )
+                        |> Doc.Concat
+            )
+            // There is always at least one blog post, so we render this
+            // section no matter what.
+            .ArticleItems(
+                MainTemplate.ArticleItems()
+                    .ArticleItems(
+                        articles
+                        |> Map.toList
+                        |> List.sortByDescending (fun (_, item) -> item.Date)
+                        |> List.truncate 10
+                        |> List.map (fun (_, item) ->
+                            MainTemplate.ArticleItem()
+                                .Title(item.Title)
+                                .Url(item.Url)
+                                .Date(item.Date.ToShortDateString())
+                                .Doc()
+                        )
+                    )
+                    .Doc()
+            )
+            .Doc()
+
+    let PLAIN html =
+        div [Attr.Create "ws-preserve" ""] [Doc.Verbatim html]
+
+    let ArticlePage (config: Config) articles (article: Article) =
         // Compute the language keys used in all articles
         let languages =
             articles
@@ -575,19 +554,18 @@ module Site =
                 (LANG "") :: List.map LANG languages
             else
                 []
-        let head = head()
-        MainTemplate()
-#if !DEBUG
-            .ReleaseMin(".min")
-#endif
-            .IsTransparentHeader(if transparentHeader then "transparent-navbar" else "")
-            .NavbarOverlay(if hasBanner then "overlay-bar" else "")
-            .Head(head)
-            .ShortTitle(config.ShortTitle)
-            .Title(
-                match pageTitle with
-                | None -> ""
-                | Some t -> t + " | "
+        // Zero out if article has the master language
+        let langopt = URL_LANG config article.Language
+        // MainTemplate.ArticlePage()
+        MainTemplate.ArticlePage()
+            // Main content panel
+            .Article(
+                PLAIN article.Content
+                //MainTemplate.Article()
+                //    .Title(article.Title)
+                //    .Subtitle(Doc.Verbatim article.Subtitle)
+                //    .Content(PLAIN article.Content)
+                //    .Doc()
             )
             .LanguageSelectorPlaceholder(
                 if languages.IsEmpty then
@@ -611,102 +589,8 @@ module Site =
                         )
                         .Doc()
             )
-            .TopMenu(Menu articles |> List.map (function
-                | text, url, map when Map.isEmpty map ->
-                    MainTemplate.TopMenuItem()
-                        .Text(text)
-                        .Url(url)
-                        .Doc()
-                | text, _, children ->
-                    let items =
-                        children
-                        |> Map.toList
-                        |> List.sortByDescending (fun (key, item) -> item.Date)
-                        |> List.map (fun (key, item) ->
-                            MainTemplate.TopMenuDropdownItem()
-                                .Text(item.Title)
-                                .Url(item.Url)
-                                .Doc())
-                    MainTemplate.TopMenuItemWithDropdown()
-                        .Text(text)
-                        .DropdownItems(items)
-                        .Doc()
-            ))
-            .DrawerMenu(Menu articles |> List.map (fun (text, url, children) ->
-                MainTemplate.DrawerMenuItem()
-                    .Text(text)
-                    .Url(url)
-                    .Children(
-                        match url with
-                        | "/blog" ->
-                            ul []
-                                (children
-                                |> Map.toList
-                                |> List.sortByDescending (fun (_, item) -> item.Date)
-                                |> List.map (fun (_, item) ->
-                                    MainTemplate.DrawerMenuItem()
-                                        .Text(item.Title)
-                                        .Url(item.Url)
-                                        .Doc()
-                                ))
-                        | _ -> Doc.Empty
-                    )
-                    .Doc()
-            ))
-            .Body(body)
-            .Doc()
-        |> Content.Page
-
-    let BlogSidebar config articles (article: Article) =
-        MainTemplate.Sidebar()
-            .Categories(
-                // Render the categories widget iff there are categories
-                if article.Categories.IsEmpty then
-                    Doc.Empty
-                else
-                    MainTemplate.Categories()
-                        .Categories(
-                            article.Categories
-                            |> List.map (fun category ->
-                                MainTemplate.Category()
-                                    .Name(category)
-                                    .Url(Urls.CATEGORY category (URL_LANG config article.Language))
-                                    .Doc()
-                            )
-                        )
-                        .Doc()
-            )
-            // There is always at least one blog post, so we render this
-            // section no matter what.
-            .ArticleItems(
-                articles
-                |> Map.toList
-                |> List.sortByDescending (fun (_, item) -> item.Date)
-                |> List.map (fun (_, item) ->
-                    MainTemplate.ArticleItem()
-                        .Title(item.Title)
-                        .Url(item.Url)
-                        .ExtraCSS(if article.Url = item.Url then "is-active" else "")
-                        .Doc()
-                )
-            )
-            .Doc()
-
-    let PLAIN html =
-        div [Attr.Create "ws-preserve" ""] [Doc.Verbatim html]
-
-    let ArticlePage (config: Config) articles (article: Article) =
-        // Zero out if article has the master language
-        let langopt = URL_LANG config article.Language
-        MainTemplate.ArticlePage()
-            // Main content panel
-            .Article(
-                MainTemplate.Article()
-                    .Title(article.Title)
-                    .Subtitle(Doc.Verbatim article.Subtitle)
-                    .Content(PLAIN article.Content)
-                    .Doc()
-            )
+            .Date(article.DateString)
+            .Title(article.Title)
             // Sidebar
             .Sidebar(BlogSidebar config articles article)
             .Doc()
@@ -737,7 +621,8 @@ module Site =
                         a [attr.href <| Urls.USER_URL user] [text displayName]
                     )
                     .Title(article.Title)
-                    .Abstract(article.Abstract)
+                    .CategoryNo(string 1)
+//                    .Abstract(article.Abstract)
                     .Url(article.Url)
                     .Date(Helpers.FORMATTED_DATE article.Date)
                     .ArticleCategories(
@@ -771,31 +656,16 @@ module Site =
                 |> Content.Text
         let TRAININGS () =
             let mapStyles = mapStyles()
-            let content =
-                NonBlogTemplate.Content().Doc()
             let header =
-                NonBlogTemplate.TrainingBody()
+                TrainingsTemplate.TrainingBody()
                     .Map(client <@ ClientSideCode.TalksAndPresentations.GMap(mapStyles) @>)
                     .ImageSliderInit(client <@ ClientSideCode.Swiper.Init() @>)
                     .Doc()
-            NonBlogTemplate()
+            TrainingsTemplate()
                 .HeaderContent(header)
-                .Body(content)
                 .Doc()
             |> Content.Page
-        let BLOGTEMP () =
-            let mapStyles = mapStyles()
-            BlogsPageTemplate()
-                .Doc()
-            |> Content.Page
-
-        let BLOGPOSTTEMP () =
-            let mapStyles = mapStyles()
-            BlogsPostPageTemplate()
-                .Doc()
-            |> Content.Page
-            //|> Page config.Value None false true Map.empty
-        let HOME langopt (banner: Doc) f =
+        let BLOG_LISTING langopt (banner: Doc) f =
             MainTemplate.HomeBody()
                 .Banner(banner)
                 .ArticleList(
@@ -812,12 +682,8 @@ module Site =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Trainings ->
                 TRAININGS ()
-            | BlogsTest langopt ->
-                BLOGTEMP ()
-            | BlogsPostTest _ ->
-                BLOGPOSTTEMP ()
             | Blogs langopt ->
-                HOME langopt
+                BLOG_LISTING langopt
                     <| MainTemplate.HomeBanner()
                         .Title(config.Value.Title)
                         .Subtitle(config.Value.Description)
@@ -827,7 +693,7 @@ module Site =
             | Article p ->
                 ARTICLE ("", p)
             | UserArticle (user, "") ->
-                HOME ""
+                BLOG_LISTING ""
                     <| MainTemplate.HomeBanner().Doc()
                     <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
@@ -840,7 +706,7 @@ module Site =
                         failwithf "Unable to find user for id1=%d, with map=%A" id1 identities1.Value
                 REDIRECT_TO (Urls.OLD_TO_POST_URL (user, datestring, oldslug))
             | Category (cat, langopt) ->
-                HOME langopt
+                BLOG_LISTING langopt
                     <| MainTemplate.CategoryBanner()
                         .Category(cat)
                         .Doc()
