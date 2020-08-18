@@ -269,8 +269,8 @@ module Site =
     type MainTemplate = Templating.Template<"../Hosted/index.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type RedirectTemplate = Templating.Template<"../Hosted/redirect.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type TrainingsTemplate = Templating.Template<"../Hosted/trainings.html", serverLoad=Templating.ServerLoad.WhenChanged>
-    type BlogsTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
-//    type BlogPostTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type BlogListTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type BlogPostTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] RawConfig =
         {
@@ -469,6 +469,11 @@ module Site =
         __SOURCE_DIRECTORY__ + "/../Hosted/assets/home-map-styles.json"
         |> File.ReadAllText
 
+    let private menubar(config: Config) =
+        MainTemplate.Menubar()
+            .ShortTitle(config.ShortTitle)
+            .Doc()
+
     let ArticleBasePage langopt (config: Config) (pageTitle: option<string>) hasBanner (transparentHeader: bool) articles (body: Doc) =
         let head = head()
         MainTemplate()
@@ -478,7 +483,7 @@ module Site =
             .IsTransparentHeader(if transparentHeader then "menu-transparent" else "")
             // TODO: .NavbarOverlay(if hasBanner then "overlay-bar" else "")
             .Head(head)
-            .ShortTitle(config.ShortTitle)
+            .MenuBar(menubar config)
             .Title(
                 match pageTitle with
                 | None -> ""
@@ -662,6 +667,7 @@ module Site =
                     .ImageSliderInit(client <@ ClientSideCode.Swiper.Init() @>)
                     .Doc()
             TrainingsTemplate()
+                .MenuBar(menubar config.Value)
                 .HeaderContent(header)
                 .Doc()
             |> Content.Page
