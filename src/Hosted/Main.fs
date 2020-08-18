@@ -11,7 +11,7 @@ type EndPoint =
     | [<EndPoint "GET /trainings">] Trainings
     | [<EndPoint "GET /blogs">] Blogs of lang:string
     // User-less blog articles
-    | [<EndPoint "GET /blogspost">] Article of slug:string
+    | [<EndPoint "GET /post">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
     | [<EndPoint "GET /user">] UserArticle of user:string * slug:string
     // Old URL format for blog articles
@@ -85,7 +85,7 @@ module Urls =
             sprintf "/category/%s/%s" cat lang
     let POST_URL (user: string, slug: string) =
         if String.IsNullOrEmpty user then
-            sprintf "/blog/%s.html" slug
+            sprintf "/post/%s.html" slug
         else
             sprintf "/user/%s/%s" user slug
     let OLD_TO_POST_URL (user: string, datestring: string, oldslug: string) =
