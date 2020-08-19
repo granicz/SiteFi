@@ -173,3 +173,57 @@
 nav:not(.scroll-menu) *:not(.mega-dropdown) a {
 	color: rgb(71, 178, 228) !important;
 }
+
+h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-child), h5:not(:first-child) {
+    margin-top: 45px;
+}
+
+body > nav .menu-brand {
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.menu-brand a {
+	display: flex;
+	align-items: center;
+}
+
+.menu-brand a span {
+	margin-left: 8px;
+	font-size: 1.25em;
+}
+
+li pre {
+	margin: 0;
+}
+
+li pre code {
+    padding: 0 !important;
+}
+
+blockquote {
+	background-color: rgb(241, 245, 247);
+	border-left: 4px rgb(55, 81, 126) solid; 
+	font-size: 21px;
+	line-height: 1.6;
+}
+  
+blockquote {
+	padding: 10px 20px;
+	margin-left: 0;
+	position: relative;
+	padding-left: 50px;
+}
+
+blockquote:before {
+	content: "\65";
+	font-family: "Icons";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	speak: none;
+	text-transform: none;
+	position: absolute;
+	margin-left: -30px;
+}
