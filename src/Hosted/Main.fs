@@ -2,6 +2,7 @@ namespace Website
 
 open System
 open System.Xml.Linq
+open System.Text.RegularExpressions
 open WebSharper
 open WebSharper.Sitelets
 open WebSharper.UI
@@ -621,13 +622,47 @@ module Site =
                     elif Map.containsKey user config.Value.Users then
                         config.Value.Users.[user]
                     else user
-                MainTemplate.ArticleCard()
+                // Assign a category to each article
+                // 0 - General
+                // 1 - Bolero
+                // 2 - CloudSharper
+                // 3 - WebSharper
+                // 4 - Blogging/SiteFi
+                // 5 - Release announcement
+                let categoryNo =
+                    let cats = List.map (fun (c: string) -> c.ToLower()) article.Categories
+                    let rn = new Regex("^(Bolero|WebSharper|CloudSharper|SiteFi)\s[0-9\.]+\srelease")
+                    if rn.IsMatch(article.Title) then
+                        5
+                    elif List.contains "bolero" cats then
+                        1
+                    elif List.contains "cloudsharper" cats then
+                        2
+                    elif List.contains "websharper" cats then
+                        3
+                    elif List.contains "blogging" cats || List.contains "sitefi" cats then
+                        4
+                    else
+                        0
+                let thumbnail =
+                    match categoryNo with
+                    | 1 ->
+                        BlogListTemplate.Category1().Doc()
+                    | 2 ->
+                        BlogListTemplate.Category2().Doc()
+                    | 3 ->
+                        BlogListTemplate.Category3().Doc()
+                    | 4 ->
+                        BlogListTemplate.Category4().Doc()
+                    | _ ->
+                        BlogListTemplate.Category0().Doc()
+                BlogListTemplate.ArticleCard()
                     .Author(
                         a [attr.href <| Urls.USER_URL user] [text displayName]
                     )
                     .Title(article.Title)
-                    .CategoryNo(string 1)
-//                    .Abstract(article.Abstract)
+                    .CategoryNo(string categoryNo)
+                    .Thumbnail(thumbnail)
                     .Url(article.Url)
                     .Date(Helpers.FORMATTED_DATE article.Date)
                     .ArticleCategories(
@@ -636,7 +671,7 @@ module Site =
                         else
                             article.Categories
                             |> List.map (fun category ->
-                                MainTemplate.ArticleCategory()
+                                BlogListTemplate.ArticleCategory()
                                     .Title(category)
                                     .Url(Urls.CATEGORY category (URL_LANG config.Value article.Language))
                                     .Doc()
@@ -672,14 +707,15 @@ module Site =
                 .Doc()
             |> Content.Page
         let BLOG_LISTING langopt (banner: Doc) f =
-            MainTemplate.HomeBody()
+            BlogListTemplate()
+                .Menubar(menubar config.Value)
                 .Banner(banner)
                 .ArticleList(
                     Map.filter f articles.Value
                     |> ARTICLES
                 )
                 .Doc()
-            |> ArticleBasePage langopt config.Value None false true articles.Value
+            |> Content.Page
         let REDIRECT_TO (url: string) =
             RedirectTemplate()
                 .Url(url)
@@ -688,9 +724,10 @@ module Site =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Trainings ->
                 TRAININGS ()
+            // The main blogs page
             | Blogs langopt ->
                 BLOG_LISTING langopt
-                    <| MainTemplate.HomeBanner()
+                    <| BlogListTemplate.BlogListBanner()
                         .Title(config.Value.Title)
                         .Subtitle(config.Value.Description)
                         .Doc()
@@ -698,9 +735,12 @@ module Site =
                         langopt = URL_LANG config.Value article.Language
             | Article p ->
                 ARTICLE ("", p)
+            // All articles by a given user
             | UserArticle (user, "") ->
                 BLOG_LISTING ""
-                    <| MainTemplate.HomeBanner().Doc()
+                    <| BlogListTemplate.BlogCategoryBanner()
+                        .Category(user)
+                        .Doc()
                     <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
                 ARTICLE (user, p)
@@ -711,9 +751,10 @@ module Site =
                     else
                         failwithf "Unable to find user for id1=%d, with map=%A" id1 identities1.Value
                 REDIRECT_TO (Urls.OLD_TO_POST_URL (user, datestring, oldslug))
+            // Blog articles in a given category
             | Category (cat, langopt) ->
                 BLOG_LISTING langopt
-                    <| MainTemplate.CategoryBanner()
+                    <| BlogListTemplate.BlogCategoryBanner()
                         .Category(cat)
                         .Doc()
                     <| fun _ article ->

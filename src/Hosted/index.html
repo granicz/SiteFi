@@ -82,18 +82,6 @@
 
   <div ws-replace="Body" ws-children-template="ArticlePage">
     <div ws-template="HomeBody">
-      <header ws-template="HomeBanner" class="header-image ken-burn-center align-center light boxed-page-header" data-parallax="true" data-natural-height="600" data-natural-width="1920" data-bleed="0" data-image-src="http://via.placeholder.com/1920x700" data-offset="0">
-        <div class="container">
-          <h1>${Title}</h1>
-          <h2>${Subtitle}</h2>
-        </div>
-      </header>
-      <header ws-template="CategoryBanner" class="header-image ken-burn-center align-center light boxed-page-header" data-parallax="true" data-natural-height="600" data-natural-width="1920" data-bleed="0" data-image-src="http://via.placeholder.com/1920x700" data-offset="0">
-        <div class="container">
-          <h1>${Category}</h1>
-          <h2>Filtered articles</h2>
-        </div>
-      </header>
       <div ws-replace="Banner"></div>
       <main>
         <section class="section-base">
@@ -115,7 +103,7 @@
                             <h3>
                               <a href="${Url}">${Title}</a>
                               <div ws-replace="ArticleCategories">
-                                <div ws-template="ArticleCategory">
+                                <div ws-children-template="ArticleCategory">
                                   <a href="${Url}">#${Title}</a>&nbsp;
                                 </div>
                               </div>
