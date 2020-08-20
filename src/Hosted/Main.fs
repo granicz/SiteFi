@@ -8,9 +8,14 @@ open WebSharper.Sitelets
 open WebSharper.UI
 open WebSharper.UI.Server
 
+type BlogListingArgs =
+    | [<EndPoint "">] Empty
+    | [<EndPoint "">] Index of int
+    | [<EndPoint "">] LanguageAndIndex of string * int
+
 type EndPoint =
     | [<EndPoint "GET /trainings">] Trainings
-    | [<EndPoint "GET /blogs">] Blogs of lang:string
+    | [<EndPoint "GET /blogs">] Blogs of BlogListingArgs
     // User-less blog articles
     | [<EndPoint "GET /post">] Article of slug:string
     // UserArticle: if slug is empty, we go to the user's home page
@@ -283,6 +288,7 @@ module Site =
             masterLanguage: string
             languages: string
             users: string
+            pageSize: int
         }
 
     type Config =
@@ -295,6 +301,7 @@ module Site =
             MasterLanguage: string
             Languages: Map<string, string>
             Users: Map<string, string>
+            PageSize: int
         }
 
     type [<CLIMutable>] RawArticle =
@@ -366,6 +373,7 @@ module Site =
                 MasterLanguage = Helpers.NULL_TO_EMPTY config.masterLanguage
                 Languages = languages
                 Users = users
+                PageSize = if config.pageSize > 0 then config.pageSize else 30
             }
         else
             {
@@ -377,6 +385,7 @@ module Site =
                 MasterLanguage = "en"
                 Languages = Map.ofList ["en", "English"]
                 Users = Map.empty
+                PageSize = 30
             }
 
     let ReadArticles() : Articles =
@@ -706,16 +715,31 @@ module Site =
                 .HeaderContent(header)
                 .Doc()
             |> Content.Page
-        let BLOG_LISTING langopt (banner: Doc) f =
-            BlogListTemplate()
-                .Menubar(menubar config.Value)
-                .Banner(banner)
-                .ArticleList(
-                    Map.filter f articles.Value
-                    |> ARTICLES
-                )
-                .Doc()
-            |> Content.Page
+        // pageNo is 1-based
+        let BLOG_LISTING (banner: Doc) (pageNo: int) f =
+            let as1 =
+                // Filter articles
+                Map.filter f articles.Value
+                |> Map.toList
+                // Sort articles chronologically
+                |> List.sortBy (fun ((user, slug), art) -> -art.Date.Ticks)
+                // Slice out the articles on the given "page"
+                |> List.chunkBySize config.Value.PageSize
+            if List.length as1 >= pageNo-1 then
+                let articles =
+                    if List.length as1 = 0 then
+                        Map.empty
+                    else
+                        List.item (pageNo-1) as1
+                        |> Map.ofList
+                BlogListTemplate()
+                    .Menubar(menubar config.Value)
+                    .Banner(banner)
+                    .ArticleList(ARTICLES articles)
+                    .Doc()
+                |> Content.Page
+            else
+                Content.Text "Page out of bounds"
         let REDIRECT_TO (url: string) =
             RedirectTemplate()
                 .Url(url)
@@ -725,22 +749,38 @@ module Site =
             | Trainings ->
                 TRAININGS ()
             // The main blogs page
-            | Blogs langopt ->
-                BLOG_LISTING langopt
+            | Blogs (BlogListingArgs.Empty) ->
+                REDIRECT_TO "/blogs/1"
+            | Blogs (BlogListingArgs.Index ind) ->
+                let pageNo =
+                    if ind < 1 then 1 else ind
+                BLOG_LISTING
                     <| BlogListTemplate.BlogListBanner()
                         .Title(config.Value.Title)
                         .Subtitle(config.Value.Description)
                         .Doc()
+                    <| pageNo
+                    <| fun _ article -> true
+            | Blogs (BlogListingArgs.LanguageAndIndex (lang, ind)) ->
+                let langopt, pageNo =
+                    lang, if ind < 1 then 1 else ind
+                BLOG_LISTING
+                    <| BlogListTemplate.BlogListBanner()
+                        .Title(config.Value.Title)
+                        .Subtitle(config.Value.Description)
+                        .Doc()
+                    <| pageNo
                     <| fun _ article ->
                         langopt = URL_LANG config.Value article.Language
             | Article p ->
                 ARTICLE ("", p)
             // All articles by a given user
             | UserArticle (user, "") ->
-                BLOG_LISTING ""
+                BLOG_LISTING
                     <| BlogListTemplate.BlogCategoryBanner()
                         .Category(user)
                         .Doc()
+                    <| 1
                     <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
                 ARTICLE (user, p)
@@ -753,10 +793,11 @@ module Site =
                 REDIRECT_TO (Urls.OLD_TO_POST_URL (user, datestring, oldslug))
             // Blog articles in a given category
             | Category (cat, langopt) ->
-                BLOG_LISTING langopt
+                BLOG_LISTING
                     <| BlogListTemplate.BlogCategoryBanner()
                         .Category(cat)
                         .Doc()
+                    <| 1
                     <| fun _ article ->
                         langopt = URL_LANG config.Value article.Language
                         &&
@@ -852,6 +893,13 @@ type Website() =
                 |> List.map (fun article -> Site.URL_LANG config.Value article.Language)
                 |> Set.ofList
                 |> Set.toList
+            let noPagesForLanguage language =
+                let noArticlesInLanguage =
+                    articles
+                    |> List.map snd
+                    |> List.filter (fun article -> language = Site.URL_LANG config.Value article.Language)
+                    |> List.length
+                noArticlesInLanguage / config.Value.PageSize + 1
             let users =
                 articles
                 |> List.map (fst >> fst)
@@ -861,9 +909,12 @@ type Website() =
             [
                 // Generate the learning page
                 Trainings
+                // Generate the main blog page (a redirect)
+                Blogs (BlogListingArgs.Empty)
                 // Generate the blog home page(s), one per language
                 for language in languages do
-                    Blogs language
+                    for page in [1 .. noPagesForLanguage language] do
+                        Blogs (BlogListingArgs.LanguageAndIndex (language, page))
                 // Generate redirection pages for the old article pages
                 for (_, article) in articles do
                     Redirect1 (fst article.Identity, article.SlugWithoutDate)
