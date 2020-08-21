@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.25">
-  <title>Blog | 2 | Codrop | Landing Page App Template</title>
+  <title>Blogs</title>
   <meta name="description" content="">
   <script src="/themekit/scripts/jquery.min.js"></script>
   <script src="/themekit/scripts/main.js"></script>
@@ -52,7 +52,7 @@
                       </div>
                       <!-- Bolero -->
                       <div ws-children-template="Category1">
-                        <div class="popup-image"><img src="http://via.placeholder.com/400x150" /></div>
+                        <div class="popup-image"><img src="//afinda.vn/html/Gute/assets/images/backgrounds/category-3.png" /></div>
                       </div>
                       <!-- CloudSharper -->
                       <div ws-children-template="Category2">
@@ -97,10 +97,13 @@
             </div>
           </div>
         </div>
-        <div class="list-pagination">
-          <ul class="pagination pagination-lg" data-page-items="4" data-options="scrollTop:true">
-            <li class="prev disabled"><a href="#">Previous</a></li>
-            <li class="next"><a href="#">Next</a></li>
+        <div ws-replace="Pagination"></div>
+        <div ws-template="Paginator" class="list-pagination">
+          <ul class="pagination pagination-lg">
+            <li class="home"><a href="/blogs/1">Latest</a></li>
+            <li class="prev ${PreviousExtraCss}"><a href="${PreviousUrl}">Previous</a></li>
+            <li class="next ${NextExtraCss}"><a href="${NextUrl}">Next</a></li>
+          </ul>
         </div>
       </div>
     </section>

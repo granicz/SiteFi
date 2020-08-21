@@ -732,14 +732,32 @@ module Site =
                     else
                         List.item (pageNo-1) as1
                         |> Map.ofList
+                let isFirst = pageNo = 1
+                let isLast = List.length as1 - pageNo < 1
                 BlogListTemplate()
                     .Menubar(menubar config.Value)
                     .Banner(banner)
                     .ArticleList(ARTICLES articles)
+                    .Pagination(
+                        BlogListTemplate.Paginator()
+                            .PreviousExtraCss(if isFirst then "disabled" else "")
+                            .PreviousUrl(if isFirst then "#" else sprintf "/blogs/%d" (pageNo-1))
+                            .NextExtraCss(if isLast then "disabled" else "")
+                            .NextUrl(if isLast then "#" else sprintf "/blogs/%d" (pageNo+1))
+                            .Doc()
+                    )
                     .Doc()
                 |> Content.Page
             else
                 Content.Text "Page out of bounds"
+        let BLOG_LISTING_NO_PAGING (banner: Doc) f =
+            BlogListTemplate()
+                .Menubar(menubar config.Value)
+                .Banner(banner)
+                .ArticleList(Map.filter f articles.Value |> ARTICLES)
+                .Pagination(Doc.Empty)
+                .Doc()
+            |> Content.Page
         let REDIRECT_TO (url: string) =
             RedirectTemplate()
                 .Url(url)
@@ -776,11 +794,10 @@ module Site =
                 ARTICLE ("", p)
             // All articles by a given user
             | UserArticle (user, "") ->
-                BLOG_LISTING
+                BLOG_LISTING_NO_PAGING
                     <| BlogListTemplate.BlogCategoryBanner()
                         .Category(user)
                         .Doc()
-                    <| 1
                     <| fun (u, _) _ -> user = u
             | UserArticle (user, p) ->
                 ARTICLE (user, p)
@@ -793,11 +810,10 @@ module Site =
                 REDIRECT_TO (Urls.OLD_TO_POST_URL (user, datestring, oldslug))
             // Blog articles in a given category
             | Category (cat, langopt) ->
-                BLOG_LISTING
+                BLOG_LISTING_NO_PAGING
                     <| BlogListTemplate.BlogCategoryBanner()
                         .Category(cat)
                         .Doc()
-                    <| 1
                     <| fun _ article ->
                         langopt = URL_LANG config.Value article.Language
                         &&
