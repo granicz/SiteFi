@@ -26,6 +26,7 @@ type EndPoint =
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
+    | [<EndPoint "GET /contact">] Contact
     | [<EndPoint "GET /404.html">] Error404
 
 // Utilities to make XML construction somewhat sane
@@ -277,6 +278,7 @@ module Site =
     type TrainingsTemplate = Templating.Template<"../Hosted/trainings.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type BlogListTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type BlogPostTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type ContactTemplate = Templating.Template<"../Hosted/contact.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] RawConfig =
         {
@@ -715,6 +717,12 @@ module Site =
                 .HeaderContent(header)
                 .Doc()
             |> Content.Page
+        let CONTACT () =
+            let mapStyles = mapStyles()
+            ContactTemplate()
+                .MenuBar(menubar config.Value)
+                .Doc()
+            |> Content.Page
         // pageNo is 1-based
         let BLOG_LISTING (banner: Doc) (pageNo: int) f =
             let as1 =
@@ -769,6 +777,8 @@ module Site =
             // The main blogs page
             | Blogs (BlogListingArgs.Empty) ->
                 REDIRECT_TO "/blogs/1"
+            | Contact ->
+                CONTACT ()
             | Blogs (BlogListingArgs.Index ind) ->
                 let pageNo =
                     if ind < 1 then 1 else ind
@@ -925,6 +935,8 @@ type Website() =
             [
                 // Generate the learning page
                 Trainings
+                // Generate contact page
+                Contact
                 // Generate the main blog page (a redirect)
                 Blogs (BlogListingArgs.Empty)
                 // Generate the blog home page(s), one per language

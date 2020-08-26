@@ -227,3 +227,11 @@ blockquote:before {
 	position: absolute;
 	margin-left: -30px;
 }
+
+.success-box.visible {
+	display: block;
+}
+
+.error-box.visible {
+	display: block;
+}
