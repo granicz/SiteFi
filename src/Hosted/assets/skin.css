@@ -945,7 +945,7 @@ ul .icon-list.icon-list-11 li {
 
 body, textarea {
     font-family: 'Jost', sans-serif;
-    line-height: 30px;
+    line-height: 1.5em;
     font-size: 17px;
     font-weight: 400;
 }
@@ -965,7 +965,7 @@ h1 {
 }
 
 h1 + p, h2 + p, h3 + p, h4 + p, h2 + h4, h1 + h4, h2 + ul.icon-list, h3 + ul.icon-list, p + h3, p + .btn, p + h4, h4 + .btn, h4 + .btn-text, h4 + input, h4 + select, h4 + textarea, p + ul.icon-list, p + .btn-text, p + table, p + pre, p + img, p + .row, p + .img-box, p + .media-box, p + .cnt-box, p + .icon-links, p + ul.icon-list, .container > .row + .row, .container > div + p, p + .text-list, .container > div + .btn, .table + .btn, .table + .btn-text, h4 + div, h4 + ul, h4 + ul.icon-list, h4 + a, .slimScrollDiv + .btn, h3 + .grid-list, h3 + .slider, .text-list + .btn, .text-list + .btn-text {
-    margin-top: 30px;
+    margin-top: 1em;
 }
 
 h3 + h1 {
@@ -1048,19 +1048,6 @@ h1, h2, h3, h4, h5, h6, .quote .quote-author, p b, .cnt-box-side .extra-field, .
 .text-list-bold b, .text-list-line li b, .table th, .form-box p, .cnt-pricing-table .top-area p, .btn:not(.btn-border), .pagination li.page a, .pagination li:not(.page) a, .collapse-button a,
 .search-bar input[type=submit], .shop-menu-cnt .cart-total {
     font-weight: 500;
-}
-
-.quote {
-    font-weight: 500;
-    padding: 0 0 0 50px;
-    background: none;
-}
-
-.quote:before, .quote.quote-double:after {
-    font-size: 22px;
-    line-height: 34px;
-    left: 0;
-    opacity: 1;
 }
 
 hr:not([class*=space]) {

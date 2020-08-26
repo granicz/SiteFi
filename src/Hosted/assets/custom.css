@@ -1,3 +1,10 @@
+table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, table>thead>tr>td, table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
 .tabs {
 	display: flex !important;
 	flex-wrap: wrap !important;
@@ -226,4 +233,13 @@ blockquote:before {
 	text-transform: none;
 	position: absolute;
 	margin-left: -30px;
+}
+
+li > p:last-child, li > ul:last-child, li > ol:last-child, li > pre:last-child, li > div:last-child {
+    margin-bottom: 1em;
+}
+
+li > pre:not(:first-child) {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }

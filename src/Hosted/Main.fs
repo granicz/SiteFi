@@ -42,15 +42,17 @@ module Markdown =
 
     let pipeline =
         MarkdownPipelineBuilder()
+            .UseAutoIdentifiers()
             .UsePipeTables()
+            .UseFootnotes()
             .UseGridTables()
             .UseListExtras()
             .UseEmphasisExtras()
-            .UseGenericAttributes()
             .UseAutoLinks()
             .UseTaskLists()
             .UseMediaLinks()
             .UseCustomContainers()
+            .UseGenericAttributes()
             .UseMathematics()
             .UseEmojiAndSmiley()
             .UseYamlFrontMatter()
@@ -289,6 +291,7 @@ module Site =
             languages: string
             users: string
             pageSize: int
+            githubRepo: string
         }
 
     type Config =
@@ -302,6 +305,7 @@ module Site =
             Languages: Map<string, string>
             Users: Map<string, string>
             PageSize: int
+            GitHubRepo: string
         }
 
     type [<CLIMutable>] RawArticle =
@@ -374,6 +378,7 @@ module Site =
                 Languages = languages
                 Users = users
                 PageSize = if config.pageSize > 0 then config.pageSize else 30
+                GitHubRepo = Helpers.NULL_TO_EMPTY config.githubRepo
             }
         else
             {
@@ -386,6 +391,7 @@ module Site =
                 Languages = Map.ofList ["en", "English"]
                 Users = Map.empty
                 PageSize = 30
+                GitHubRepo = "https://github.com/IntelliFactory/blogs"
             }
 
     let ReadArticles() : Articles =
@@ -582,6 +588,7 @@ module Site =
                 //    .Content(PLAIN article.Content)
                 //    .Doc()
             )
+            .SourceCodeUrl(sprintf "%s/tree/master%s.md" config.GitHubRepo article.Url)
             .LanguageSelectorPlaceholder(
                 if languages.IsEmpty then
                     Doc.Empty
