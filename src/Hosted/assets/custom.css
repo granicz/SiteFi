@@ -243,3 +243,12 @@ li > pre:not(:first-child) {
     margin-top: 1em;
     margin-bottom: 1em;
 }
+}
+
+.success-box.visible {
+	display: block;
+}
+
+.error-box.visible {
+	display: block;
+}
