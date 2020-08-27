@@ -271,6 +271,29 @@ module ClientSideCode =
                 )
             ] []
 
+        [<JavaScript>]
+        let GMapOffice (styleJson: string) =
+            div [
+                attr.``class`` "inner-map"
+                on.afterRender (fun el ->
+                    let point = new LatLng(47.48543, 19.071336)
+                    let options = 
+                        MapOptions(
+         //                  MapTypeId = MapTypeId.TERRAIN,
+                            Center = point,
+                            Zoom = 15,
+                            Styles = WireMapStyles styleJson,
+                            Scrollwheel = true,
+                            DisableDefaultUI = true
+                        )
+        //            let options = FixMapStyles options styleJson
+                    let map = new Map(el, options)
+                    let point = new LatLng(47.48543, 19.071336)
+                    let icon = Icon(Url = "/img/map-marker.png", Anchor = Point(8.0, 8.0))
+                    new Marker(MarkerOptions(point, Map = map, Title = "IntelliFactory", Icon = icon)) |> ignore
+                )
+            ] []
+
 module Site =
     open System.IO
     open WebSharper.UI.Html
@@ -485,6 +508,10 @@ module Site =
         |> Doc.Verbatim
     let private mapStyles() =
         __SOURCE_DIRECTORY__ + "/../Hosted/assets/home-map-styles.json"
+        |> File.ReadAllText
+
+    let private mapContactStyles() =
+        __SOURCE_DIRECTORY__ + "/../Hosted/assets/contact-map-styles.json"
         |> File.ReadAllText
 
     let private menubar(config: Config) =
@@ -725,9 +752,10 @@ module Site =
                 .Doc()
             |> Content.Page
         let CONTACT () =
-            let mapStyles = mapStyles()
+            let mapContactStyles = mapContactStyles()
             ContactTemplate()
                 .MenuBar(menubar config.Value)
+                .Map(client <@ ClientSideCode.TalksAndPresentations.GMapOffice(mapContactStyles) @>)
                 .Doc()
             |> Content.Page
         // pageNo is 1-based
