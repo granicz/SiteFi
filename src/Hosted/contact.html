@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/skin.css">
     <link rel="stylesheet" href="assets/custom.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <script ws-replace="Head"></script>
 </head>
 <body>
     <div id="preloader"></div>
@@ -23,7 +24,7 @@
     <main>
         <section class="section-base section-full-width no-padding">
             <div class="container">
-                <div ws-replace="Map"></div>
+                <div class="google-map" data-marker="media/marker.png" data-zoom="12" data-coords="47.48543,19.071336"></div>
             </div>
         </section>
         <section class="section-base section-color">
@@ -159,19 +160,19 @@
         <script src="themekit/scripts/contact-form/contact-form.js"></script>
         <script src="themekit/scripts/tab-accordion.js"></script>
         <script src="themekit/scripts/maps.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl7p8SWg-5kLe7i-usdYCu5m3eVllMDTs"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB174Frtk-FPXLOgsdQzbsEunBR-2UX9Cc"></script>
         <script src="media/custom.js"></script>
         <script>
             $("#sendMessage").click(function (ev) {
                 var name = $("#name").val();
-				var email = $("#email").val();
+                var email = $("#email").val();
                 var message = $("#message").val();
 
-				if (name.trim() !== "" && email.trim() !== "" && message.trim() !== "") {
-				    var fd = new FormData();
+                if (name.trim() !== "" && email.trim() !== "" && message.trim() !== "") {
+                    var fd = new FormData();
                     fd.append('name', name);
                     fd.append('email', email);
-				    fd.append('message', message);
+                    fd.append('message', message);
 
                     $.ajax({
                         url: 'https://api.intellifactory.com/api/contact',
@@ -179,18 +180,19 @@
                         processData: false,
                         contentType: false,
                         type: 'POST',
-						dataType: 'text',
+                        dataType: 'text',
                         success: function (data) {
                             $(".success-box").addClass("visible");
                         },
                         error: function () {
-						    $(".error-box").addClass("visible");
+                            $(".error-box").addClass("visible");
                         }
-				    });
+                    });
                     ev.preventDefault();
                 }
             })
         </script>
     </footer>
+    <script ws-replace="scripts"></script>
 </body>
 </html>
