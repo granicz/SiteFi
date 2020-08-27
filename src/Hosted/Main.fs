@@ -271,6 +271,28 @@ module ClientSideCode =
                 )
             ] []
 
+        [<JavaScript>]
+        let GMapForOffice (styleJson: string) =
+            div [
+                attr.``class`` "inner-map"
+                on.afterRender (fun el ->
+                    let point = new LatLng(47.48543, 19.071336)
+                    let options = 
+                        MapOptions(
+                            MapTypeId = MapTypeId.ROADMAP,
+                            Center = point,
+                            Zoom = 15,
+                            Styles = WireMapStyles styleJson,
+                            Scrollwheel = false
+                        )
+        //            let options = FixMapStyles options styleJson
+                    let map = new Map(el, options)
+                    let point = new LatLng(47.48543, 19.071336)
+                    let icon = Icon(Url = "/img/map-marker.png", Anchor = Point(47.48543, 19.071336))
+                    new Marker(MarkerOptions(point, Map = map, Icon = icon)) |> ignore
+                )
+            ] []
+
 module Site =
     open System.IO
     open WebSharper.UI.Html
@@ -728,6 +750,7 @@ module Site =
             let mapStyles = mapStyles()
             ContactTemplate()
                 .MenuBar(menubar config.Value)
+                .Map(client <@ ClientSideCode.TalksAndPresentations.GMapForOffice(mapStyles) @>)
                 .Doc()
             |> Content.Page
         // pageNo is 1-based
