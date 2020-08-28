@@ -177,7 +177,7 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
     height: 250px;
 }
 
-nav:not(.scroll-menu) *:not(.mega-dropdown) a {
+nav:not(.scroll-menu) :not(.mega-dropdown) .menu-cnt > ul > li > a {
 	color: rgb(71, 178, 228) !important;
 }
 
@@ -250,5 +250,20 @@ li > pre:not(:first-child) {
 }
 
 .error-box.visible {
+	display: block;
+}
+
+
+.mega-open-source .panel {
+	display: flex;
+}
+
+.mega-open-source .description {
+	color: black;
+	text-align: left;
+}
+
+.mega-open-source img {
+	text-align: left;
 	display: block;
 }
