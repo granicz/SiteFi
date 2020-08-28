@@ -283,8 +283,9 @@ module ClientSideCode =
                             Center = point,
                             Zoom = 15,
                             Styles = WireMapStyles styleJson,
-                            Scrollwheel = true,
-                            DisableDefaultUI = true
+                            Scrollwheel = false,
+                            DisableDefaultUI = true,
+                            ZoomControl = true
                         )
         //            let options = FixMapStyles options styleJson
                     let map = new Map(el, options)
