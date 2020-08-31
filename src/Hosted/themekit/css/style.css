@@ -1018,10 +1018,9 @@ DROPDOWN - NAVIGATION MENU
     height: 20px;
     line-height: 20px;
     text-align: center;
-    right: 10px;
     transition: transform .5s;
     text-transform: none;
-    opacity: .7;
+    opacity: .5;
 }
 
 .dropdown-submenu:not(.menu-side-collapse) > a:after, .menu-side:not(.menu-side-collapse) li > a:after, .menu-side:not(.menu-side-collapse) .menu-cnt > ul > li.dropdown > a:after {
@@ -1041,10 +1040,6 @@ DROPDOWN - NAVIGATION MENU
     top: 0;
     left: 100%;
     z-index: 1;
-}
-
-.menu-cnt > ul > li.dropdown > a, .menu-cnt > ul > li.mega-dropdown > a {
-    padding-right: 40px;
 }
 
 .menu-side .menu-cnt > ul > li.dropdown > a, .menu-side .menu-cnt > ul > li.mega-dropdown > a {
@@ -2272,7 +2267,7 @@ BUTTONS - COMPONENT
 }
 
 .btn-circle {
-    border-radius: 100px;
+    border-radius: 10px;
 }
 
 .btn-text {

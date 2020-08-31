@@ -186,8 +186,8 @@ h1:not(:first-child), h2:not(:first-child), h3:not(:first-child), h4:not(:first-
 }
 
 body > nav .menu-brand {
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 
 .menu-brand a {
