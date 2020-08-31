@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="../Hosted/Main.fs" />
     <Content Include="../Hosted/index.html" />
+    <Content Include="../Hosted/legal/**" />
     <None Include="extra.files" />
     <None Include="wsconfig.json" />
   </ItemGroup>
@@ -16,6 +17,7 @@
     <ExtraFiles Include="../Hosted/img/**" linkBase="img" />
     <ExtraFiles Include="../Hosted/css/**"  linkBase="css" />
     <ExtraFiles Include="../Hosted/js/**" linkBase="js" />
+    <ExtraFiles Include="../Hosted/legal/**" linkBase="legal" />
     <ExtraFiles Include="../Hosted/media/**" linkBase="media" />
     <ExtraFiles Include="../Hosted/themekit/**" linkBase="themekit" />
     <ExtraFiles Include="../Hosted/assets/**" linkBase="assets" />

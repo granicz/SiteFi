@@ -12,6 +12,7 @@
 /src/Hosted/css
 /src/Hosted/scripts
 /src/Hosted/node_modules
+/src/Hosted/legal
 /build
 *.user
 /.ionide

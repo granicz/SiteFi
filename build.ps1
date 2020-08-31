@@ -1,3 +1,7 @@
+echo "Copy legal files"
+
+cp legal/site-docs/intellifactory.com src/Hosted/legal
+
 echo "Running npm install" 
 
 pushd src/Hosted

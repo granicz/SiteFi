@@ -1,3 +1,6 @@
 [submodule "src/Hosted/posts"]
 	path = src/Hosted/posts
 	url = https://github.com/intellifactory/blogs
+[submodule "legal"]
+	path = legal
+	url = https://github.com/intellifactory/legal.git

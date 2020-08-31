@@ -27,6 +27,9 @@ type EndPoint =
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
     | [<EndPoint "GET /contact">] Contact
+    | [<EndPoint "GET /termsofuse">] TermsOfUse
+    | [<EndPoint "GET /privacypolicy">] PrivacyPolicy
+    | [<EndPoint "GET /cookiepolicy">] CookiePolicy
     | [<EndPoint "GET /404.html">] Error404
 
 // Utilities to make XML construction somewhat sane
@@ -305,6 +308,7 @@ module Site =
     type BlogListTemplate = Templating.Template<"../Hosted/bloglist.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type BlogPostTemplate = Templating.Template<"../Hosted/blogpost.html", serverLoad=Templating.ServerLoad.WhenChanged>
     type ContactTemplate = Templating.Template<"../Hosted/contact.html", serverLoad=Templating.ServerLoad.WhenChanged>
+    type LegalTemplate = Templating.Template<"../Hosted/legal.html", serverLoad=Templating.ServerLoad.WhenChanged>
 
     type [<CLIMutable>] RawConfig =
         {
@@ -656,6 +660,9 @@ module Site =
     let config : Config ref = ref <| ReadConfig()
 
     let Main (config: Config ref) (identities1: Identities1 ref) (articles: Articles ref) =
+        let getContent (ctx: Context<_>) fileName =
+            use r = new StreamReader(Path.Combine(@"../Hosted/", "legal", fileName))
+            r.ReadToEnd()
         let ARTICLES (articles: Articles) =
             let articles =
                 articles
@@ -752,6 +759,27 @@ module Site =
                 .HeaderContent(header)
                 .Doc()
             |> Content.Page
+        let TERMSOFUSE (ctx: Context<_>) =
+            LegalTemplate()
+                .MenuBar(menubar config.Value)
+                .HeaderContent(Doc.Empty)
+                .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "TermsOfUse.md"))
+                .Doc()
+            |> Content.Page
+        let COOKIEPOLICY (ctx: Context<_>) =
+            LegalTemplate()
+                .MenuBar(menubar config.Value)
+                .HeaderContent(Doc.Empty)
+                .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "CookiePolicy.md"))
+                .Doc()
+            |> Content.Page
+        let PRIVACYPOLICY (ctx: Context<_>) =
+            LegalTemplate()
+                .MenuBar(menubar config.Value)
+                .HeaderContent(Doc.Empty)
+                .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "PrivacyPolicy.md"))
+                .Doc()
+            |> Content.Page
         let CONTACT () =
             let mapContactStyles = mapContactStyles()
             ContactTemplate()
@@ -810,6 +838,12 @@ module Site =
         Application.MultiPage (fun (ctx: Context<_>) -> function
             | Trainings ->
                 TRAININGS ()
+            | TermsOfUse ->
+                TERMSOFUSE ctx
+            | CookiePolicy ->
+                COOKIEPOLICY ctx
+            | PrivacyPolicy ->
+                PRIVACYPOLICY ctx
             // The main blogs page
             | Blogs (BlogListingArgs.Empty) ->
                 REDIRECT_TO "/blogs/1"
@@ -1007,6 +1041,10 @@ type Website() =
                 AtomFeed
                 // Generate 404 page
                 Error404
+                // Generate legal pages
+                CookiePolicy
+                TermsOfUse
+                PrivacyPolicy
             ]
 
 [<assembly: Website(typeof<Website>)>]
