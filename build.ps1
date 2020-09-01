@@ -1,6 +1,6 @@
 echo "Copy legal files"
 
-cp legal/site-docs/intellifactory.com src/Hosted/legal
+Copy-Item -Path legal/site-docs/intellifactory.com/* -Destination src/Hosted/legal -Recurse
 
 echo "Running npm install" 
 
