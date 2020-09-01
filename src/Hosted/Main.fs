@@ -41,6 +41,55 @@ module Xml =
     let X (tag: XName) (attrs: XAttribute list) (content: obj list) =
         XElement(tag, List.map box attrs @ List.map box content)
 
+module Cookies =
+    open WebSharper.UI.Html
+
+    /// Server-side function to include the cookie acceptance banner and Google Analytics script.
+    let Banner (includeGoogleAnalytics: bool) =
+        // Using combinators rather than HTML template because server-side templates don't work
+        // across libraries right now :(
+        Doc.Concat [
+            div [attr.id "cookie-banner"] [
+                p [] [text "This site uses cookies and other tracking technologies to assist with navigation \
+                            and your ability to provide feedback, and analyse your use of our products and services."]
+                a [attr.target "_blank"; attr.href "/cookie-policy"] [text "Read our Cookie Policy"]
+                div [] [
+                    button [Attr.Create "onclick" "wscookies.accept()"] [text "Accept cookies"]
+                    button [Attr.Create "onclick" "wscookies.refuse()"] [text "Refuse cookies"]
+                ]
+            ]
+            script [] [
+                Doc.Verbatim """
+    var wscookies = {
+        accepted: document.cookie.replace(/(?:(?:^|.*;\s*)cookie_accept\s*\=\s*([^;]*).*$)|^.*$/, "$1"),
+        accept: function () {
+        document.cookie = 'cookie_accept=true;max-age=31536000';
+        this.set_banner('none');
+        this.after_accept();
+        },
+        after_accept: function () { },
+        refuse: function () {
+        document.cookie = 'cookie_accept=false;max-age=31536000';
+        this.set_banner('none');
+        },
+        set_banner: function (style) {
+        document.getElementById('cookie-banner').style.display = style;
+        }
+    };
+    switch (wscookies.accepted) {
+        case '':
+        wscookies.set_banner('flex');
+        break;
+        case 'true':
+        wscookies.accept();
+        break;
+        default:
+        wscookies.refuse();
+    }
+"""
+            ]
+        ]
+
 module Markdown =
     open Markdig
 
@@ -540,6 +589,7 @@ module Site =
                 | Some t -> t + " | "
             )
             .Body(body)
+            .Cookie(Cookies.Banner false)
             .Doc()
         |> Content.Page
 
@@ -757,6 +807,7 @@ module Site =
             TrainingsTemplate()
                 .MenuBar(menubar config.Value)
                 .HeaderContent(header)
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let TERMSOFUSE (ctx: Context<_>) =
@@ -764,6 +815,7 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "TermsOfUse.md"))
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let COOKIEPOLICY (ctx: Context<_>) =
@@ -771,6 +823,7 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "CookiePolicy.md"))
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let PRIVACYPOLICY (ctx: Context<_>) =
@@ -778,6 +831,7 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "PrivacyPolicy.md"))
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let CONTACT () =
@@ -785,6 +839,7 @@ module Site =
             ContactTemplate()
                 .MenuBar(menubar config.Value)
                 .Map(client <@ ClientSideCode.TalksAndPresentations.GMapOffice(mapContactStyles) @>)
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         // pageNo is 1-based
@@ -818,6 +873,7 @@ module Site =
                             .NextUrl(if isLast then "#" else sprintf "/blogs/%d" (pageNo+1))
                             .Doc()
                     )
+                    .Cookie(Cookies.Banner false)
                     .Doc()
                 |> Content.Page
             else
@@ -828,6 +884,7 @@ module Site =
                 .Banner(banner)
                 .ArticleList(Map.filter f articles.Value |> ARTICLES)
                 .Pagination(Doc.Empty)
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let REDIRECT_TO (url: string) =

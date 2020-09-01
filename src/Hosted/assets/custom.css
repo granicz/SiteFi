@@ -267,3 +267,52 @@ li > pre:not(:first-child) {
 	text-align: left;
 	display: block;
 }
+
+/* BEGIN: COOKIE BANNER */
+#cookie-banner {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #202020;
+  color: white;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+}
+
+#cookie-banner > p {
+  flex: 1;
+}
+
+#cookie-banner a {
+  color: #3273dc;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#cookie-banner > * {
+  margin: 10px;
+}
+
+#cookie-banner button {
+  box-shadow: none;
+  padding: 5px 12px;
+  color: #363636;
+  border-radius: 3px;
+  border: 1px solid #dbdbdb;
+  background-color: white;
+  font-size: 16px;
+}
+
+#cookie-banner button + button {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  #cookie-banner {
+    flex-direction: column;
+  }
+}
+/* END: COOKIE BANNER */
