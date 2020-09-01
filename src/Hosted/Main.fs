@@ -27,9 +27,9 @@ type EndPoint =
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
     | [<EndPoint "GET /contact">] Contact
-    | [<EndPoint "GET /termsofuse">] TermsOfUse
-    | [<EndPoint "GET /privacypolicy">] PrivacyPolicy
-    | [<EndPoint "GET /cookiepolicy">] CookiePolicy
+    | [<EndPoint "GET /terms-of-use">] TermsOfUse
+    | [<EndPoint "GET /privacy-policy">] PrivacyPolicy
+    | [<EndPoint "GET /cookie-policy">] CookiePolicy
     | [<EndPoint "GET /404.html">] Error404
 
 // Utilities to make XML construction somewhat sane
