@@ -1070,7 +1070,7 @@ hr:not([class*=space]) {
 }
 
 .menu-fixed:not(.menu-transparent) + header, .menu-fixed:not(.menu-transparent) + main {
-    margin-top: 60px;
+    margin-top: 50px;
 }
 
 .shop-menu .cart-buttons a {

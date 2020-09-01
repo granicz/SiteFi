@@ -816,6 +816,7 @@ module Site =
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "TermsOfUse.md"))
                 .Cookie(Cookies.Banner false)
+                .LegalTitle("Terms of Use")
                 .Doc()
             |> Content.Page
         let COOKIEPOLICY (ctx: Context<_>) =
@@ -824,6 +825,7 @@ module Site =
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "CookiePolicy.md"))
                 .Cookie(Cookies.Banner false)
+                .LegalTitle("Cookie Policy")
                 .Doc()
             |> Content.Page
         let PRIVACYPOLICY (ctx: Context<_>) =
@@ -832,6 +834,7 @@ module Site =
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "PrivacyPolicy.md"))
                 .Cookie(Cookies.Banner false)
+                .LegalTitle("Privacy Policy")
                 .Doc()
             |> Content.Page
         let CONTACT () =

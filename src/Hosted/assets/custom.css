@@ -316,3 +316,12 @@ li > pre:not(:first-child) {
   }
 }
 /* END: COOKIE BANNER */
+
+.legal-header+.section-base .container {
+	padding-top: 0;
+}
+
+.legal-header .container {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
