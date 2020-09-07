@@ -45,7 +45,7 @@
               <div ws-template="ArticleCard" class="masonry-item column category-${CategoryNo}">
                 <div class="flat-card">
                   <div class="flat-card-content">
-                    <div ws-replace="Thumbnail">
+                    <a href="${Url}" ws-hole="Thumbnail">
                       <!-- General -->
                       <div ws-children-template="Category0">
                         <div class="popup-image"><img src="http://via.placeholder.com/400x100" /></div>
@@ -70,7 +70,7 @@
                       <div ws-children-template="Category5">
                         <div class="popup-image"><img src="//via.placeholder.com/400x100" /></div>
                       </div>
-                    </div>
+                    </a>
                     <div class="content">
                       <div class="tag-holder">
                         <h5 class="blog-tag">
@@ -80,12 +80,12 @@
                       <div class="blog-title">
                         <h3>
                           <a href="${Url}">${Title}</a>
-                          <div ws-replace="ArticleCategories">
-                            <div ws-children-template="ArticleCategory">
-                              <a href="${Url}">#${Title}</a>&nbsp;
-                            </div>
-                          </div>
                         </h3>
+                        <div ws-replace="ArticleCategories">
+                            <div ws-children-template="ArticleCategory">
+                                <a href="${Url}">#${Title}</a>&nbsp;
+                            </div>
+                        </div>
                       </div>
                       <div class="blog-meta">
                         <time datetime="2016-1-1">${Date}</time>

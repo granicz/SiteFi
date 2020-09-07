@@ -112,15 +112,21 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 
 .blog-title h3 {
 	cursor: pointer;
+	display: inline
 }
 
-.blog-title h3 a:hover, .blog-title h3:hover a, .blog-title:hover h3 a {
+.blog-title a:hover {
 	color: rgb(71, 178, 228)
 }
 
-.blog-title h3 a {
+.blog-title a {
 	color: black;
 	text-decoration: none;
+	transition: color 1s;
+}
+
+.blog-title h3 + a {
+	margin-left: 0.25em;
 }
 
 .blog-title h3 a:hover {
@@ -140,10 +146,13 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 	position: relative;
 	left: 50%;
 	top: 50%;
+	opacity: 25%;
+	transition: all 1s;
 }
 
 .popup-image img:hover {
-	transform: translate(-50%, 0%) scale(1.1);
+	transform: translate(-50%, 0%) scale(1.25);
+	opacity: 100%;
 }
 
 .trainings-map .inner-map {
