@@ -1,6 +1,10 @@
 echo "Copy legal files"
 
-Copy-Item -Path legal/site-docs/intellifactory.com/* -Destination src/Hosted/legal -Recurse
+xcopy .\legal\site-docs\intellifactory.com\* .\src\Hosted\legal\ /s /e
+
+echo "Copy blog posts files"
+
+xcopy .\blogs\user\* .\src\Hosted\posts\ /s /e
 
 echo "Running npm install" 
 

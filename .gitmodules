@@ -1,6 +1,10 @@
-[submodule "src/Hosted/posts"]
-	path = src/Hosted/posts
+[submodule "posts"]
+	path = blogs
 	url = https://github.com/intellifactory/blogs
+	branch = master
+	update = merge
 [submodule "legal"]
 	path = legal
 	url = https://github.com/intellifactory/legal.git
+	branch = master
+	update = merge
