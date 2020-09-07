@@ -11,29 +11,22 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 }
 
 .tabs div {
-	margin-right: 1em;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
 	border-bottom: 1px transparent solid;
 	transition: all .5s;
 }
 
 .tabs div a {
-	color: rgb(18, 48, 74);
-	height: 50px;
-	line-height: 50px;
+	color: white;
 	display: block;
 	position: relative;
 	text-decoration: none;
-	border-radius: 3px;
+	border-radius: 15px;
 	cursor: pointer;
 	transition: all .5s;
-}
-
-.tabs div a:hover {
-	color: rgb(71, 178, 228);
-}
-
-.tabs div:hover {
-	border-bottom: 1px rgb(71,178,228) solid;
+	background-color: rgb(71, 178, 228);
+	padding: 0.25em 0.75em
 }
 
 .blog-tag {
