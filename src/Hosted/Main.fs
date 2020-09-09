@@ -411,6 +411,7 @@ module Site =
             SlugWithoutDate: string
             Date: DateTime
             Categories: string list
+            CategoryNumber: int
             Language: string
             Identity: int * int
         }
@@ -513,6 +514,31 @@ module Site =
                             |> Set.toList
                         else
                             []
+                    // Assign a category to each article
+                    // 0 - General
+                    // 1 - Bolero
+                    // 2 - CloudSharper
+                    // 3 - WebSharper
+                    // 4 - Blogging/SiteFi
+                    // 5 - Release announcement
+                    // 6 - TryWebSharper
+                    let categoryNo =
+                        let cats = List.map (fun (c: string) -> c.ToLower()) categories
+                        let rn = new Regex("^(Bolero|WebSharper|CloudSharper|SiteFi)\s[0-9\.]+\srelease")
+                        if rn.IsMatch(title) then
+                            5
+                        elif List.contains "bolero" cats then
+                            1
+                        elif List.contains "cloudsharper" cats then
+                            2
+                        elif List.contains "blogging" cats || List.contains "sitefi" cats then
+                            4
+                        elif List.contains "trywebsharper" cats || List.contains "tryws" cats then
+                            6
+                        elif List.contains "websharper" cats then
+                            3
+                        else
+                            0
                     let language = Helpers.NULL_TO_EMPTY article.language
                     let identity =
                         let raw = Helpers.NULL_TO_EMPTY article.identity
@@ -534,6 +560,7 @@ module Site =
                             SlugWithoutDate = slug
                             Date = date
                             Categories = categories
+                            CategoryNumber = categoryNo
                             Language = language
                             Identity = identity
                         } map
@@ -697,6 +724,7 @@ module Site =
             )
             .Date(article.DateString)
             .Title(article.Title)
+            .CategoryNo(string article.CategoryNumber)
             // Sidebar
             .Sidebar(BlogSidebar config articles article)
             .Doc()
@@ -725,30 +753,8 @@ module Site =
                     elif Map.containsKey user config.Value.Users then
                         config.Value.Users.[user]
                     else user
-                // Assign a category to each article
-                // 0 - General
-                // 1 - Bolero
-                // 2 - CloudSharper
-                // 3 - WebSharper
-                // 4 - Blogging/SiteFi
-                // 5 - Release announcement
-                let categoryNo =
-                    let cats = List.map (fun (c: string) -> c.ToLower()) article.Categories
-                    let rn = new Regex("^(Bolero|WebSharper|CloudSharper|SiteFi)\s[0-9\.]+\srelease")
-                    if rn.IsMatch(article.Title) then
-                        5
-                    elif List.contains "bolero" cats then
-                        1
-                    elif List.contains "cloudsharper" cats then
-                        2
-                    elif List.contains "websharper" cats then
-                        3
-                    elif List.contains "blogging" cats || List.contains "sitefi" cats then
-                        4
-                    else
-                        0
                 let thumbnail =
-                    match categoryNo with
+                    match article.CategoryNumber with
                     | 1 ->
                         BlogListTemplate.Category1().Doc()
                     | 2 ->
@@ -757,6 +763,10 @@ module Site =
                         BlogListTemplate.Category3().Doc()
                     | 4 ->
                         BlogListTemplate.Category4().Doc()
+                    | 5 ->
+                        BlogListTemplate.Category5().Doc()
+                    | 6 ->
+                        BlogListTemplate.Category6().Doc()
                     | _ ->
                         BlogListTemplate.Category0().Doc()
                 BlogListTemplate.ArticleCard()
@@ -764,7 +774,7 @@ module Site =
                         a [attr.href <| Urls.USER_URL user] [text displayName]
                     )
                     .Title(article.Title)
-                    .CategoryNo(string categoryNo)
+                    .CategoryNo(string article.CategoryNumber)
                     .Thumbnail(thumbnail)
                     .Url(article.Url)
                     .Date(Helpers.FORMATTED_DATE article.Date)
