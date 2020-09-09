@@ -15,7 +15,8 @@ open Website
 type Startup() =
 
     member this.ConfigureServices(services: IServiceCollection) =
-        Site.articles := Site.ReadArticles()
+        Site.config := Site.ReadConfig()
+        Site.articles := Site.ReadArticles Site.config.Value
         Site.identities1 := Site.ComputeIdentities1 Site.articles.Value
 
         //services.Configure<KestrelServerOptions>(fun (options:KestrelServerOptions) ->

@@ -474,7 +474,7 @@ module Site =
                 GitHubRepo = "https://github.com/IntelliFactory/blogs"
             }
 
-    let ReadArticles() : Articles =
+    let ReadArticles (config: Config) : Articles =
         let root = Path.Combine (__SOURCE_DIRECTORY__, @"../Hosted/posts")
         let ReadFolder user store =
             let folder = Path.Combine (root, user)
@@ -493,12 +493,24 @@ module Site =
                     let ``abstract`` = Helpers.NULL_TO_EMPTY article.``abstract``
                     let url = Urls.POST_URL (user, fname)
                     eprintfn "DEBUG-URL: %s" url
-                    // If the content is given in the header, use that instead.
+                    // Process article content.
+                    // We make a couple small adjustments:
+                    //  1) Relative URLs in the form `/user/*/*.md` are converted to point to *.html.
+                    //     This is to preserve cross-links between IF articles in the repo and the live site.
+                    //  2) Relative URLs in the form `/asset/*` are converted to point to GitHub.
+                    //     This is to serve embedded artifacts from there directly.
                     let content =
-                        if article.content <> null then
-                            Markdown.Convert article.content
-                        else
-                            Markdown.Convert content
+                        // If the content is given in the header, use that instead.
+                        let content =
+                            if article.content <> null then
+                                article.content
+                            else
+                                content
+                        // 1)
+                        let content = Regex.Replace(content, "\(\s*(\/user\/[^\/]+\/[^\.]*)\.md\s*\)", "($1.html)")
+                        // 2)
+                        let content = Regex.Replace(content, "\(\s*(\/assets\/[^\s]*)\s*\)", "(" + config.GitHubRepo + "/raw/master$1)")
+                        Markdown.Convert content
                     let date = DateTime(year, month, day)
                     let categories =
                         Helpers.NULL_TO_EMPTY article.categories
@@ -1026,10 +1038,10 @@ module Site =
                         doc.Save(stream)
                 )
             | Refresh ->
-                // Reload the article cache and the master configs
-                articles := ReadArticles()
-                identities1 := ComputeIdentities1 articles.Value
+                // Reload the master configs and the article cache
                 config := ReadConfig()
+                articles := ReadArticles (!config)
+                identities1 := ComputeIdentities1 articles.Value
                 Content.Text "Articles/configs reloaded."
             | Error404 ->
                 Content.File("../Hosted/404.html", AllowOutsideRootFolder=true)
@@ -1039,9 +1051,9 @@ open System.IO
 
 [<Sealed>]
 type Website() =
-    let articles = ref <| Site.ReadArticles()
-    let identities1 = ref <| Site.ComputeIdentities1 articles.Value
     let config = ref <| Site.ReadConfig()
+    let articles = ref <| Site.ReadArticles (!config)
+    let identities1 = ref <| Site.ComputeIdentities1 articles.Value
 
     interface IWebsite<EndPoint> with
         member this.Sitelet = Site.Main config identities1 articles
