@@ -327,3 +327,8 @@ li > pre:not(:first-child) {
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
+
+/* Long text blocks (``` ... ```) - use a H scrollbar */
+pre:not(.hljs) {
+    overflow-x: scroll;
+}

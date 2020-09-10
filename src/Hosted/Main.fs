@@ -662,6 +662,7 @@ module Site =
                                 .Title(item.Title)
                                 .Url(item.Url)
                                 .Date(item.Date.ToShortDateString())
+                                .CategoryNo(string item.CategoryNumber)
                                 .Doc()
                         )
                     )
