@@ -54,6 +54,7 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 .flat-card {
 	width: 100%;
 	padding: 8px;
+	transition: all 0.3s;
 }
 
 	.flat-card .flat-card-content {
@@ -148,9 +149,13 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 	transition: all 1s;
 }
 
-.popup-image img:hover {
+.flat-card:hover .popup-image img {
 	transform: translate(-50%, 0%) scale(1.25);
 	opacity: 100%;
+}
+
+.flat-card:hover {
+	margin-top: -10px;
 }
 
 .trainings-map .inner-map {
