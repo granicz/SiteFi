@@ -1165,7 +1165,8 @@ body > nav.menu-icon .menu-brand {
 }
 
 .menu-subtitle .menu-cnt > ul > li > a {
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .menu-subtitle .menu-cnt li a span {
@@ -1180,7 +1181,7 @@ body > nav.menu-icon .menu-brand {
 .menu-cnt > ul > li > a, .dropdown > ul > li > a, .dropdown-submenu > ul > li > a, nav .col a {
     height: 50px;
     line-height: 50px;
-    font-size: 15px;
+    font-size: 16px;
     letter-spacing: .3px;
 }
 
@@ -1512,13 +1513,20 @@ body > header .breadcrumb {
 }
 
 .menu-inner li > a {
+    height: 42px;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 17px;
 }
+
+    .menu-inner li > a > span.year {
+        color: rgb(88, 119, 144);
+        font-weight: normal;
+        font-size: 80%;
+    }
 
 .menu-inner-image li a {
     height: auto;
-    line-height: 25px;
+    line-height: 1.1em;
     font-size: 15px;
     padding-bottom: 10px;
     padding-left: 15px;
@@ -2709,4 +2717,55 @@ Extra small devices (portrait phones, less than 576px)
         transform: none;
         margin-bottom: 30px;
     }
+}
+
+@media (max-width: 768px) {
+    .col-main {
+        width: 100%;
+    }
+    .col-sidebar {
+        width: 100%;
+    }
+}
+@media (min-width: 769px) {
+    .col-main {
+        flex: 1;
+    }
+    .col-sidebar {
+        width: 280px;
+        padding-left: 1em;
+    }
+}
+@media (min-width: 1201px) {
+    .container {
+        max-width: 1440px;
+    }
+    section.boxed-page:before {
+        max-width: 1440px;
+    }
+}
+
+/* Disallow the contact form to grow beyond its max width. */
+form.form-box textarea {
+    max-width: 100%;
+}
+
+/* Dropdown icon in menu */
+.dropdown-submenu > a:after, .menu-side .dropdown > a:after, .mega-dropdown > a:after, .menu-inner .dropdown > a:after, .menu-cnt > ul > li.dropdown > a:after {
+    font-size: 10px;
+    font-family: "Icons";
+    content: "\62";
+    opacity: 0.75 !important;
+}
+
+.dropdown:hover > a:after, .menu-cnt li:hover > a:after {
+    opacity: 1 !important;
+}
+
+/* Pagination center */
+.pagination {
+    justify-content: center;
+}
+.list-pagination {
+    width: 100%;
 }

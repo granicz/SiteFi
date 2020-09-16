@@ -40,7 +40,7 @@
     <section class="section-base">
       <div class="container">
         <div class="row">
-          <div class="col-12">
+          <div class="col-main">
             <div ws-hole="ArticleList" class="masonry columns is-gapless is-multiline is-mobile" data-masonry='{ "itemSelector": ".masonry-item", "horizontalOrder": true, "precentPosition": true}'>
               <div ws-template="ArticleCard" class="masonry-item column category-${CategoryNo}">
                 <div class="flat-card">
@@ -100,7 +100,43 @@
               </div>
             </div>
           </div>
-        </div>
+          <div class="col-sidebar" style="background-color:#eee;">
+            <hr class="space-xs">
+            <h2 style="margin:0;">Authors</h2>
+            <hr class="space-xs">
+            <div class="menu-inner menu-inner-vertical authors">
+              <ul>
+                <li><a href="/user/granicz">Adam Granicz <span class="year">(2006-)</span></a></li>
+                <li><a href="/user/jankoa">Andras Janko <span class="year">(2013-)</span></a></li>
+                <li><a href="/user/denuziere">Loic Denuziere <span class="year">(2011-2019)</span></a></li>
+                <li><a href="/user/gansperger">Istvan Gansperger <span class="year">(2014-2016)</span></a></li>
+                <li><a href="/user/anton.tayanovskyy">Anton Tayanovskyy <span class="year">(2009-2014)</span></a></li>
+                <li><a href="/user/sfowler">Simon Fowler <span class="year">(2014)</span></a></li>
+                <li><a href="/user/maciej.lopatka">Maciej Lopatka <span class="year">(2011)</span></a></li>
+                <li><a href="/user/vladimir.matveev">Vladimir Matveev <span class="year">(2010-2011)</span></a></li>
+                <li><a href="/user/ramon.snir">Ramon Snir <span class="year">(2011)</span></a></li>
+                <li><a href="/user/joel.bjornson">Joel Bjornson <span class="year">(2009-2011)</span></a></li>
+                <li><a href="/user/decheverri">Diego Echeverri <span class="year">(2008-2010)</span></a></li>
+                <li><a href="https://medium.com/@gergoo2"><img src="/assets/external-link.svg" /> Gergeny Fabian <span class="year">(2017)</span></a></li>
+                <li><a href="https://medium.com/@iSetr"><img src="/assets/external-link.svg" /> Sandor Szaloky <span class="year">(2017)</span></a></li>
+                <li><a href="https://medium.com/@atadi96"><img src="/assets/external-link.svg" /> Adam Toth-Abonyi <span class="year">(2017)</span></a></li>
+              </ul>
+            </div>
+
+            <div ws-replace="Topics" ws-children-template="TopicsBody">
+              <h2>Topics</h2>
+              <hr class="space-sm" />
+              <div class="tabs">
+                <div ws-replace="Topics" ws-children-template="TopicWithCount">
+                  <div><a href="${Link}">${Topic} x ${Count}</a></div>
+                </div>
+                <div ws-children-template="TopicWithoutCount">
+                  <div><a href="${Link}">${Topic}</a></div>
+                </div>
+              </div>
+              <div><a href="/categories">See all</a></div>
+            </div>
+          </div>
         <div ws-replace="Pagination"></div>
         <div ws-template="Paginator" class="list-pagination">
           <ul class="pagination pagination-lg">

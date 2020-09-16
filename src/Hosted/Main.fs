@@ -23,6 +23,7 @@ type EndPoint =
     // Old URL format for blog articles
     | [<EndPoint "GET /blog">] Redirect1 of id1:int * slug:string
     | [<EndPoint "GET /category">] Category of string * lang:string
+    | [<EndPoint "GET /categories">] Categories
     | [<EndPoint "GET /feed.atom">] AtomFeed
     | [<EndPoint "GET /feed.rss">] RSSFeed
     | [<EndPoint "GET /refresh">] Refresh
@@ -370,6 +371,7 @@ module Site =
             languages: string
             users: string
             pageSize: int
+            categoriesCountIfNotAll: int
             githubRepo: string
         }
 
@@ -384,6 +386,7 @@ module Site =
             Languages: Map<string, string>
             Users: Map<string, string>
             PageSize: int
+            CategoriesCountIfNotAll: int
             GitHubRepo: string
         }
 
@@ -415,6 +418,20 @@ module Site =
             Language: string
             Identity: int * int
         }
+
+    type BlogInfoRaw =
+        {
+            YearsActive: Map<string, Set<int>>
+            Categories: Map<string, int>
+            Languages: string list
+        }
+
+        static member Empty =
+            {
+                YearsActive = Map.empty
+                Categories = Map.empty
+                Languages = []
+            }
 
     // The article store, mapping (user*slug) pairs to articles.
     type Articles = Map<string*string, Article>
@@ -458,6 +475,7 @@ module Site =
                 Languages = languages
                 Users = users
                 PageSize = if config.pageSize > 0 then config.pageSize else 30
+                CategoriesCountIfNotAll = if config.categoriesCountIfNotAll > 0 then config.categoriesCountIfNotAll else 30
                 GitHubRepo = Helpers.NULL_TO_EMPTY config.githubRepo
             }
         else
@@ -471,10 +489,11 @@ module Site =
                 Languages = Map.ofList ["en", "English"]
                 Users = Map.empty
                 PageSize = 30
+                CategoriesCountIfNotAll = 30
                 GitHubRepo = "https://github.com/IntelliFactory/blogs"
             }
 
-    let ReadArticles (config: Config) : Articles =
+    let ReadArticles (config: Config) : BlogInfoRaw * Articles =
         let root = Path.Combine (__SOURCE_DIRECTORY__, @"../Hosted/posts")
         let ReadFolder user store =
             let folder = Path.Combine (root, user)
@@ -581,12 +600,57 @@ module Site =
                 eprintfn "warning: the posts folder (%s) does not exist." folder
                 store
         
-        Directory.EnumerateDirectories(root)
-        // Read user articles
-        |> Seq.fold (fun store folder ->
-            ReadFolder (Path.GetFileName(folder)) store) Map.empty
-        // Read main articles
-        |> ReadFolder ""
+        let articles =
+            Directory.EnumerateDirectories(root)
+            // Read user articles
+            |> Seq.fold (fun store folder ->
+                ReadFolder (Path.GetFileName(folder)) store) Map.empty
+            // Read main articles
+            |> ReadFolder ""
+        let info =
+            let ADD_TO_SET (map: Map<'T, Set<'U>>) (k: 'T) (v: 'U) =
+                let newValue =
+                    if Map.containsKey k map then
+                        Set.add v (map.[k])
+                    else
+                        Set.singleton v
+                Map.add k newValue map
+            let ADD_TO_SUM (map: Map<'T, int>) (k: 'T) =
+                let newValue =
+                    if Map.containsKey k map then
+                        map.[k] + 1
+                    else
+                        1
+                Map.add k newValue map
+            let yearsActive =
+                articles
+                |> Map.fold (fun info (user, _) article ->
+                    ADD_TO_SET info user article.Date.Year
+                ) Map.empty
+                |> Map.fold (fun info user years ->
+                    Map.add user years info
+                ) Map.empty
+            let categories =
+                articles
+                |> Map.fold (fun info (user, _) article ->
+                    article.Categories
+                    |> List.fold (fun info category ->
+                        ADD_TO_SUM info category
+                    ) info
+                ) Map.empty
+            let languages =
+                articles
+                |> Map.toList
+                |> List.map snd
+                |> List.map (fun article -> URL_LANG config article.Language)
+                |> Set.ofList
+                |> Set.toList
+            {
+                YearsActive = yearsActive
+                Categories = categories
+                Languages = languages
+            }
+        info, articles
 
     // Here we map the Id1 -> (user, datestring).
     let ComputeIdentities1 (articles: Articles) : Identities1 =
@@ -746,6 +810,7 @@ module Site =
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
     // to top-level values.
+    let info : BlogInfoRaw ref = ref BlogInfoRaw.Empty
     let articles : Articles ref = ref Map.empty
     let identities1 : Identities1 ref = ref Map.empty
     let config : Config ref = ref <| ReadConfig()
@@ -891,6 +956,26 @@ module Site =
                     .Menubar(menubar config.Value)
                     .Banner(banner)
                     .ArticleList(ARTICLES articles)
+                    .Topics(
+                        BlogListTemplate.TopicsBody()
+                            .Topics(
+                                if Map.isEmpty info.Value.Categories then
+                                    Doc.Empty
+                                else
+                                    info.Value.Categories
+                                    |> Map.toList
+                                    |> List.sortByDescending snd
+                                    |> List.truncate config.Value.CategoriesCountIfNotAll
+                                    |> List.map (fun (category, _) ->
+                                        BlogListTemplate.TopicWithoutCount()
+                                            .Topic(category)
+                                            .Link(Urls.CATEGORY category "")
+                                            .Doc()
+                                    )
+                                    |> Doc.Concat
+                            )
+                            .Doc()
+                    )
                     .Pagination(
                         BlogListTemplate.Paginator()
                             .PreviousExtraCss(if isFirst then "disabled" else "")
@@ -981,6 +1066,8 @@ module Site =
                         langopt = URL_LANG config.Value article.Language
                         &&
                         List.contains cat article.Categories
+            | Categories ->
+                Content.NotFound
             // For a simple but useful reference on Atom vs RSS content, refer to:
             // https://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
             | AtomFeed ->
@@ -1041,7 +1128,9 @@ module Site =
             | Refresh ->
                 // Reload the master configs and the article cache
                 config := ReadConfig()
-                articles := ReadArticles (!config)
+                let _info, _articles = ReadArticles (!config)
+                info := _info
+                articles := _articles
                 identities1 := ComputeIdentities1 articles.Value
                 Content.Text "Articles/configs reloaded."
             | Error404 ->
@@ -1053,7 +1142,9 @@ open System.IO
 [<Sealed>]
 type Website() =
     let config = ref <| Site.ReadConfig()
-    let articles = ref <| Site.ReadArticles (!config)
+    let _info, _articles = Site.ReadArticles (!config)
+    let info = ref _info
+    let articles = ref _articles
     let identities1 = ref <| Site.ComputeIdentities1 articles.Value
 
     interface IWebsite<EndPoint> with

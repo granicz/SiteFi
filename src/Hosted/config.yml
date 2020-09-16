@@ -7,4 +7,5 @@ masterLanguage: en
 languages: "en->English,es->Spanish,hu->Hungarian"
 users: "granicz->Adam Granicz,denuziere->Loic Denuziere,jankoa->Andras Janko,gansperger->Istvan Gansperger,maciejlopatka->Maciej Lopatka,sfowler->Simon Fowler"
 pageSize: 24
+categoriesCountIfNotAll: 30
 githubRepo: https://github.com/IntelliFactory/blogs

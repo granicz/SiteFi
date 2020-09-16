@@ -56,6 +56,11 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 	padding: 8px;
 }
 
+	.flat-card .flat-card-content {
+		background-color: #efefef;
+		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);
+	}
+
 .blog-meta, .blog-title {
 	text-align: center;
 }
@@ -330,5 +335,17 @@ li > pre:not(:first-child) {
 
 /* Long text blocks (``` ... ```) - use a H scrollbar */
 pre:not(.hljs) {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
+
+/* Blog author list */
+.menu-inner-vertical.authors ul li {
+	border-top: 1px solid #bbb;
+}
+	.menu-inner-vertical.authors ul li a {
+		color: black;
+	}
+
+		.menu-inner-vertical.authors ul li a img {
+			vertical-align: text-bottom;
+		}
