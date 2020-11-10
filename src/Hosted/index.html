@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/themekit/css/content-box.css">
   <link rel="stylesheet" href="/themekit/css/media-box.css">
   <link rel="stylesheet" href="/themekit/css/social.css">
+  <link rel="stylesheet" href="/themekit/css/contact-form.css">
   <link rel="stylesheet" href="/assets/skin.css">
   <link rel="stylesheet" href="/assets/custom.css">
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
@@ -377,6 +378,19 @@
                       <a class="youtube"><i class="icon-youtube"></i></a>
                       <a class="instagram"><i class="icon-instagram"></i></a>
                   </div>
+                  <h4>Newsletter</h4>
+                  <form class="newsletter-form form-box form-ajax" method="post" data-email="example@domain.com">
+                      <div class="row">
+                          <input id="nemail" name="nemail" placeholder="Your email" type="email" class="input-text" required>
+                      </div>
+                      <button id="signUp" class="btn btn-sm btn-circle" type="submit">Sign Up</button>
+                      <div class="success-box">
+                          <div class="alert alert-success">Congratulations. You have signed up successfully!</div>
+                      </div>
+                      <div class="error-box">
+                          <div class="alert alert-warning">Error, please retry. You were not signed up for the newsletter.</div>
+                      </div>
+                  </form>
               </div>
           </div>
       </div>
@@ -409,6 +423,33 @@
                   });
               });
           });
+      </script>
+      <script>
+          $("#signUp").click(function (ev) {
+              var email = $("#nemail").val();
+
+              if (email.trim() !== "") {
+                  var fd = new FormData();
+                  fd.append('email', email);
+                  fd.append('type', 'Blogs')
+
+                  $.ajax({
+                      url: 'https://api.intellifactory.com/api/contact',
+                      data: fd,
+                      processData: false,
+                      contentType: false,
+                      type: 'POST',
+                      dataType: 'text',
+                      success: function (data) {
+                          $(".newsletter-form .success-box").addClass("visible");
+                      },
+                      error: function () {
+                          $(".newsletter-form .error-box").addClass("visible");
+                      }
+                  });
+                  ev.preventDefault();
+              }
+          })
       </script>
   </footer>
 </body>

@@ -34,7 +34,7 @@
                         <h2>Do you have a project idea?</h2>
                         <h3>Tell us more and we'll get back to you as soon as we can.</h3>
                         <hr class="space-sm" />
-                        <form class="form-box form-ajax" method="post" data-email="example@domain.com">
+                        <form class="contact-form form-box form-ajax" method="post" data-email="example@domain.com">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input id="name" name="name" placeholder="Your name" type="text" class="input-text" required>
@@ -175,10 +175,10 @@
                         type: 'POST',
                         dataType: 'text',
                         success: function (data) {
-                            $(".success-box").addClass("visible");
+                            $(".contact-form .success-box").addClass("visible");
                         },
                         error: function () {
-                            $(".error-box").addClass("visible");
+							$(".contact-form .error-box").addClass("visible");
                         }
                     });
                     ev.preventDefault();
