@@ -354,3 +354,11 @@ pre:not(.hljs) {
 		.menu-inner-vertical.authors ul li a img {
 			vertical-align: text-bottom;
 		}
+
+#signUp:not(.loading) .fa-spin {
+	display: none;
+}
+
+#signUp.loading span {
+	display: none;
+}
