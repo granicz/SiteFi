@@ -258,11 +258,11 @@ li > pre:not(:first-child) {
 }
 
 .success-box.visible {
-	display: block;
+	display: block !important;
 }
 
 .error-box.visible {
-	display: block;
+	display: block !important;
 }
 
 
