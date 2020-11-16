@@ -13,10 +13,10 @@ jobs:
           submodules: true
 
       - name: Update submodules
-      - run: git submodule update --remote --merge
+        run: git submodule update --remote --merge
 
       - name: Commit & push submodule update
-      - run: |
+        run: |
           git add .
           git config --local user.email "ci@intellifactory.com
           git config --local user.name "IntelliFactory CI"
