@@ -18,12 +18,12 @@ jobs:
       - name: Commit & push submodule update
       - run: |
           git add .
-          git commit -m "Update submodules"
           git config --local user.email "ci@intellifactory.com
           git config --local user.name "IntelliFactory CI"
+          git commit -m "Update submodules"
 
       - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
