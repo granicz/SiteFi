@@ -693,6 +693,7 @@ module Site =
             )
             .Body(body)
             .Cookie(Cookies.Banner false)
+            .FooterPlaceholder(MainTemplate.Footer().Doc())
             .Doc()
         |> Content.Page
 
@@ -810,12 +811,12 @@ module Site =
     // The silly ref's are needed because offline sitelets are
     // initialized in their own special way, without having access
     // to top-level values.
-    let info : BlogInfoRaw ref = ref BlogInfoRaw.Empty
-    let articles : Articles ref = ref Map.empty
-    let identities1 : Identities1 ref = ref Map.empty
-    let config : Config ref = ref <| ReadConfig()
+    let __info : BlogInfoRaw ref = ref BlogInfoRaw.Empty
+    let __articles : Articles ref = ref Map.empty
+    let __identities1 : Identities1 ref = ref Map.empty
+    let __config : Config ref = ref <| ReadConfig()
 
-    let Main (config: Config ref) (identities1: Identities1 ref) (articles: Articles ref) =
+    let Main (config: Config ref) (identities1: Identities1 ref) (info: BlogInfoRaw ref) (articles: Articles ref) =
         let getContent (ctx: Context<_>) fileName =
             use r = new StreamReader(Path.Combine(@"../Hosted/", "legal", fileName))
             r.ReadToEnd()
@@ -895,6 +896,7 @@ module Site =
             TrainingsTemplate()
                 .MenuBar(menubar config.Value)
                 .HeaderContent(header)
+                .Footer(MainTemplate.Footer().Doc())
                 .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
@@ -903,8 +905,9 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "TermsOfUse.md"))
-                .Cookie(Cookies.Banner false)
                 .LegalTitle("Terms of Use")
+                .Footer(MainTemplate.Footer().Doc())
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let COOKIEPOLICY (ctx: Context<_>) =
@@ -912,8 +915,9 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "CookiePolicy.md"))
-                .Cookie(Cookies.Banner false)
                 .LegalTitle("Cookie Policy")
+                .Footer(MainTemplate.Footer().Doc())
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let PRIVACYPOLICY (ctx: Context<_>) =
@@ -921,8 +925,9 @@ module Site =
                 .MenuBar(menubar config.Value)
                 .HeaderContent(Doc.Empty)
                 .Content(Doc.Verbatim <| Markdown.Convert (getContent ctx "PrivacyPolicy.md"))
-                .Cookie(Cookies.Banner false)
                 .LegalTitle("Privacy Policy")
+                .Footer(MainTemplate.Footer().Doc())
+                .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
         let CONTACT () =
@@ -930,6 +935,7 @@ module Site =
             ContactTemplate()
                 .MenuBar(menubar config.Value)
                 .Map(client <@ ClientSideCode.TalksAndPresentations.GMapOffice(mapContactStyles) @>)
+                .Footer(MainTemplate.Footer().Doc())
                 .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
@@ -984,6 +990,7 @@ module Site =
                             .NextUrl(if isLast then "#" else sprintf "/blogs/%d" (pageNo+1))
                             .Doc()
                     )
+                    .Footer(MainTemplate.Footer().Doc())
                     .Cookie(Cookies.Banner false)
                     .Doc()
                 |> Content.Page
@@ -995,6 +1002,7 @@ module Site =
                 .Banner(banner)
                 .ArticleList(Map.filter f articles.Value |> ARTICLES)
                 .Pagination(Doc.Empty)
+                .Footer(MainTemplate.Footer().Doc())
                 .Cookie(Cookies.Banner false)
                 .Doc()
             |> Content.Page
@@ -1148,7 +1156,7 @@ type Website() =
     let identities1 = ref <| Site.ComputeIdentities1 articles.Value
 
     interface IWebsite<EndPoint> with
-        member this.Sitelet = Site.Main config identities1 articles
+        member this.Sitelet = Site.Main config identities1 info articles
         member this.Actions =
             let articles = Map.toList articles.Value
             let categories =

@@ -15,11 +15,11 @@ open Website
 type Startup() =
 
     member this.ConfigureServices(services: IServiceCollection) =
-        Site.config := Site.ReadConfig()
-        let _info, _articles = Site.ReadArticles Site.config.Value
-        Site.info := _info
-        Site.articles := _articles
-        Site.identities1 := Site.ComputeIdentities1 Site.articles.Value
+        Site.__config := Site.ReadConfig()
+        let _info, _articles = Site.ReadArticles Site.__config.Value
+        Site.__info := _info
+        Site.__articles := _articles
+        Site.__identities1 := Site.ComputeIdentities1 Site.__articles.Value
 
         //services.Configure<KestrelServerOptions>(fun (options:KestrelServerOptions) ->
         //    options.AllowSynchronousIO <- true
@@ -31,7 +31,7 @@ type Startup() =
         //)
         //|> ignore
 
-        services.AddSitelet(Site.Main Site.config Site.identities1 Site.articles)
+        services.AddSitelet(Site.Main Site.__config Site.__identities1 Site.__info Site.__articles)
             .AddAuthentication("WebSharper")
             .AddCookie("WebSharper", fun options -> ())
         |> ignore

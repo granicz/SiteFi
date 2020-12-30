@@ -45,10 +45,8 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 8px;
 	background-color: lightblue;
 	z-index: -1;
-	transform: translateY(40%);
 }
 
 .flat-card {
@@ -58,8 +56,8 @@ table>tbody>tr>td, table>tbody>tr>th, table>tfoot>tr>td, table>tfoot>tr>th, tabl
 }
 
 	.flat-card .flat-card-content {
-		background-color: #efefef;
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);
+		background-color: white;
+		/*		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05);*/
 	}
 
 .blog-meta, .blog-title {
@@ -347,7 +345,7 @@ pre:not(.hljs) {
 	border-top: 1px solid #bbb;
 }
 	.menu-inner-vertical.authors ul li a {
-		color: black;
+		color: rgb(71, 178, 228);
 	}
 
 		.menu-inner-vertical.authors ul li a img {

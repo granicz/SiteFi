@@ -1181,7 +1181,7 @@ body > nav.menu-icon .menu-brand {
 .menu-cnt > ul > li > a, .dropdown > ul > li > a, .dropdown-submenu > ul > li > a, nav .col a {
     height: 50px;
     line-height: 50px;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: .3px;
 }
 
@@ -1305,9 +1305,9 @@ footer .menu-inner li {
 }
 
 footer .menu-inner li > a {
-    height: 40px;
-    line-height: 40px;
-    font-size: 15px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 25px;
     opacity: .7;
 }
 
@@ -1775,7 +1775,7 @@ body > header .breadcrumb {
 }
 
 .cnt-box .caption h2 {
-    line-height: 35px;
+    line-height: 28px;
 }
 
 .cnt-call.cnt-box .caption .btn {
@@ -2517,7 +2517,6 @@ Medium devices (tablets, less than 992px)
     }
 
     .footer-bar > .container > span:last-child {
-        display: block;
         height: 29px;
     }
 

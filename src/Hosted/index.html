@@ -124,16 +124,6 @@
                 </div>
               </div>
             </li>
-            <li class="dropdown">
-              <a href="#">Company</a>
-              <ul>
-                <li><a href="/about">About</a></li>
-                <li><a href="/careers">Careers</a></li>
-                <li><a href="/customers">Success stories</a></li>
-                <li><a href="/team">Team</a></li>
-                <li><a href="/investors">For investors</a></li>
-              </ul>
-            </li>
             <li>
               <a href="/contact">Contact</a>
             </li>
@@ -312,94 +302,105 @@
   </div>
   <i class="scroll-top-btn scroll-top show"></i>
   <footer class="footer light">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-3">
-                  <h4>Company and team</h4>
-                  <div class="menu-inner menu-inner-vertical">
-                      <ul>
-                          <li>
-                              <a href="#">Company details and team</a>
-                          </li>
-                          <li>
-                              <a href="#">News and blog</a>
-                          </li>
-                          <li>
-                              <a href="#">Press area</a>
-                          </li>
-                          <li>
-                              <a href="#">Affiliates and marketing</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-3">
-                  <h4>Help and support</h4>
-                  <div class="menu-inner menu-inner-vertical">
-                      <ul>
-                          <li>
-                              <a href="#">Help centre</a>
-                          </li>
-                          <li>
-                              <a href="#">Feedbacks</a>
-                          </li>
-                          <li>
-                              <a href="#">Request new features</a>
-                          </li>
-                          <li>
-                              <a href="#">Contact us</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-3">
-                  <h4>Learn more</h4>
-                  <div class="menu-inner menu-inner-vertical">
-                      <ul>
-                          <li>
-                              <a href="#">Apps stores</a>
-                          </li>
-                          <li>
-                              <a href="#">Partners</a>
-                          </li>
-                          <li>
-                              <a href="#">Privacy and terms</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-3">
-                  <h4>Follow us</h4>
-                  <div class="icon-links icon-social icon-links-grid social-colors">
-                      <a class="facebook"><i class="icon-facebook"></i></a>
-                      <a class="twitter"><i class="icon-twitter"></i></a>
-                      <a class="linkedin"><i class="icon-linkedin"></i></a>
-                      <a class="youtube"><i class="icon-youtube"></i></a>
-                      <a class="instagram"><i class="icon-instagram"></i></a>
-                  </div>
-                  <h4>Newsletter</h4>
-                  <form class="newsletter-form form-box form-ajax" method="post" data-email="example@domain.com">
-                      <div class="row">
-                          <input id="nemail" name="nemail" placeholder="Your email" type="email" class="input-text" required>
+      <div ws-replace="FooterPlaceholder"></div>
+      <div ws-children-template="Footer">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-2">
+                      <h4>Company</h4>
+                      <div class="menu-inner menu-inner-vertical">
+                          <ul>
+                              <li>
+                                  <a href="/consulting">Consulting</a>
+                              </li>
+                              <li>
+                                  <a href="/trainings">Trainings</a>
+                              </li>
+                              <li>
+                                  <a href="/research">Research</a>
+                              </li>
+                              <li>
+                                  <a href="/jobs">Jobs</a>
+                              </li>
+                              <li>
+                                  <a href="/contact">Contact</a>
+                              </li>
+                          </ul>
                       </div>
-                      <button id="signUp" class="btn btn-sm btn-circle" type="submit">
-                          <span>Sign Up</span>
-                          <i class="fas fa-spinner fa-spin"></i>
-                      </button>
-                      <div class="success-box">
-                          <div class="alert alert-success">Congratulations. You have signed up successfully!</div>
+                  </div>
+                  <div class="col-lg-2">
+                      <h4>Blogs</h4>
+                      <div class="menu-inner menu-inner-vertical">
+                          <ul>
+                              <li>
+                                  <a href="/blogs">Latest</a>
+                              </li>
+                              <li>
+                                  <a href="/category/fsharp">F#</a>
+                              </li>
+                              <li>
+                                  <a href="/category/websharper">WebSharper</a>
+                              </li>
+                              <li>
+                                  <a href="/category/bolero">Bolero</a>
+                              </li>
+                              <li>
+                                  <a href="/category/cloudsharper">CloudSharper</a>
+                              </li>
+                          </ul>
                       </div>
-                      <div class="error-box">
-                          <div class="alert alert-warning">Error, please retry. You were not signed up for the newsletter.</div>
+                  </div>
+                  <div class="col-lg-4">
+                      <h4>Legal</h4>
+                      <div class="menu-inner menu-inner-vertical">
+                          <ul>
+                              <li>
+                                  <a href="/terms-of-use">Terms of use</a>
+                              </li>
+                              <li>
+                                  <a href="/privacy-policy">Privacy Policy</a>
+                              </li>
+                              <li>
+                                  <a href="/cookie-policy">Cookie Policy</a>
+                              </li>
+                              <li>
+                                  <a href="/QualityAndIntegratedSecurityPolicy.pdf">Integrated Quality and Information Security Policy</a>
+                              </li>
+                          </ul>
                       </div>
-                  </form>
+                  </div>
+                  <div class="col-lg-4">
+                      <h4>Newsletter signup</h4>
+                      <p>We will not spam you or give your details to anyone.</p>
+                      <form class="newsletter-form form-box form-ajax" method="post" data-email="example@domain.com">
+                          <input style="width:200px" id="nemail" name="nemail" placeholder="Your email" type="email" class="input-text" required>
+                          <button id="signUp" class="btn btn-sm btn-circle" type="submit">
+                              <span>Sign Up</span>
+                              <i class="fas fa-spinner fa-spin"></i>
+                          </button>
+                          <div class="success-box">
+                              <div class="alert alert-success">Congratulations. You have signed up successfully!</div>
+                          </div>
+                          <div class="error-box">
+                              <div class="alert alert-warning">Error, please retry. You were not signed up for the newsletter.</div>
+                          </div>
+                      </form>
+                  </div>
               </div>
           </div>
-      </div>
-      <div class="footer-bar">
-          <div class="container">
-              <span>© Codrop LTD 2019. Codrop is a powerful Landing Page App Template built with <a target="_blank" href="https://themekit.dev/code/">Themekit</a> by the <a target="_blank" href="https://schiocco.com/">Schiocco</a> Team. </span>
-              <span><img src="/media/logo-light.svg" /></span>
+          <div class="footer-bar">
+              <div class="container">
+                  <span>Made with</span>
+                  <img width="24" height="20" style="vertical-align:top;" alt="Love" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/32px-Love_Heart_SVG.svg.png">
+                  <span>in 100% F# with WebSharper. Copyright © IntelliFactory 2004-2020. Site design created by Schiocco Team.</span>
+                  <span class="icon-links icon-social icon-links-grid social-colors">
+                    <a class="facebook" href="https://www.facebook.com/intellifactory"><i class="icon-facebook"></i></a>
+                    <a class="twitter" href="https://twitter.com/intellifactory"><i class="icon-twitter"></i></a>
+                    <a class="linkedin" href="https://www.linkedin.com/company/intellifactory"><i class="icon-linkedin"></i></a>
+                    <a class="youtube" href="https://www.youtube.com/results?search_query=intellifactory"><i class="icon-youtube"></i></a>
+                    <a class="vimeo" href="https://vimeo.com/user15828007"><i class="icon-vimeo"></i></a>
+                  </span>
+              </div>
           </div>
       </div>
       <div class="bottom" ws-replace="Cookie"></div>
