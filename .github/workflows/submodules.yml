@@ -12,6 +12,7 @@ jobs:
         with:
           persist-credentials: false 
           submodules: true
+          fetch-depth: 0
       - name: Update submodules
         run: |
           git submodule update --init --recursive
