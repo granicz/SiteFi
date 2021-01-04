@@ -13,6 +13,7 @@ jobs:
           persist-credentials: false 
           submodules: true
           fetch-depth: 0
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update submodules
         run: |
           git submodule update --init --recursive
