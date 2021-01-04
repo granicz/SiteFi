@@ -18,7 +18,7 @@ jobs:
           git submodule update --init --recursive
           git submodule update --remote --merge
           git add .
-          git config --local user.email "ci@intellifactory.com
+          git config --local user.email "ci@intellifactory.com"
           git config --local user.name "IntelliFactory CI"
           git commit -m "Update submodules"
           git push
