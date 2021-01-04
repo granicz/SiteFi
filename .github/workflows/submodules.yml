@@ -14,6 +14,7 @@ jobs:
           submodules: true
       - name: Update submodules
         run: |
+          git submodule update --init --recursive
           git submodule update --remote --merge
           git add .
           git config --local user.email "ci@intellifactory.com
