@@ -13,14 +13,14 @@ jobs:
           persist-credentials: false 
           submodules: true
           fetch-depth: 0
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update submodules
         run: |
           git submodule update --init --recursive
           git submodule update --remote --merge
           git add .
-          git config --local user.email "ci@intellifactory.com"
-          git config --local user.name "IntelliFactory CI"
+          git config user.email "ci@intellifactory.com"
+          git config user.name "IntelliFactory CI"
           git commit -m "Update submodules"
           git push
 
