@@ -10,7 +10,6 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
         with:
-          persist-credentials: false 
           submodules: true
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
