@@ -1,3 +1,4 @@
+/* General Font Awesome rules */
 .fa,
 .fas,
 .far,
@@ -39,6 +40,7 @@
     font-weight: 900;
 }
 
+/* Social icons */
 .fa-vimeo:before {
     content: "\f40a";
 }
@@ -58,6 +60,12 @@
 .fa-linkedin:before {
     content: "\f08c";
 }
+
+.fa-pinterest:before {
+    content: "\f0d2";
+}
+
+/* Spinner */
 
 .fa-spin {
     -webkit-animation: fa-spin 2s infinite linear;
