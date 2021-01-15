@@ -359,3 +359,14 @@ pre:not(.hljs) {
 #signUp.loading span {
 	display: none;
 }
+
+.icon-social a i {
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.social-colors.icon-links-button .vimeo:not(:hover), .social-colors-hover.icon-links-button .vimeo:hover,
+.social-colors.icon-links-grid .vimeo:not(:hover), .social-colors-hover.icon-links-grid .vimeo:hover {
+    background-color: #464646;
+    border-color: #464646;
+    color: #FFF;
+}
