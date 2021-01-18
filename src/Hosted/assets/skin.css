@@ -2540,6 +2540,27 @@ Medium devices (tablets, less than 992px)
         margin-bottom: 0;
         box-shadow: none;
     }
+
+    .small-dev-hide {
+        display: none !important;
+    }
+
+    .small-dev-menu {
+        display: flex !important;
+        flex-flow: column nowrap !important;
+    }
+
+    .small-dev-menu > .col-4 {
+        margin: 3px 0 3px 0 !important;
+    }
+
+    .small-dev-hide-blog {
+        display: none !important;
+    }
+
+    .small-dev-hide-blog-icon::after {
+        visibility: hidden !important;
+    }
 }
 
 /*
