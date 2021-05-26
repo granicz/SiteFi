@@ -16,6 +16,10 @@ SiteFi is a simple and highly configurable static site generator for F#. It uses
  * Develop dynamic articles in F#, with charts, visualizations, etc.
  * Streamlined workflow for template changes (style, layout, etc.) - see effects immediately, and only rebuild when you are done
 
+## Introduction 
+
+See my [blog](https://www.intellifactory.com/blog/5862/f-metablogging-introducing-blogengine-for-your-static-markdown-based-f-blog) article about Sci-Fi, that I called BlogEngine in that time, in order to get an overview and extensive tutorial.
+
 # 1. Configuring your blog
 
 The main configuration file is located in `src\Hosted\config.yml`. Use this file to configure various site-wide aspects such as the URL you are deploying your blog to, your name, the default language for your articles, and RSS/Atom feed info.
