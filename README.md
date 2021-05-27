@@ -18,7 +18,7 @@ SiteFi is a simple and highly configurable static site generator for F#. It uses
 
 ## Introduction 
 
-See my [blog](https://www.intellifactory.com/blog/5862/f-metablogging-introducing-blogengine-for-your-static-markdown-based-f-blog) article about Sci-Fi, that I called BlogEngine in that time, in order to get an overview and extensive tutorial.
+See my [blog article](https://www.intellifactory.com/blog/5862/f-metablogging-introducing-blogengine-for-your-static-markdown-based-f-blog) about Site-Fi, (which I called BlogEngine back then) in order to get an overview and extensive tutorial.
 
 # 1. Configuring your blog
 
