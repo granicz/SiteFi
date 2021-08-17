@@ -581,6 +581,7 @@ module Site =
                                             X (ns + "category") [] [TEXT category]
                                         X (ns + "summary") [] [TEXT article.Abstract]
                                         X (ns + "updated") [] [TEXT <| Helpers.ATOM_DATE article.Date]
+                                        X (ns + "content") [ XAttribute(XName.Get "type", "html") ] [ TEXT article.Content ] 
                                     ]
                             ]
                         doc.Save(stream)
@@ -608,6 +609,7 @@ module Site =
                                                 X (N "category") [] [TEXT category]
                                             X (N "description") [] [TEXT article.Abstract]
                                             X (N "pubDate") [] [TEXT <| Helpers.RSS_DATE article.Date]
+                                            X (N "content") [] [TEXT article.Content ]
                                         ]
                                 ]
                             ]
